@@ -1,30 +1,59 @@
-export default function PromoStrip() {
-  return (
-    <section className="px-4 md:px-8 mt-12">
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-primary rounded-2xl p-6 md:p-8 flex items-center justify-between overflow-hidden relative">
-          <div className="relative z-10">
-            <p className="text-white/80 text-sm font-medium mb-1">New Customer Offer</p>
-            <h3 className="font-heading text-white text-2xl font-bold">Get 15% Off</h3>
-            <p className="text-white/80 text-sm mt-1">On your first order</p>
-            <button className="mt-4 bg-white text-primary-dark font-semibold text-sm px-5 py-2 rounded-full">
-              Shop Now
-            </button>
-          </div>
-          <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white/10 rounded-full"></div>
-        </div>
+const reviews = [
+  {
+    name: "Farhana Akter",
+    location: "Dhanmondi, Dhaka",
+    rating: 5,
+    text: "Delivery was super fast and the vegetables were really fresh. Ordering is so easy too.",
+  },
+  {
+    name: "Tanvir Hasan",
+    location: "Gulshan, Dhaka",
+    rating: 5,
+    text: "I order groceries every week from here now. Prices are fair and quality is always good.",
+  },
+  {
+    name: "Nusrat Jahan",
+    location: "Mirpur, Dhaka",
+    rating: 4,
+    text: "Great app experience, easy checkout, and the cash on delivery option is really convenient.",
+  },
+];
 
-        <div className="bg-gray-900 rounded-2xl p-6 md:p-8 flex items-center justify-between overflow-hidden relative">
-          <div className="relative z-10">
-            <p className="text-white/70 text-sm font-medium mb-1">Weekend Special</p>
-            <h3 className="font-heading text-white text-2xl font-bold">Fresh Meat & Fish</h3>
-            <p className="text-white/70 text-sm mt-1">Up to 20% off, today only</p>
-            <button className="mt-4 bg-accent text-white font-semibold text-sm px-5 py-2 rounded-full">
-              Explore
-            </button>
+export default function Testimonials() {
+  return (
+    <section className="px-4 md:px-8 mt-14">
+      <div className="text-center mb-10">
+        <h2 className="font-heading text-2xl md:text-3xl font-bold text-gray-900">
+          What Our Customers Say
+        </h2>
+        <p className="text-gray-500 mt-2">Trusted by thousands of happy shoppers</p>
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
+        {reviews.map((review) => (
+          <div
+            key={review.name}
+            className="bg-surface rounded-2xl p-6 border border-gray-100"
+          >
+            <div className="flex gap-0.5 mb-3">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <span key={i} className={i < review.rating ? "text-accent" : "text-gray-300"}>
+                  ★
+                </span>
+              ))}
+            </div>
+            <p className="text-gray-700 text-sm leading-relaxed">"{review.text}"</p>
+            <div className="mt-4 flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-primary-light flex items-center justify-center font-heading font-bold text-primary-dark text-sm">
+                {review.name.charAt(0)}
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{review.name}</p>
+                <p className="text-xs text-gray-500">{review.location}</p>
+              </div>
+            </div>
           </div>
-          <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-white/5 rounded-full"></div>
-        </div>
+        ))}
       </div>
     </section>
   );
