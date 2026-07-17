@@ -15,8 +15,8 @@ export default function Home() {
       <ProductGrid/>
       <TrustBadges />
       <DealsOfTheDay/>
-      <PromoStrip/>
       <AppPromo/>
+      <PromoStrip/>
       <Footer/>
     </main>
   );
