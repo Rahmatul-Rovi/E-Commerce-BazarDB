@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Minus, Plus, ShoppingCart } from "lucide-react";
 
 export default function AddToCartBox({stock}: {stock: number}){
     const [qty, setQty] = useState(1);
