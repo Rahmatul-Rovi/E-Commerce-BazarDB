@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import ProductCard from "@/components/ProductCard";
+import CategoryEmptyState from "@/components/CategoryEmptyState";
 
 export default async function CategoryPage({
     params,
@@ -49,10 +50,7 @@ export default async function CategoryPage({
             ))}
           </div>
         ) : (
-          <div className="text-center py-16">
-            <p className="text-5xl mb-4">📦</p>
-            <p className="text-gray-500">No products found in this category yet.</p>
-          </div>
+         <CategoryEmptyState/>
         )}
       </div>
     </main>
