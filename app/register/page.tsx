@@ -19,5 +19,15 @@ export default function RegisterPage(){
          headers: {"Content-Type": "application/json"},
          body: JSON.stringify(form),
         });
-     }
+
+        const data = await res.json();
+        setLoading(false);
+
+        if(!res.ok){
+         setError(data.error || "Something Went Wrong");
+         return;
+        }
+        router.push("/login");
+     };
+     
 }
