@@ -60,20 +60,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    async jwt({ token, user }) {
-      if (user?.email) {
-        const dbUser = await prisma.user.findUnique({
-          where: { email: user.email },
-        });
-        if (dbUser) token.id = dbUser.id;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.id as string;
-      }
-      return session;
-    },
+   async jwt({ token, user }) {
+  if (user?.email) {
+    const dbUser = await prisma.user.findUnique({
+      where: { email: user.email },
+    });
+    if (dbUser) token.id = dbUser.id;
+  }
+  return token;
+},
+   async session({ session, token }) {
+  if (session.user) {
+    session.user.id = token.id as string;
+    session.user.image = (token.picture as string) || null;
+  }
+  return session;
+},
   },
 });
