@@ -24,8 +24,35 @@ const quickCategories = [
   { name: "Beauty Products", slug: "beauty" },
 ];
 
+function UserAvatar({ name, image, size = 36 }: { name?: string | null; image?: string | null; size?: number }) {
+  const initial = name?.charAt(0).toUpperCase() || "U";
+
+  if (image) {
+    return (
+      <img
+        src={image}
+        alt={name || "User"}
+        width={size}
+        height={size}
+        className="rounded-full object-cover border border-gray-200"
+        style={{ width: size, height: size }}
+      />
+    );
+  }
+
+  return (
+    <div
+      className="rounded-full bg-primary text-white font-semibold flex items-center justify-center shrink-0"
+      style={{ width: size, height: size, fontSize: size * 0.42 }}
+    >
+      {initial}
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { data: session } = useSession();
   const cartCount = 3;
 
@@ -76,16 +103,40 @@ export default function Navbar() {
         {/* Right Side (Desktop Auth & Cart) */}
         <div className="flex items-center gap-4 ml-auto md:ml-0">
           {session?.user ? (
-            <div className="hidden sm:flex items-center gap-3">
-              <span className="text-sm font-semibold text-gray-800">
-                Hi, {session.user.name?.split(" ")[0]}
-              </span>
+            <div className="hidden sm:block relative">
               <button
-                onClick={() => signOut({ callbackUrl: "/" })}
-                className="text-xs font-semibold text-red-500 hover:bg-red-50 px-2.5 py-1.5 rounded-lg border border-red-100 transition-colors"
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center gap-2"
               >
-                Logout
+                <UserAvatar name={session.user.name} image={session.user.image} />
               </button>
+
+              {userMenuOpen && (
+                <>
+                  {/* Click outside overlay */}
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setUserMenuOpen(false)}
+                  />
+                  <div className="absolute right-0 top-12 bg-white border border-gray-100 rounded-xl shadow-lg py-2 w-48 z-50">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <p className="text-sm font-semibold text-gray-800 truncate">
+                        {session.user.name}
+                      </p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {session.user.email}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors"
+                    >
+                      <LogOut size={15} />
+                      Logout
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
           ) : (
             <Link
@@ -143,9 +194,12 @@ export default function Navbar() {
           {/* Mobile Auth Check */}
           {session?.user ? (
             <div className="flex items-center justify-between pb-3 border-b border-gray-100">
-              <span className="text-sm font-bold text-gray-800">
-                Hi, {session.user.name?.split(" ")[0]}
-              </span>
+              <div className="flex items-center gap-2">
+                <UserAvatar name={session.user.name} image={session.user.image} size={32} />
+                <span className="text-sm font-bold text-gray-800">
+                  {session.user.name}
+                </span>
+              </div>
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
                 className="flex items-center gap-1 text-xs font-semibold text-red-500 bg-red-50 px-3 py-1.5 rounded-lg"
