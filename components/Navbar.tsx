@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   ShoppingCart,
@@ -13,6 +13,7 @@ import {
   Search,
 } from "lucide-react";
 import { useSession, signOut } from "next-auth/react";
+import { useCartStore } from "@/app/store/cartStore";
 
 const quickCategories = [
   { name: "Fruits & Vegetables", slug: "fruits-vegetables" },
@@ -54,7 +55,15 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { data: session } = useSession();
-  const cartCount = 3;
+  
+ const items = useCartStore((state) => state.items);
+const [mounted, setMounted] = useState(false);
+
+useEffect(() => {
+  setMounted(true);
+}, []);
+
+const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
