@@ -21,3 +21,25 @@ type CartStore = {
    totalIems: () => number;
    totalPrice: () => number;
 };
+
+export const useCartStore = create<CartSore>()(
+   persist(
+      (set,get)=> ({
+         items: [],
+         addItem: (item, qty=1)=>{
+            const existing = get().items.find((i) => i.id === item.id);
+            if(existing) {
+               set({
+                  items: get().items.map((i) => 
+                  i.id === item.id
+                  ? {...i, quantity: Math.min(i.quantity + qty, i.stock)}
+                  : i
+                  ),
+               });
+            } else {
+               set({ items: [...get().items, {...item, quantity: qty }]});
+            }
+         },
+      })
+   )
+)
