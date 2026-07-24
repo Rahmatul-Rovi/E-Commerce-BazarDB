@@ -88,7 +88,17 @@ export default async function ProductDetailsPage({
           </p>
 
           <div className="mt-6">
-            <AddToCartBox stock={product.stock} />
+           <AddToCartBox
+  product={{
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    price: product.price,
+    discount: product.discount,
+    imageUrl: product.imageUrl,
+    stock: product.stock,
+  }}
+/>
           </div>
 
           {/* Trust info */}
