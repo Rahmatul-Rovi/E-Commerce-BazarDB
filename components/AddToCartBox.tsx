@@ -1,15 +1,47 @@
 "use client";
 
 import { useState } from "react";
-import { Minus, Plus, ShoppingCart } from "lucide-react";
+import { Minus, Plus, ShoppingCart, Check } from "lucide-react";
+import { useCartStore } from "@/app/store/cartStore";
 
-export default function AddToCartBox({stock}: {stock: number}){
-    const [qty, setQty] = useState(1);
 
-    const decrease = () => setQty((q)=> Math.max(1 , q-1));
-    const increase = () => setQty((q)=> Math.min(stock , q+1 ));
+type Product = {
+  id: string;
+  name: string;
+  slug: string;
+  price: number;
+  discount?: number | null;
+  imageUrl: string;
+  stock: number;
+};
 
-    if(stock === 0 ){
+export default function AddToCartBox({ product }: { product: Product }) {
+  const [qty, setQty] = useState(1);
+  const [added, setAdded] = useState(false);
+  const addItem = useCartStore((state) => state.addItem);
+
+  const decrease = () => setQty((q) => Math.max(1, q - 1));
+  const increase = () => setQty((q) => Math.min(product.stock, q + 1));
+
+  const handleAddToCart = () => {
+    addItem(
+      {
+        id: product.id,
+        name: product.name,
+        slug: product.slug,
+        price: product.price,
+        discount: product.discount,
+        imageUrl: product.imageUrl,
+        stock: product.stock,
+      },
+      qty
+    );
+
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1500);
+  };
+
+  if (product.stock === 0) {
     return (
       <button
         disabled
@@ -19,8 +51,8 @@ export default function AddToCartBox({stock}: {stock: number}){
       </button>
     );
   }
-  
- return (
+
+  return (
     <div className="flex items-center gap-4">
       <div className="flex items-center border border-gray-200 rounded-full overflow-hidden">
         <button
@@ -38,12 +70,15 @@ export default function AddToCartBox({stock}: {stock: number}){
         </button>
       </div>
 
-      <button className="flex-1 bg-primary hover:bg-primary-dark text-white font-semibold py-3.5 rounded-full flex items-center justify-center gap-2 transition-colors">
-        <ShoppingCart size={18} />
-        Add to Cart
+      <button
+        onClick={handleAddToCart}
+        className={`flex-1 font-semibold py-3.5 rounded-full flex items-center justify-center gap-2 transition-colors text-white ${
+          added ? "bg-primary-dark" : "bg-primary hover:bg-primary-dark"
+        }`}
+      >
+        {added ? <Check size={18} /> : <ShoppingCart size={18} />}
+        {added ? "Added to Cart" : "Add to Cart"}
       </button>
     </div>
   );
 }
-
-
