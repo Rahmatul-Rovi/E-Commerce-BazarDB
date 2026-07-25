@@ -1,9 +1,8 @@
 "use client";
 
+import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/app/store/cartStore";
-import { ShoppingCart, Check } from "lucide-react";
-import { useState } from "react";
-
+import Swal from "sweetalert2";
 
 type Product = {
   id: string;
@@ -17,27 +16,34 @@ type Product = {
 
 export default function ProductCard({ product }: { product: Product }) {
   const addItem = useCartStore((state) => state.addItem);
-  const [added, setAdded] = useState(false);
 
   const hasDiscount = product.discount && product.discount > 0;
   const finalPrice = hasDiscount
     ? product.price - product.price * (product.discount! / 100)
     : product.price;
 
-  const handleAddToCart = () => {
-    addItem({
-      id: product.id,
-      name: product.name,
-      slug: product.slug,
-      price: product.price,
-      discount: product.discount,
-      imageUrl: product.imageUrl,
-      stock: product.stock,
-    });
+ const handleAddToCart = () => {
+  addItem({
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    price: product.price,
+    discount: product.discount,
+    imageUrl: product.imageUrl,
+    stock: product.stock,
+  });
 
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1200);
-  };
+  Swal.fire({
+    icon: "success",
+    title: "Added to Cart",
+    text: product.name,
+    showConfirmButton: false,
+    timer: 1300,
+    customClass: {
+      popup: "rounded-2xl",
+    },
+  });
+};
 
   return (
     <div className="bg-white border border-gray-100 rounded-2xl p-3 hover:shadow-md transition-shadow group relative">
@@ -76,14 +82,10 @@ export default function ProductCard({ product }: { product: Product }) {
         {product.stock > 0 ? (
           <button
             onClick={handleAddToCart}
-            className={`p-2.5 rounded-full transition-colors ${
-              added
-                ? "bg-primary-dark text-white"
-                : "bg-primary hover:bg-primary-dark text-white"
-            }`}
+            className="p-2.5 rounded-full bg-primary hover:bg-primary-dark text-white transition-colors"
             aria-label="Add to cart"
           >
-            {added ? <Check size={16} /> : <ShoppingCart size={16} />}
+            <ShoppingCart size={16} />
           </button>
         ) : (
           <span className="text-xs text-red-500 font-medium">Out of Stock</span>
