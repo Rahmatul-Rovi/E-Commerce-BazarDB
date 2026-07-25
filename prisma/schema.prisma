@@ -37,13 +37,18 @@ model Product {
 }
 
 model Order {
-  id        String      @id @default(cuid())
-  userId    String
-  user      User        @relation(fields: [userId], references: [id])
-  items     OrderItem[]
-  total     Float
-  status    String      @default("pending")
-  createdAt DateTime    @default(now())
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  items         OrderItem[]
+  total         Float
+  status        String      @default("pending")
+  fullName      String
+  phone         String
+  address       String
+  city          String
+  paymentMethod String      @default("cod")
+  createdAt     DateTime    @default(now())
 }
 
 model OrderItem {
