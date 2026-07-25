@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request){
@@ -20,5 +21,36 @@ export async function POST(request: Request){
         { status: 400 }
       );
     }
-    }
+
+    const order = await prisma.order.create({
+        data: {
+            userId: session.user.id,
+            fullName,
+            phone,
+            address,
+            city,
+            paymentMethod: paymentMethod || "cod",
+        total,
+        status: "pending",
+        items: {
+          create: items.map((item: { productId: string; quantity: number; price: number }) => ({
+            productId: item.productId,
+            quantity: item.quantity,
+            price: item.price,
+          })),
+        },
+    },
+    include: {items: true},
+    });
+     return NextResponse.json(
+      { message: "Order placed successfully", orderId: order.id },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Order creation error:", error);
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again." },
+      { status: 500 }
+    );
+  }
 }
