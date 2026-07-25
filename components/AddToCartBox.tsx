@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { Minus, Plus, ShoppingCart, Check } from "lucide-react";
+import { Minus, Plus, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/app/store/cartStore";
-
+import Swal from "sweetalert2";
 
 type Product = {
   id: string;
@@ -17,7 +17,6 @@ type Product = {
 
 export default function AddToCartBox({ product }: { product: Product }) {
   const [qty, setQty] = useState(1);
-  const [added, setAdded] = useState(false);
   const addItem = useCartStore((state) => state.addItem);
 
   const decrease = () => setQty((q) => Math.max(1, q - 1));
@@ -37,8 +36,18 @@ export default function AddToCartBox({ product }: { product: Product }) {
       qty
     );
 
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1500);
+    Swal.fire({
+      toast: true,
+      position: "top-end",
+      icon: "success",
+      title: `${qty} × ${product.name} added to cart`,
+      showConfirmButton: false,
+      timer: 1800,
+      timerProgressBar: true,
+      customClass: {
+        popup: "rounded-2xl",
+      },
+    });
   };
 
   if (product.stock === 0) {
@@ -72,12 +81,10 @@ export default function AddToCartBox({ product }: { product: Product }) {
 
       <button
         onClick={handleAddToCart}
-        className={`flex-1 font-semibold py-3.5 rounded-full flex items-center justify-center gap-2 transition-colors text-white ${
-          added ? "bg-primary-dark" : "bg-primary hover:bg-primary-dark"
-        }`}
+        className="flex-1 bg-primary hover:bg-primary-dark text-white font-semibold py-3.5 rounded-full flex items-center justify-center gap-2 transition-colors"
       >
-        {added ? <Check size={18} /> : <ShoppingCart size={18} />}
-        {added ? "Added to Cart" : "Add to Cart"}
+        <ShoppingCart size={18} />
+        Add to Cart
       </button>
     </div>
   );
