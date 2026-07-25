@@ -22,30 +22,28 @@ export default function ProductCard({ product }: { product: Product }) {
     ? product.price - product.price * (product.discount! / 100)
     : product.price;
 
-  const handleAddToCart = () => {
-    addItem({
-      id: product.id,
-      name: product.name,
-      slug: product.slug,
-      price: product.price,
-      discount: product.discount,
-      imageUrl: product.imageUrl,
-      stock: product.stock,
-    });
+ const handleAddToCart = () => {
+  addItem({
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    price: product.price,
+    discount: product.discount,
+    imageUrl: product.imageUrl,
+    stock: product.stock,
+  });
 
-    Swal.fire({
-      toast: true,
-      position: "top-end",
-      icon: "success",
-      title: `${product.name} added to cart`,
-      showConfirmButton: false,
-      timer: 1800,
-      timerProgressBar: true,
-      customClass: {
-        popup: "rounded-2xl",
-      },
-    });
-  };
+  Swal.fire({
+    icon: "success",
+    title: "Added to Cart",
+    text: product.name,
+    showConfirmButton: false,
+    timer: 1300,
+    customClass: {
+      popup: "rounded-2xl",
+    },
+  });
+};
 
   return (
     <div className="bg-white border border-gray-100 rounded-2xl p-3 hover:shadow-md transition-shadow group relative">

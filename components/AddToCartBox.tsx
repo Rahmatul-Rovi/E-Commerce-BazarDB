@@ -22,33 +22,31 @@ export default function AddToCartBox({ product }: { product: Product }) {
   const decrease = () => setQty((q) => Math.max(1, q - 1));
   const increase = () => setQty((q) => Math.min(product.stock, q + 1));
 
-  const handleAddToCart = () => {
-    addItem(
-      {
-        id: product.id,
-        name: product.name,
-        slug: product.slug,
-        price: product.price,
-        discount: product.discount,
-        imageUrl: product.imageUrl,
-        stock: product.stock,
-      },
-      qty
-    );
+ const handleAddToCart = () => {
+  addItem(
+    {
+      id: product.id,
+      name: product.name,
+      slug: product.slug,
+      price: product.price,
+      discount: product.discount,
+      imageUrl: product.imageUrl,
+      stock: product.stock,
+    },
+    qty
+  );
 
-    Swal.fire({
-      toast: true,
-      position: "top-end",
-      icon: "success",
-      title: `${qty} × ${product.name} added to cart`,
-      showConfirmButton: false,
-      timer: 1800,
-      timerProgressBar: true,
-      customClass: {
-        popup: "rounded-2xl",
-      },
-    });
-  };
+  Swal.fire({
+    icon: "success",
+    title: "Added to Cart",
+    text: `${qty} × ${product.name}`,
+    showConfirmButton: false,
+    timer: 1300,
+    customClass: {
+      popup: "rounded-2xl",
+    },
+  });
+};
 
   if (product.stock === 0) {
     return (
