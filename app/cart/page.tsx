@@ -4,17 +4,47 @@ import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useCartStore } from "../store/cartStore";
+import Swal from "sweetalert2";
 
 export default function CartPage() {
   const { items, increaseQty, decreaseQty, removeItem, totalPrice } = useCartStore();
   const [mounted, setMounted] = useState(false);
-
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) return null;
+
+  const handleRemove = (id: string, name: string) => {
+    Swal.fire({
+      title: "Remove item?",
+      text: `Do you want to remove "${name}" from your cart?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#16A34A",
+      cancelButtonColor: "#9CA3AF",
+      confirmButtonText: "Yes, remove it",
+      cancelButtonText: "Cancel",
+      customClass: {
+        popup: "rounded-2xl",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        removeItem(id);
+        Swal.fire({
+          icon: "success",
+          title: "Removed",
+          text: `${name} has been removed from your cart`,
+          showConfirmButton: false,
+          timer: 1200,
+          customClass: {
+            popup: "rounded-2xl",
+          },
+        });
+      }
+    });
+  };
 
   if (items.length === 0) {
     return (
@@ -97,7 +127,7 @@ export default function CartPage() {
                 </div>
 
                 <button
-                  onClick={() => removeItem(item.id)}
+                  onClick={() => handleRemove(item.id, item.name)}
                   className="text-gray-400 hover:text-red-500 shrink-0"
                   aria-label="Remove item"
                 >
