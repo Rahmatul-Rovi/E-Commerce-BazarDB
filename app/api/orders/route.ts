@@ -11,6 +11,14 @@ export async function POST(request: Request){
             );
         }
 
-        
+         const body = await request.json();
+    const { fullName, phone, address, city, paymentMethod, items, total } = body;
+
+    if (!fullName || !phone || !address || !city || !items?.length) {
+      return NextResponse.json(
+        { error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
     }
 }
