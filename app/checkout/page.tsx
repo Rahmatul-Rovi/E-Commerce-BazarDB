@@ -50,4 +50,23 @@ export default function CheckoutPage(){
       </main>
     );
   }
+
+  if (items.length === 0) {
+    return (
+      <main className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
+        <h1 className="font-heading text-2xl font-bold text-gray-900">
+          Your Cart is Empty
+        </h1>
+        <p className="text-gray-500 mt-2 max-w-sm">
+          Add some products before proceeding to checkout.
+        </p>
+        <Link
+          href="/"
+          className="mt-6 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-colors"
+        >
+          Start Shopping
+        </Link>
+      </main>
+    );
+  }
 }
