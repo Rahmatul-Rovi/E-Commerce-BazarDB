@@ -69,4 +69,20 @@ export default function CheckoutPage(){
       </main>
     );
   }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const orderItems = items.map((item) => {
+      const finalPrice = item.discount
+        ? item.price - item.price * (item.discount / 100)
+        : item.price;
+      return {
+        productId: item.id,
+        quantity: item.quantity,
+        price: finalPrice,
+      };
+    });
+    
 }
