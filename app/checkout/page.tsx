@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useCartStore } from "../store/cartStore";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -84,5 +84,18 @@ export default function CheckoutPage(){
         price: finalPrice,
       };
     });
-    
+
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          items: orderItems,
+          total: totalPrice(),
+        }),
+      });
+
+      
+
 }
