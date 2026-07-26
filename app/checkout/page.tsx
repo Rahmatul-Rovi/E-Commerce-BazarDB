@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useCartStore } from "../store/cartStore";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import Link from "next/link";
 
 export default function CheckoutPage(){
     const router = useRouter();
@@ -30,4 +31,23 @@ export default function CheckoutPage(){
     }, [mounted, session]);
 
     if (!mounted || status === "loading") return null;
+
+     if (!session?.user) {
+    return (
+      <main className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
+        <h1 className="font-heading text-2xl font-bold text-gray-900">
+          Please Log In
+        </h1>
+        <p className="text-gray-500 mt-2 max-w-sm">
+          You need to be logged in to proceed with checkout.
+        </p>
+        <Link
+          href="/login"
+          className="mt-6 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-colors"
+        >
+          Log In
+        </Link>
+      </main>
+    );
+  }
 }
