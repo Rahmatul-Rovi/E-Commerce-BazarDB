@@ -111,6 +111,27 @@ export default function CheckoutPage(){
 
       clearCart();
 
+       await Swal.fire({
+        icon: "success",
+        title: "Order Placed!",
+        text: "Your order has been placed successfully.",
+        confirmButtonColor: "#16A34A",
+        confirmButtonText: "View Order",
+        customClass: { popup: "rounded-2xl" },
+      });
+
+      router.push(`/order-success?orderId=${data.orderId}`);
+    } catch (err) {
+      setLoading(false);
+      Swal.fire({
+        icon: "error",
+        title: "Order Failed",
+        text: "Could not connect to server. Please try again.",
+        customClass: { popup: "rounded-2xl" },
+      });
+    }
+  };
+
       
 
 }
