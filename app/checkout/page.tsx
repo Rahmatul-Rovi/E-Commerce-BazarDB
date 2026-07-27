@@ -132,6 +132,146 @@ export default function CheckoutPage(){
     }
   };
 
-      
+     return (
+    <main className="bg-white min-h-screen pb-16 px-4 md:px-8 pt-8">
+      <h1 className="font-heading text-2xl md:text-3xl font-bold text-gray-900 mb-6">
+        Checkout
+      </h1>
 
+      <div className="grid lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {/* Delivery Form */}
+        <form onSubmit={handleSubmit} className="lg:col-span-2 space-y-5">
+          <div className="bg-surface rounded-2xl p-6">
+            <h2 className="font-heading font-semibold text-lg text-gray-900 mb-4">
+              Delivery Details
+            </h2>
+
+            <div className="space-y-4">
+              <input
+                type="text"
+                placeholder="Full Name"
+                required
+                value={form.fullName}
+                onChange={(e) => setForm({ ...form, fullName: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm bg-white"
+              />
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                required
+                value={form.phone}
+                onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm bg-white"
+              />
+              <textarea
+                placeholder="Full Address (House, Road, Area)"
+                required
+                rows={3}
+                value={form.address}
+                onChange={(e) => setForm({ ...form, address: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm bg-white resize-none"
+              />
+              <select
+                value={form.city}
+                onChange={(e) => setForm({ ...form, city: e.target.value })}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm bg-white"
+              >
+                <option value="Dhaka">Dhaka</option>
+                <option value="Chattogram">Chattogram</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Sylhet">Sylhet</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="bg-surface rounded-2xl p-6">
+            <h2 className="font-heading font-semibold text-lg text-gray-900 mb-4">
+              Payment Method
+            </h2>
+
+            <label className="flex items-center gap-3 bg-white border border-primary rounded-xl p-4 cursor-pointer">
+              <input
+                type="radio"
+                name="payment"
+                checked={form.paymentMethod === "cod"}
+                onChange={() => setForm({ ...form, paymentMethod: "cod" })}
+                className="accent-primary w-4 h-4"
+              />
+              <div>
+                <p className="font-medium text-gray-800 text-sm">Cash on Delivery</p>
+                <p className="text-xs text-gray-500">Pay when your order arrives</p>
+              </div>
+            </label>
+          </div>
+
+          {/* Mobile-only submit button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="lg:hidden w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3.5 rounded-full transition-colors disabled:opacity-60"
+          >
+            {loading ? "Placing Order..." : "Place Order"}
+          </button>
+        </form>
+
+        {/* Order Summary */}
+        <div className="bg-surface rounded-2xl p-6 h-fit sticky top-24">
+          <h2 className="font-heading font-semibold text-lg text-gray-900 mb-4">
+            Order Summary
+          </h2>
+
+          <div className="space-y-3 max-h-64 overflow-y-auto pr-1">
+            {items.map((item) => {
+              const finalPrice = item.discount
+                ? item.price - item.price * (item.discount / 100)
+                : item.price;
+              return (
+                <div key={item.id} className="flex items-center gap-3">
+                  <img
+                    src={item.imageUrl}
+                    alt={item.name}
+                    className="w-12 h-12 object-cover rounded-lg bg-white shrink-0"
+                  />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm text-gray-800 line-clamp-1">{item.name}</p>
+                    <p className="text-xs text-gray-500">
+                      {item.quantity} × ৳{finalPrice.toFixed(0)}
+                    </p>
+                  </div>
+                  <p className="text-sm font-semibold text-gray-900 shrink-0">
+                    ৳{(finalPrice * item.quantity).toFixed(0)}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="border-t border-gray-200 mt-4 pt-4 space-y-2 text-sm">
+            <div className="flex justify-between text-gray-600">
+              <span>Subtotal</span>
+              <span>৳{totalPrice().toFixed(0)}</span>
+            </div>
+            <div className="flex justify-between text-gray-600">
+              <span>Delivery Fee</span>
+              <span className="text-primary-dark font-medium">Free</span>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-200 mt-3 pt-3 flex justify-between font-heading font-bold text-gray-900 text-lg">
+            <span>Total</span>
+            <span>৳{totalPrice().toFixed(0)}</span>
+          </div>
+
+          <button
+            onClick={handleSubmit}
+            disabled={loading}
+            className="hidden lg:block w-full text-center mt-6 bg-primary hover:bg-primary-dark text-white font-semibold py-3.5 rounded-full transition-colors disabled:opacity-60"
+          >
+            {loading ? "Placing Order..." : "Place Order"}
+          </button>
+        </div>
+      </div>
+    </main>
+  );
 }
