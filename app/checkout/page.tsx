@@ -96,6 +96,21 @@ export default function CheckoutPage(){
         }),
       });
 
+      const data = await res.json();
+      setLoading(false);
+
+       if (!res.ok) {
+        Swal.fire({
+          icon: "error",
+          title: "Order Failed",
+          text: data.error || "Something went wrong",
+          customClass: { popup: "rounded-2xl" },
+        });
+        return;
+      }
+
+      clearCart();
+
       
 
 }
