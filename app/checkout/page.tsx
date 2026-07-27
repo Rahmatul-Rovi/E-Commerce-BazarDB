@@ -1,38 +1,41 @@
-import { useSession } from "next-auth/react";
+"use client";
+
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useCartStore } from "../store/cartStore";
-import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useCartStore } from "@/app/store/cartStore";
 import Swal from "sweetalert2";
 import Link from "next/link";
 
-export default function CheckoutPage(){
-    const router = useRouter();
-    const {data:session, status} = useSession();
-    const {items, totalPrice, clearCart} = useCartStore();
-    const [mounted, setMounted] = useState(false);
-    const [loading, setLoading] = useState(false);
+export default function CheckoutPage() {
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const { items, totalPrice, clearCart } = useCartStore();
+  const [mounted, setMounted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    const [form, setForm] = useState({
-        fullName: "",
-        phone: "",
-        address: "",
-        city: "Dhaka",
-        paymentMethod: "cod",
-    });
+  const [form, setForm] = useState({
+    fullName: "",
+    phone: "",
+    address: "",
+    city: "Dhaka",
+    paymentMethod: "cod",
+  });
 
-    useEffect(()=> {
-        setMounted(true);
-    }, []);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-    useEffect(()=> {
-        if(mounted && session?.user){
-            setForm((prev) => ({ ...prev, fullName: session.user.name || "" }));
-        }
-    }, [mounted, session]);
+  useEffect(() => {
+    if (mounted && session?.user) {
+      setForm((prev) => ({ ...prev, fullName: session.user.name || "" }));
+    }
+  }, [mounted, session]);
 
-    if (!mounted || status === "loading") return null;
+  if (!mounted || status === "loading") return null;
 
-     if (!session?.user) {
+  // Login না থাকলে
+  if (!session?.user) {
     return (
       <main className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
         <h1 className="font-heading text-2xl font-bold text-gray-900">
@@ -51,6 +54,7 @@ export default function CheckoutPage(){
     );
   }
 
+  // Cart খালি হলে
   if (items.length === 0) {
     return (
       <main className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
@@ -99,7 +103,7 @@ export default function CheckoutPage(){
       const data = await res.json();
       setLoading(false);
 
-       if (!res.ok) {
+      if (!res.ok) {
         Swal.fire({
           icon: "error",
           title: "Order Failed",
@@ -111,7 +115,7 @@ export default function CheckoutPage(){
 
       clearCart();
 
-       await Swal.fire({
+      await Swal.fire({
         icon: "success",
         title: "Order Placed!",
         text: "Your order has been placed successfully.",
@@ -132,7 +136,7 @@ export default function CheckoutPage(){
     }
   };
 
-     return (
+  return (
     <main className="bg-white min-h-screen pb-16 px-4 md:px-8 pt-8">
       <h1 className="font-heading text-2xl md:text-3xl font-bold text-gray-900 mb-6">
         Checkout
