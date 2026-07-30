@@ -11,7 +11,9 @@ import {
   X,
   LogOut,
   Search,
+  LayoutDashboard,
 } from "lucide-react";
+
 import { useSession, signOut } from "next-auth/react";
 import { useCartStore } from "@/app/store/cartStore";
 
@@ -127,23 +129,31 @@ const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
                     className="fixed inset-0 z-40"
                     onClick={() => setUserMenuOpen(false)}
                   />
-                  <div className="absolute right-0 top-12 bg-white border border-gray-100 rounded-xl shadow-lg py-2 w-48 z-50">
-                    <div className="px-4 py-2 border-b border-gray-100">
-                      <p className="text-sm font-semibold text-gray-800 truncate">
-                        {session.user.name}
-                      </p>
-                      <p className="text-xs text-gray-500 truncate">
-                        {session.user.email}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => signOut({ callbackUrl: "/" })}
-                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors"
-                    >
-                      <LogOut size={15} />
-                      Logout
-                    </button>
-                  </div>
+                 <div className="absolute right-0 top-12 bg-white border border-gray-100 rounded-xl shadow-lg py-2 w-48 z-50">
+  <div className="px-4 py-2 border-b border-gray-100">
+    <p className="text-sm font-semibold text-gray-800 truncate">
+      {session.user.name}
+    </p>
+    <p className="text-xs text-gray-500 truncate">
+      {session.user.email}
+    </p>
+  </div>
+  <Link
+    href="/dashboard"
+    onClick={() => setUserMenuOpen(false)}
+    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-surface transition-colors"
+  >
+    <LayoutDashboard size={15} />
+    Dashboard
+  </Link>
+  <button
+    onClick={() => signOut({ callbackUrl: "/" })}
+    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors"
+  >
+    <LogOut size={15} />
+    Logout
+  </button>
+</div>
                 </>
               )}
             </div>
