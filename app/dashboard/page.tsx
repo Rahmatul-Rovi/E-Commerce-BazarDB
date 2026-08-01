@@ -29,4 +29,11 @@ export default function DashboardOverview() {
            setLoading(false);
         });
     }, []);
+
+    const totalOrder = orders.length;
+    const totalSpent = orders.reduce((sum, o) => sum + o.total, 0);
+    const pendingOrders = orders.filter((o) => o.status === "pending").length;
+    const deliveredOrders = orders.filter((o) => o.status === "delivered").length;
+
+    const recentOrders = orders.slice(0, 5);
 }
