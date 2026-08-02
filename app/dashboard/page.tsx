@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Package, Clock, CheckCircle, DollarSign } from "lucide-react";
 
 type orderItem = {
     id: string,
@@ -47,6 +48,32 @@ export default function DashboardOverview() {
         Dashboard
       </h1>
       <p className="text-gray-500 text-sm mb-6">Welcome back! Here&apos;s your account summary.</p>
+
+       {/* Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div className="bg-surface rounded-2xl p-5">
+          <Package size={20} className="text-primary mb-2" />
+          <p className="text-2xl font-heading font-bold text-gray-900">{totalOrders}</p>
+          <p className="text-xs text-gray-500">Total Orders</p>
+        </div>
+        <div className="bg-surface rounded-2xl p-5">
+          <Clock size={20} className="text-accent mb-2" />
+          <p className="text-2xl font-heading font-bold text-gray-900">{pendingOrders}</p>
+          <p className="text-xs text-gray-500">Pending</p>
+        </div>
+        <div className="bg-surface rounded-2xl p-5">
+          <CheckCircle size={20} className="text-primary mb-2" />
+          <p className="text-2xl font-heading font-bold text-gray-900">{deliveredOrders}</p>
+          <p className="text-xs text-gray-500">Delivered</p>
+        </div>
+        <div className="bg-surface rounded-2xl p-5">
+          <DollarSign size={20} className="text-primary mb-2" />
+          <p className="text-2xl font-heading font-bold text-gray-900">
+            ৳{totalSpent.toFixed(0)}
+          </p>
+          <p className="text-xs text-gray-500">Total Spent</p>
+        </div>
+      </div>
       </div>
   )
 }
