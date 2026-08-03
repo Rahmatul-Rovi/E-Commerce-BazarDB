@@ -1,56 +1,56 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Package, Clock, CheckCircle, DollarSign } from "lucide-react";
 import Link from "next/link";
+import { Package, Clock, CheckCircle, DollarSign } from "lucide-react";
 
-type orderItem = {
-    id: string,
-    quantity: number,
-    price: number,
-    product: {name: string; imageUrl: string};
+type OrderItem = {
+  id: string;
+  quantity: number;
+  price: number;
+  product: { name: string; imageUrl: string };
 };
 
 type Order = {
-    id: string,
-    total: number,
-    status: string,
-    createdAt: string,
-    items: orderItem[]
+  id: string;
+  total: number;
+  status: string;
+  createdAt: string;
+  items: OrderItem[];
 };
 
 export default function DashboardOverview() {
-    const [orders , setOrders] = useState<Order[]>([]);
-    const [loading , setLoading] = useState(true);
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        fetch("/api/myOrders")
-        .then((res)=> res.json())
-        .then((data) => {
-           setOrders(Array.isArray(data) ? data : []);
-           setLoading(false);
-        });
-    }, []);
+  useEffect(() => {
+    fetch("/api/my-orders")
+      .then((res) => res.json())
+      .then((data) => {
+        setOrders(Array.isArray(data) ? data : []);
+        setLoading(false);
+      });
+  }, []);
 
-    const totalOrder = orders.length;
-    const totalSpent = orders.reduce((sum, o) => sum + o.total, 0);
-    const pendingOrders = orders.filter((o) => o.status === "pending").length;
-    const deliveredOrders = orders.filter((o) => o.status === "delivered").length;
+  const totalOrders = orders.length;
+  const totalSpent = orders.reduce((sum, o) => sum + o.total, 0);
+  const pendingOrders = orders.filter((o) => o.status === "pending").length;
+  const deliveredOrders = orders.filter((o) => o.status === "delivered").length;
 
-    const recentOrders = orders.slice(0, 5);
+  const recentOrders = orders.slice(0, 5);
 
-    if (loading) {
+  if (loading) {
     return <p className="text-gray-500 text-sm">Loading dashboard...</p>;
   }
 
   return (
-     <div>
+    <div>
       <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">
         Dashboard
       </h1>
       <p className="text-gray-500 text-sm mb-6">Welcome back! Here&apos;s your account summary.</p>
 
-       {/* Stats */}
+      {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-surface rounded-2xl p-5">
           <Package size={20} className="text-primary mb-2" />
@@ -76,7 +76,7 @@ export default function DashboardOverview() {
         </div>
       </div>
 
-       {/* Recent Orders */}
+      {/* Recent Orders */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="font-heading font-semibold text-lg text-gray-900">
           Recent Orders
@@ -104,6 +104,33 @@ export default function DashboardOverview() {
                 <p className="text-sm font-semibold text-gray-900">
                   Order #{order.id.slice(-8).toUpperCase()}
                 </p>
-      </div>
-  )
+                <p className="text-xs text-gray-500 mt-0.5">
+                  {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}{" "}
+                  · {order.items.length} item{order.items.length > 1 ? "s" : ""}
+                </p>
+              </div>
+              <div className="text-right shrink-0">
+                <p className="font-heading font-bold text-gray-900">৳{order.total.toFixed(0)}</p>
+                <span
+                  className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${
+                    order.status === "delivered"
+                      ? "bg-primary-light text-primary-dark"
+                      : order.status === "pending"
+                      ? "bg-amber-100 text-amber-700"
+                      : "bg-gray-100 text-gray-600"
+                  }`}
+                >
+                  {order.status}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
