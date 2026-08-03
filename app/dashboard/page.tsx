@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Package, Clock, CheckCircle, DollarSign } from "lucide-react";
+import Link from "next/link";
 
 type orderItem = {
     id: string,
@@ -74,6 +75,35 @@ export default function DashboardOverview() {
           <p className="text-xs text-gray-500">Total Spent</p>
         </div>
       </div>
+
+       {/* Recent Orders */}
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="font-heading font-semibold text-lg text-gray-900">
+          Recent Orders
+        </h2>
+        <Link href="/dashboard/orders" className="text-primary text-sm font-medium hover:underline">
+          View All
+        </Link>
+      </div>
+
+      {recentOrders.length === 0 ? (
+        <div className="bg-surface rounded-2xl p-8 text-center">
+          <p className="text-gray-500 text-sm">You haven&apos;t placed any orders yet.</p>
+          <Link
+            href="/"
+            className="inline-block mt-4 bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors"
+          >
+            Start Shopping
+          </Link>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {recentOrders.map((order) => (
+            <div key={order.id} className="bg-surface rounded-2xl p-4 flex items-center justify-between gap-4">
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-gray-900">
+                  Order #{order.id.slice(-8).toUpperCase()}
+                </p>
       </div>
   )
 }
