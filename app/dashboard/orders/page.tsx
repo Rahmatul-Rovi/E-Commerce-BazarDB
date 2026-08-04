@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 type OrderItem = {
     id: string;
     quantity: number;
@@ -17,3 +19,8 @@ type Order = {
   paymentMethod: string;
   items: OrderItem[];
 };
+
+export default function MyOrdersPage() {
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
+}
