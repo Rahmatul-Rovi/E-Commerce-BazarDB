@@ -3,11 +3,11 @@
 import { useSession } from "next-auth/react";
 
 export default function ProfilePage() {
-    const {data : session} = useSession();
+  const { data: session } = useSession();
 
-    return(
-        <div>
-            <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">Profile</h1>
+  return (
+    <div>
+      <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">Profile</h1>
       <p className="text-gray-500 text-sm mb-6">Your account information.</p>
 
       <div className="bg-surface rounded-2xl p-6 max-w-lg">
@@ -24,7 +24,7 @@ export default function ProfilePage() {
             </div>
           )}
           <div>
-             <p className="font-heading font-semibold text-lg text-gray-900">
+            <p className="font-heading font-semibold text-lg text-gray-900">
               {session?.user?.name}
             </p>
             <p className="text-sm text-gray-500">{session?.user?.email}</p>
@@ -45,7 +45,11 @@ export default function ProfilePage() {
             </p>
           </div>
         </div>
-          </div>
-        </div>
-    )
+
+        <p className="text-xs text-gray-400 mt-4">
+          Edit Profile
+        </p>
+      </div>
+    </div>
+  );
 }
