@@ -54,7 +54,23 @@ export default function MyOrdersPage() {
             Start Shopping
           </Link>
         </div>
-      )
+      ): (
+        <div className="space-y-4">
+          {orders.map((order) => (
+            <div key={order.id} className="bg-surface rounded-2xl p-5">
+              <div className="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-gray-200">
+                <div>
+                  <p className="text-sm font-semibold text-gray-900">
+                    Order #{order.id.slice(-8).toUpperCase()}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
     </div>
   )
 }
