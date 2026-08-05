@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type OrderItem = {
@@ -41,6 +42,19 @@ export default function MyOrdersPage() {
     <div>
        <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">My Orders</h1>
       <p className="text-gray-500 text-sm mb-6">Track and view all your past orders.</p>
+
+       {orders.length === 0 ? (
+        <div className="bg-surface rounded-2xl p-10 text-center">
+          <Package size={40} className="text-gray-300 mx-auto mb-3" />
+          <p className="text-gray-500 text-sm">You haven&apos;t placed any orders yet.</p>
+          <Link
+            href="/"
+            className="inline-block mt-4 bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors"
+          >
+            Start Shopping
+          </Link>
+        </div>
+      )
     </div>
   )
 }
