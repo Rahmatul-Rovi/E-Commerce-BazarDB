@@ -23,7 +23,29 @@ export default function ProfilePage() {
               {session?.user?.name?.charAt(0).toUpperCase() || "U"}
             </div>
           )}
-          <div></div>
+          <div>
+             <p className="font-heading font-semibold text-lg text-gray-900">
+              {session?.user?.name}
+            </p>
+            <p className="text-sm text-gray-500">{session?.user?.email}</p>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div>
+            <label className="text-xs text-gray-400 font-medium">Full Name</label>
+            <p className="text-sm text-gray-800 mt-1 bg-white px-4 py-2.5 rounded-xl border border-gray-200">
+              {session?.user?.name || "—"}
+            </p>
+          </div>
+          <div>
+            <label className="text-xs text-gray-400 font-medium">Email Address</label>
+            <p className="text-sm text-gray-800 mt-1 bg-white px-4 py-2.5 rounded-xl border border-gray-200">
+              {session?.user?.email || "—"}
+            </p>
+          </div>
+        </div>
+          </div>
         </div>
     )
 }
