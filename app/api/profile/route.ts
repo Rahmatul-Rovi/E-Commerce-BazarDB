@@ -19,5 +19,12 @@ export async function PATCH(request: Request) {
         where: {id: session.user.id},
         data: {name, phone: phone || null},
     });
-    }
+    return NextResponse.json({
+        message: "Profile updated successfully",
+        user: { name: updatedUser.name, phone: updatedUser.phone },
+    });
+    }catch (error) {
+    console.error("Profile update error:", error);
+    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+  }
 }
