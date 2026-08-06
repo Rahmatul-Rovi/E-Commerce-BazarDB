@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function PATCH(request: Request) {
@@ -6,5 +7,17 @@ export async function PATCH(request: Request) {
 
     if(!session?.user?.id){
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    try {
+        const {name, phone} = await request.json();
+        if (!name || name.trim().length === 0) {
+      return NextResponse.json({ error: "Name is required" }, { status: 400 });
+    }
+
+    const updatedUser = await prisma.user.update({
+        where: {id: session.user.id},
+        data: {name, phone: phone || null},
+    });
     }
 }
