@@ -49,7 +49,6 @@ export default function ProfilePage() {
     setProfile({ ...profile, name: form.name, phone: form.phone });
     setEditing(false);
 
-    // NextAuth session-এও নতুন নাম রিফ্লেক্ট করাতে
     await update({ name: form.name });
 
     Swal.fire({
