@@ -41,4 +41,20 @@ export default function OrderDetailsPage() {
         setLoading(false);
         });
     }, [params.id]);
+
+     if (loading) return <p className="text-gray-500 text-sm">Loading order...</p>;
+
+      if (!order) {
+    return (
+      <div className="text-center py-16">
+        <Package size={40} className="text-gray-300 mx-auto mb-3" />
+        <p className="text-gray-500 text-sm">Order not found.</p>
+        <Link href="/dashboard/orders" className="text-primary text-sm font-medium hover:underline mt-2 inline-block">
+          Back to Orders
+        </Link>
+      </div>
+    );
+  }
+
+  const currentStepIndex = statusSteps.indexOf(order.status);
 }
