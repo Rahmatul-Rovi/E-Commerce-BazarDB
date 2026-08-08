@@ -42,39 +42,42 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    async signIn({ user, account }) {
-      if (account?.provider === "google") {
-        const existingUser = await prisma.user.findUnique({
-          where: { email: user.email! },
-        });
+  async signIn({ user, account }) {
+    if (account?.provider === "google") {
+      const existingUser = await prisma.user.findUnique({
+        where: { email: user.email! },
+      });
 
-        if (!existingUser) {
-          await prisma.user.create({
-            data: {
-              name: user.name || "Google User",
-              email: user.email!,
-              password: "",
-            },
-          });
-        }
+      if (!existingUser) {
+        await prisma.user.create({
+          data: {
+            name: user.name || "Google User",
+            email: user.email!,
+            password: null,
+          },
+        });
       }
-      return true;
-    },
-   async jwt({ token, user }) {
-  if (user?.email) {
-    const dbUser = await prisma.user.findUnique({
-      where: { email: user.email },
-    });
-    if (dbUser) token.id = dbUser.id;
-  }
-  return token;
-},
-   async session({ session, token }) {
-  if (session.user) {
-    session.user.id = token.id as string;
-    session.user.image = (token.picture as string) || null;
-  }
-  return session;
-},
+    }
+    return true;
   },
+  async jwt({ token, user }) {
+    if (user?.email) {
+      const dbUser = await prisma.user.findUnique({
+        where: { email: user.email },
+      });
+      if (dbUser) {
+        token.id = dbUser.id;
+        token.role = dbUser.role;
+      }
+    }
+    return token;
+  },
+  async session({ session, token }) {
+    if (session.user) {
+      session.user.id = token.id as string;
+      session.user.role = token.role as string;
+    }
+    return session;
+  },
+},
 });
