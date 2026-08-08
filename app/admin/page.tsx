@@ -31,6 +31,23 @@ export default async function AdminOverview() {
           </p>
           <p className="text-xs text-gray-500">Total Revenue</p>
         </div>
+
+         <div className="bg-white rounded-2xl p-5 border border-gray-100">
+          <ShoppingBag size={20} className="text-primary mb-2" />
+          <p className="text-2xl font-heading font-bold text-gray-900">{totalOrders}</p>
+          <p className="text-xs text-gray-500">Total Orders</p>
+        </div>
+        <div className="bg-white rounded-2xl p-5 border border-gray-100">
+          <Package size={20} className="text-primary mb-2" />
+          <p className="text-2xl font-heading font-bold text-gray-900">{totalProducts}</p>
+          <p className="text-xs text-gray-500">Total Products</p>
+        </div>
+        <div className="bg-white rounded-2xl p-5 border border-gray-100">
+          <Users size={20} className="text-primary mb-2" />
+          <p className="text-2xl font-heading font-bold text-gray-900">{totalUsers}</p>
+          <p className="text-xs text-gray-500">Total Users</p>
+        </div>
+      </div>
     </div>
   )
 }
