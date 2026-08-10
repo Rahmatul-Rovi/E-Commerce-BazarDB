@@ -1,24 +1,25 @@
 import { prisma } from "@/lib/prisma";
+import { Package, ShoppingBag, Users, DollarSign } from "lucide-react";
 
 export default async function AdminOverview() {
-    const [totalProducts, totalOrders, totalUsers, orders] = await Promise.all([
-        prisma.product.count(),
-        prisma.order.count(),
-        prisma.user.count(),
-        prisma.order.findMany({
-            orderBy: { createdAt: "desc" },
+  const [totalProducts, totalOrders, totalUsers, orders] = await Promise.all([
+    prisma.product.count(),
+    prisma.order.count(),
+    prisma.user.count(),
+    prisma.order.findMany({
+      orderBy: { createdAt: "desc" },
       take: 5,
       include: { user: true },
-        }),
-    ]);
+    }),
+  ]);
 
-     const totalRevenue = await prisma.order.aggregate({
+  const totalRevenue = await prisma.order.aggregate({
     _sum: { total: true },
   });
 
-  return(
+  return (
     <div>
-         <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">
+      <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">
         Admin Overview
       </h1>
       <p className="text-gray-500 text-sm mb-6">Store performance at a glance.</p>
@@ -31,8 +32,7 @@ export default async function AdminOverview() {
           </p>
           <p className="text-xs text-gray-500">Total Revenue</p>
         </div>
-
-         <div className="bg-white rounded-2xl p-5 border border-gray-100">
+        <div className="bg-white rounded-2xl p-5 border border-gray-100">
           <ShoppingBag size={20} className="text-primary mb-2" />
           <p className="text-2xl font-heading font-bold text-gray-900">{totalOrders}</p>
           <p className="text-xs text-gray-500">Total Orders</p>
@@ -48,6 +48,55 @@ export default async function AdminOverview() {
           <p className="text-xs text-gray-500">Total Users</p>
         </div>
       </div>
+
+      <h2 className="font-heading font-semibold text-lg text-gray-900 mb-4">
+        Recent Orders
+      </h2>
+      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <table className="w-full text-sm">
+          <thead className="bg-surface text-gray-500 text-left">
+            <tr>
+              <th className="px-5 py-3 font-medium">Order ID</th>
+              <th className="px-5 py-3 font-medium">Customer</th>
+              <th className="px-5 py-3 font-medium">Date</th>
+              <th className="px-5 py-3 font-medium">Status</th>
+              <th className="px-5 py-3 font-medium text-right">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.id} className="border-t border-gray-100">
+                <td className="px-5 py-3 font-mono text-xs">
+                  #{order.id.slice(-8).toUpperCase()}
+                </td>
+                <td className="px-5 py-3">{order.user.name}</td>
+                <td className="px-5 py-3 text-gray-500">
+                  {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                  })}
+                </td>
+                <td className="px-5 py-3">
+                  <span
+                    className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize ${
+                      order.status === "delivered"
+                        ? "bg-primary-light text-primary-dark"
+                        : order.status === "pending"
+                        ? "bg-amber-100 text-amber-700"
+                        : "bg-blue-100 text-blue-700"
+                    }`}
+                  >
+                    {order.status}
+                  </span>
+                </td>
+                <td className="px-5 py-3 text-right font-semibold">
+                  ৳{order.total.toFixed(0)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
-  )
+  );
 }
