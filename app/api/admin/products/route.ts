@@ -14,3 +14,14 @@ export async function GET() {
     });
     return NextResponse.json(products);
 }
+
+export async function POST(request: Request) {
+  const session = await checkAdmin();
+  if (!session) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+
+  const body = await request.json();
+  const { name, slug, price, discount, imageUrl, stock, categoryId } = body;
+
+  if (!name || !slug || !price || !imageUrl || !categoryId) {
+    return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+  }
