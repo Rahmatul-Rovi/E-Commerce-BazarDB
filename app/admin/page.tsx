@@ -48,6 +48,20 @@ export default async function AdminOverview() {
           <p className="text-xs text-gray-500">Total Users</p>
         </div>
       </div>
+       <h2 className="font-heading font-semibold text-lg text-gray-900 mb-4">
+        Recent Orders
+      </h2>
+      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <table className="w-full text-sm">
+          <thead className="bg-surface text-gray-500 text-left">
+            <tr>
+              <th className="px-5 py-3 font-medium">Order ID</th>
+              <th className="px-5 py-3 font-medium">Customer</th>
+              <th className="px-5 py-3 font-medium">Date</th>
+              <th className="px-5 py-3 font-medium">Status</th>
+              <th className="px-5 py-3 font-medium text-right">Total</th>
+            </tr>
+          </thead>
     </div>
   )
 }
