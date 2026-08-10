@@ -62,6 +62,31 @@ export default async function AdminOverview() {
               <th className="px-5 py-3 font-medium text-right">Total</th>
             </tr>
           </thead>
+           <tbody>
+            {orders.map((order) => (
+              <tr key={order.id} className="border-t border-gray-100">
+                <td className="px-5 py-3 font-mono text-xs">
+                  #{order.id.slice(-8).toUpperCase()}
+                </td>
+                <td className="px-5 py-3">{order.user.name}</td>
+                <td className="px-5 py-3 text-gray-500">
+                  {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                  })}
+                </td>
+                <td className="px-5 py-3">
+                  <span
+                    className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize ${
+                      order.status === "delivered"
+                        ? "bg-primary-light text-primary-dark"
+                        : order.status === "pending"
+                        ? "bg-amber-100 text-amber-700"
+                        : "bg-blue-100 text-blue-700"
+                    }`}
+                  >
+                    {order.status}
+                  </span>
     </div>
   )
 }
