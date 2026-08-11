@@ -1,18 +1,18 @@
-import { auth } from "@/auth";
-import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { auth } from "@/auth";
 
 async function checkAdmin() {
-    const session = await auth();
-    return session?.user?.role === "admin" ? session : null;
+  const session = await auth();
+  return session?.user?.role === "admin" ? session : null;
 }
 
 export async function GET() {
-    const products = await prisma.product.findMany({
-        include: { category: true },
+  const products = await prisma.product.findMany({
+    include: { category: true },
     orderBy: { name: "asc" },
-    });
-    return NextResponse.json(products);
+  });
+  return NextResponse.json(products);
 }
 
 export async function POST(request: Request) {
@@ -26,8 +26,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
 
-  
- try {
+  try {
     const product = await prisma.product.create({
       data: {
         name,
@@ -39,3 +38,11 @@ export async function POST(request: Request) {
         categoryId,
       },
     });
+    return NextResponse.json(product, { status: 201 });
+  } catch {
+    return NextResponse.json(
+      { error: "Slug already exists. Try a different one." },
+      { status: 409 }
+    );
+  }
+}
