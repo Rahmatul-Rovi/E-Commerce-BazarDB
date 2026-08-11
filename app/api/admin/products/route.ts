@@ -25,3 +25,17 @@ export async function POST(request: Request) {
   if (!name || !slug || !price || !imageUrl || !categoryId) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
   }
+
+  
+ try {
+    const product = await prisma.product.create({
+      data: {
+        name,
+        slug,
+        price: parseFloat(price),
+        discount: discount ? parseFloat(discount) : null,
+        imageUrl,
+        stock: parseInt(stock) || 0,
+        categoryId,
+      },
+    });
