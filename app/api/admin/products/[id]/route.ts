@@ -41,4 +41,10 @@ export async function PATCH(
 export async function DELETE (
     request: Request,
     { params }: { params: Promise<{ id: string }> }
-)
+){
+    const session = await checkAdmin();
+     if (!session) return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+
+     const {id} = await params;
+     
+}
