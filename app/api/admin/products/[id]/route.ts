@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 async function checkAdmin() {
@@ -16,4 +17,19 @@ export async function PATCH(
     const {id} = await params;
     const body = await request.json();
     const { name, slug, price, discount, imageUrl, stock, categoryId } = body;
+
+    try{
+        const product = await prisma.product.update({
+            where: {id},
+            data: {
+                name,
+        slug,
+        price: parseFloat(price),
+        discount: discount ? parseFloat(discount) : null,
+        imageUrl,
+        stock: parseInt(stock) || 0,
+        categoryId,
+            },
+        });
+    }
 }
