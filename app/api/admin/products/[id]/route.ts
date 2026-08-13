@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { error } from "console";
 import { NextResponse } from "next/server";
 
 async function checkAdmin() {
@@ -31,5 +32,13 @@ export async function PATCH(
         categoryId,
             },
         });
+        return NextResponse.json(product);
+    } catch{
+        return NextResponse.json({error: "Update Failed"}, {status: 500});
     }
 }
+
+export async function DELETE (
+    request: Request,
+    { params }: { params: Promise<{ id: string }> }
+)
