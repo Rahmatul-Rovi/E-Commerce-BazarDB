@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 type Product = {
   id: string;
@@ -23,5 +24,21 @@ export default function AdminProductsPage() {
         setLoading(false);
         });
     };
-    
+
+    useEffect(()=> {
+        loadProducts();
+    }, []);
+
+    const handleDelete = (id: string, name: string) => {
+        Swal.fire({
+      title: "Delete product?",
+      text: `Are you sure you want to delete "${name}"? This can't be undone.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DC2626",
+      cancelButtonColor: "#9CA3AF",
+      confirmButtonText: "Yes, delete it",
+      customClass: { popup: "rounded-2xl" },
+    })
+    }
 }
