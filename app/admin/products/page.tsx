@@ -57,4 +57,23 @@ export default function AdminProductsPage() {
       }
     });
   };
+
+   if (loading) return <p className="text-gray-500 text-sm">Loading products...</p>;
+
+   return(
+     <div>
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="font-heading text-2xl font-bold text-gray-900">Products</h1>
+          <p className="text-gray-500 text-sm mt-1">{products.length} products total</p>
+        </div>
+        <Link
+          href="/admin/products/new"
+          className="flex items-center gap-2 bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors"
+        >
+          <Plus size={16} />
+          Add Product
+        </Link>
+      </div>
+   )
     }
