@@ -39,6 +39,22 @@ export default function AdminProductsPage() {
       cancelButtonColor: "#9CA3AF",
       confirmButtonText: "Yes, delete it",
       customClass: { popup: "rounded-2xl" },
-    })
+    }) .then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await fetch(`/api/admin/products/${id}`, { method: "DELETE" });
+        if (res.ok) {
+          setProducts((prev) => prev.filter((p) => p.id !== id));
+          Swal.fire({
+            icon: "success",
+            title: "Deleted",
+            showConfirmButton: false,
+            timer: 1200,
+            customClass: { popup: "rounded-2xl" },
+          });
+        } else {
+          Swal.fire({ icon: "error", title: "Failed to delete", customClass: { popup: "rounded-2xl" } });
+        }
+      }
+    });
+  };
     }
-}
