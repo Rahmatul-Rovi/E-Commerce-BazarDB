@@ -1,3 +1,5 @@
+import { Package, Plus } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -75,5 +77,11 @@ export default function AdminProductsPage() {
           Add Product
         </Link>
       </div>
+       {products.length === 0 ? (
+        <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
+          <Package size={40} className="text-gray-300 mx-auto mb-3" />
+          <p className="text-gray-500 text-sm">No products yet.</p>
+        </div>
+      ) :
    )
     }
