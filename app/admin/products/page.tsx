@@ -95,23 +95,7 @@ export default function AdminProductsPage() {
               </tr>
             </thead>
             <tbody>
-               {products.map((product) => (
-                <tr key={product.id} className="border-t border-gray-100">
-                  <td className="px-5 py-3">
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={product.imageUrl}
-                        alt={product.name}
-                        className="w-10 h-10 rounded-lg object-cover bg-surface"
-                      />
-                      <span className="font-medium text-gray-800 line-clamp-1">
-                        {product.name}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-5 py-3 text-gray-500">{product.category.name}</td>
-                  <td className="px-5 py-3"></td>
-                   ৳{product.price.toFixed(0)}
+                ৳{product.price.toFixed(0)}
                     {product.discount ? (
                       <span className="text-accent text-xs ml-1">-{product.discount}%</span>
                     ) : null}
@@ -148,3 +132,4 @@ export default function AdminProductsPage() {
     </div>
   );
 }
+
