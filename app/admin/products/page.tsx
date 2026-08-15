@@ -82,6 +82,18 @@ export default function AdminProductsPage() {
           <Package size={40} className="text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 text-sm">No products yet.</p>
         </div>
-      ) :
+      ) : (
+        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden overflow-x-auto">
+          <table className="w-full text-sm min-w-[700px]">
+            <thead className="bg-surface text-gray-500 text-left">
+              <tr>
+                <th className="px-5 py-3 font-medium">Product</th>
+                <th className="px-5 py-3 font-medium">Category</th>
+                <th className="px-5 py-3 font-medium">Price</th>
+                <th className="px-5 py-3 font-medium">Stock</th>
+                <th className="px-5 py-3 font-medium text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
    )
     }
