@@ -94,6 +94,23 @@ export default function AdminProductsPage() {
                 <th className="px-5 py-3 font-medium text-right">Actions</th>
               </tr>
             </thead>
-            <tbody></tbody>
+            <tbody>
+               {products.map((product) => (
+                <tr key={product.id} className="border-t border-gray-100">
+                  <td className="px-5 py-3">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="w-10 h-10 rounded-lg object-cover bg-surface"
+                      />
+                      <span className="font-medium text-gray-800 line-clamp-1">
+                        {product.name}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-5 py-3 text-gray-500">{product.category.name}</td>
+                  <td className="px-5 py-3"></td>
+            </tbody>
    )
     }
