@@ -111,6 +111,40 @@ export default function AdminProductsPage() {
                   </td>
                   <td className="px-5 py-3 text-gray-500">{product.category.name}</td>
                   <td className="px-5 py-3"></td>
+                   ৳{product.price.toFixed(0)}
+                    {product.discount ? (
+                      <span className="text-accent text-xs ml-1">-{product.discount}%</span>
+                    ) : null}
+                  </td>
+                  <td className="px-5 py-3">
+                    {product.stock > 0 ? (
+                      <span className="text-primary-dark">{product.stock}</span>
+                    ) : (
+                      <span className="text-red-500">Out of stock</span>
+                    )}
+                  </td>
+                  <td className="px-5 py-3">
+                    <div className="flex items-center justify-end gap-2">
+                      <Link
+                        href={`/admin/products/${product.id}/edit`}
+                        className="p-2 text-gray-500 hover:text-primary hover:bg-primary-light rounded-lg transition-colors"
+                      >
+                        <Pencil size={15} />
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(product.id, product.name)}
+                        className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
-   )
-    }
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
