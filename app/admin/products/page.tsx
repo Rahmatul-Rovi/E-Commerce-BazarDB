@@ -82,6 +82,54 @@ export default function AdminProductsPage() {
           <Package size={40} className="text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 text-sm">No products yet.</p>
         </div>
-      ) :
-   )
-    }
+      ) : (
+        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden overflow-x-auto">
+          <table className="w-full text-sm min-w-[700px]">
+            <thead className="bg-surface text-gray-500 text-left">
+              <tr>
+                <th className="px-5 py-3 font-medium">Product</th>
+                <th className="px-5 py-3 font-medium">Category</th>
+                <th className="px-5 py-3 font-medium">Price</th>
+                <th className="px-5 py-3 font-medium">Stock</th>
+                <th className="px-5 py-3 font-medium text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+                ৳{product.price.toFixed(0)}
+                    {product.discount ? (
+                      <span className="text-accent text-xs ml-1">-{product.discount}%</span>
+                    ) : null}
+                  </td>
+                  <td className="px-5 py-3">
+                    {product.stock > 0 ? (
+                      <span className="text-primary-dark">{product.stock}</span>
+                    ) : (
+                      <span className="text-red-500">Out of stock</span>
+                    )}
+                  </td>
+                  <td className="px-5 py-3">
+                    <div className="flex items-center justify-end gap-2">
+                      <Link
+                        href={`/admin/products/${product.id}/edit`}
+                        className="p-2 text-gray-500 hover:text-primary hover:bg-primary-light rounded-lg transition-colors"
+                      >
+                        <Pencil size={15} />
+                      </Link>
+                      <button
+                        onClick={() => handleDelete(product.id, product.name)}
+                        className="p-2 text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                      >
+                        <Trash2 size={15} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
