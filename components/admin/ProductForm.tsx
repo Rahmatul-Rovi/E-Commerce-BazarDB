@@ -11,3 +11,11 @@ type ProductFormData = {
   stock: string;
   categoryId: string;
 };
+
+export default function ProductForm({
+    productId,
+    initialData,
+} : {
+    productId?: string;
+    initialData?: string;
+})
