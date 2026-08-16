@@ -1,5 +1,8 @@
 "use client";
 
+import { useRouter } from "next/router";
+import { useState } from "react";
+
 type Category = {id: string ; name: string};
 
 type ProductFormData = {
@@ -18,4 +21,19 @@ export default function ProductForm({
 } : {
     productId?: string;
     initialData?: string;
-})
+}) {
+    const router = useRouter();
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [form, setForm] = useState<ProductFormData>(
+        initialData || {
+      name: "",
+      slug: "",
+      price: "",
+      discount: "",
+      imageUrl: "",
+      stock: "",
+      categoryId: "",
+    }
+    );
+}
