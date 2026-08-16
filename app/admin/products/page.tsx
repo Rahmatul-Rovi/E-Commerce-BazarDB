@@ -1,6 +1,8 @@
-import { Package, Plus } from "lucide-react";
-import Link from "next/link";
+"use client";
+
 import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Plus, Pencil, Trash2, Package } from "lucide-react";
 import Swal from "sweetalert2";
 
 type Product = {
@@ -15,24 +17,24 @@ type Product = {
 };
 
 export default function AdminProductsPage() {
-    const [products , setProducts] = useState<Product[]>([]);
-    const [loading , setLoading] = useState(true);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    const loadProducts = () => {
-        fetch("/api/admin/products")
-        .then((res)=> res.json())
-        .then((data) => {
-            setProducts(Array.isArray(data) ? data : []);
+  const loadProducts = () => {
+    fetch("/api/admin/products")
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(Array.isArray(data) ? data : []);
         setLoading(false);
-        });
-    };
+      });
+  };
 
-    useEffect(()=> {
-        loadProducts();
-    }, []);
+  useEffect(() => {
+    loadProducts();
+  }, []);
 
-    const handleDelete = (id: string, name: string) => {
-        Swal.fire({
+  const handleDelete = (id: string, name: string) => {
+    Swal.fire({
       title: "Delete product?",
       text: `Are you sure you want to delete "${name}"? This can't be undone.`,
       icon: "warning",
@@ -41,7 +43,7 @@ export default function AdminProductsPage() {
       cancelButtonColor: "#9CA3AF",
       confirmButtonText: "Yes, delete it",
       customClass: { popup: "rounded-2xl" },
-    }) .then(async (result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
         const res = await fetch(`/api/admin/products/${id}`, { method: "DELETE" });
         if (res.ok) {
@@ -60,10 +62,10 @@ export default function AdminProductsPage() {
     });
   };
 
-   if (loading) return <p className="text-gray-500 text-sm">Loading products...</p>;
+  if (loading) return <p className="text-gray-500 text-sm">Loading products...</p>;
 
-   return(
-     <div>
+  return (
+    <div>
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="font-heading text-2xl font-bold text-gray-900">Products</h1>
@@ -77,7 +79,8 @@ export default function AdminProductsPage() {
           Add Product
         </Link>
       </div>
-       {products.length === 0 ? (
+
+      {products.length === 0 ? (
         <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
           <Package size={40} className="text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 text-sm">No products yet.</p>
@@ -95,7 +98,23 @@ export default function AdminProductsPage() {
               </tr>
             </thead>
             <tbody>
-                ৳{product.price.toFixed(0)}
+              {products.map((product) => (
+                <tr key={product.id} className="border-t border-gray-100">
+                  <td className="px-5 py-3">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        className="w-10 h-10 rounded-lg object-cover bg-surface"
+                      />
+                      <span className="font-medium text-gray-800 line-clamp-1">
+                        {product.name}
+                      </span>
+                    </div>
+                  </td>
+                  <td className="px-5 py-3 text-gray-500">{product.category.name}</td>
+                  <td className="px-5 py-3">
+                    ৳{product.price.toFixed(0)}
                     {product.discount ? (
                       <span className="text-accent text-xs ml-1">-{product.discount}%</span>
                     ) : null}
@@ -132,4 +151,3 @@ export default function AdminProductsPage() {
     </div>
   );
 }
-
