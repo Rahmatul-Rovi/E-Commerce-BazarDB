@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Category = {id: string ; name: string};
 
@@ -36,4 +36,24 @@ export default function ProductForm({
       categoryId: "",
     }
     );
+
+    useEffect(()=> {
+        fetch("/api/categories")
+        .then((res)=> res.json())
+        .then((data) => setCategories(Array.isArray(data) ? data : []));
+    }, []);
+
+    const handleNameChange = (name: string) => {
+    setForm((prev) => ({
+      ...prev,
+      name,
+      slug: productId
+        ? prev.slug
+        : name
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, ""),
+    }));
+  };
 }
