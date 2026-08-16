@@ -56,4 +56,18 @@ export default function ProductForm({
             .replace(/(^-|-$)/g, ""),
     }));
   };
+
+   const handleSubmit = async (e: React.FormEvent) => {
+   e.preventDefault();
+   setLoading(true);
+
+      const url = productId ? `/api/admin/products/${productId}` : "/api/admin/products";
+      const method = productId ? "PATCH" : "POST";
+
+      const res = await fetch(url, {
+        method,
+        headers: {"Content-Type" : "application/json"},
+        body: JSON.stringify(form),
+      });
+   }
 }
