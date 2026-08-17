@@ -159,5 +159,17 @@ export default function ProductForm({
           />
         )}
       </div>
+
+       <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="text-sm font-medium text-gray-700">Stock Quantity</label>
+          <input
+            type="number"
+            required
+            value={form.stock}
+            onChange={(e) => setForm({ ...form, stock: e.target.value })}
+            className="w-full mt-1.5 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+          />
+        </div>
    )
 }
