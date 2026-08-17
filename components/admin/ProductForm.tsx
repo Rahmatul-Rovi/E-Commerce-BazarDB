@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 type Category = {id: string ; name: string};
 
@@ -69,5 +70,17 @@ export default function ProductForm({
         headers: {"Content-Type" : "application/json"},
         body: JSON.stringify(form),
       });
+      const data = await res.json();
+      setLoading(false);
+
+      off(!res.ok){
+         Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: data.error || "Something went wrong",
+        customClass: { popup: "rounded-2xl" },
+      });
+      return;
+      }
    }
 }
