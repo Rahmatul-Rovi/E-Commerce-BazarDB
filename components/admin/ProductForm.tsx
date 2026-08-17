@@ -189,5 +189,22 @@ export default function ProductForm({
           </select>
         </div>
       </div>
-   )
+       <div className="flex gap-3 pt-2">
+        <button
+          type="submit"
+          disabled={loading}
+          className="bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-colors disabled:opacity-60"
+        >
+          {loading ? "Saving..." : productId ? "Update Product" : "Add Product"}
+        </button>
+        <button
+          type="button"
+          onClick={() => router.push("/admin/products")}
+          className="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold px-6 py-2.5 rounded-xl text-sm transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
+    </form>
+  );
 }
