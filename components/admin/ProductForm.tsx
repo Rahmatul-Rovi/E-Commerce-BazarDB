@@ -93,4 +93,18 @@ export default function ProductForm({
       router.push("/admin/products");
       router.refresh();
    };
+
+   return(
+     <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 p-6 max-w-2xl space-y-4">
+      <div>
+        <label className="text-sm font-medium text-gray-700">Product Name</label>
+        <input
+          type="text"
+          required
+          value={form.name}
+          onChange={(e) => handleNameChange(e.target.value)}
+          className="w-full mt-1.5 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+        />
+      </div>
+   )
 }
