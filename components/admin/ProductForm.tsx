@@ -82,5 +82,15 @@ export default function ProductForm({
       });
       return;
       }
-   }
+
+      await Swal.fire({
+        icon: "success",
+      title: productId ? "Product Updated" : "Product Added",
+      showConfirmButton: false,
+      timer: 1300,
+      customClass: { popup: "rounded-2xl" },
+      });
+      router.push("/admin/products");
+      router.refresh();
+   };
 }
