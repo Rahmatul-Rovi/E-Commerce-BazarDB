@@ -1,13 +1,13 @@
 "use client";
 
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
-type Category = {id: string ; name: string};
+type Category = { id: string; name: string };
 
 type ProductFormData = {
-     name: string;
+  name: string;
   slug: string;
   price: string;
   discount: string;
@@ -17,17 +17,17 @@ type ProductFormData = {
 };
 
 export default function ProductForm({
-    productId,
-    initialData,
-} : {
-    productId?: string;
-    initialData?: string;
+  productId,
+  initialData,
+}: {
+  productId?: string;
+  initialData?: ProductFormData;
 }) {
-    const router = useRouter();
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [form, setForm] = useState<ProductFormData>(
-        initialData || {
+  const router = useRouter();
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState<ProductFormData>(
+    initialData || {
       name: "",
       slug: "",
       price: "",
@@ -36,15 +36,15 @@ export default function ProductForm({
       stock: "",
       categoryId: "",
     }
-    );
+  );
 
-    useEffect(()=> {
-        fetch("/api/categories")
-        .then((res)=> res.json())
-        .then((data) => setCategories(Array.isArray(data) ? data : []));
-    }, []);
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((res) => res.json())
+      .then((data) => setCategories(Array.isArray(data) ? data : []));
+  }, []);
 
-    const handleNameChange = (name: string) => {
+  const handleNameChange = (name: string) => {
     setForm((prev) => ({
       ...prev,
       name,
@@ -58,44 +58,46 @@ export default function ProductForm({
     }));
   };
 
-   const handleSubmit = async (e: React.FormEvent) => {
-   e.preventDefault();
-   setLoading(true);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
 
-      const url = productId ? `/api/admin/products/${productId}` : "/api/admin/products";
-      const method = productId ? "PATCH" : "POST";
+    const url = productId ? `/api/admin/products/${productId}` : "/api/admin/products";
+    const method = productId ? "PATCH" : "POST";
 
-      const res = await fetch(url, {
-        method,
-        headers: {"Content-Type" : "application/json"},
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      setLoading(false);
+    const res = await fetch(url, {
+      method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
 
-      off(!res.ok){
-         Swal.fire({
+    const data = await res.json();
+    setLoading(false);
+
+    if (!res.ok) {
+      Swal.fire({
         icon: "error",
         title: "Failed",
         text: data.error || "Something went wrong",
         customClass: { popup: "rounded-2xl" },
       });
       return;
-      }
+    }
 
-      await Swal.fire({
-        icon: "success",
+    await Swal.fire({
+      icon: "success",
       title: productId ? "Product Updated" : "Product Added",
       showConfirmButton: false,
       timer: 1300,
       customClass: { popup: "rounded-2xl" },
-      });
-      router.push("/admin/products");
-      router.refresh();
-   };
+    });
 
-   return(
-     <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 p-6 max-w-2xl space-y-4">
+    router.push("/admin/products");
+    router.refresh();
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 p-6 max-w-2xl space-y-4">
       <div>
         <label className="text-sm font-medium text-gray-700">Product Name</label>
         <input
@@ -107,7 +109,7 @@ export default function ProductForm({
         />
       </div>
 
-       <div>
+      <div>
         <label className="text-sm font-medium text-gray-700">Slug (URL)</label>
         <input
           type="text"
@@ -117,7 +119,8 @@ export default function ProductForm({
           className="w-full mt-1.5 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm font-mono"
         />
       </div>
-       <div className="grid grid-cols-2 gap-4">
+
+      <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="text-sm font-medium text-gray-700">Price (৳)</label>
           <input
@@ -129,7 +132,7 @@ export default function ProductForm({
             className="w-full mt-1.5 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
           />
         </div>
-          <div>
+        <div>
           <label className="text-sm font-medium text-gray-700">Discount % (optional)</label>
           <input
             type="number"
@@ -141,7 +144,7 @@ export default function ProductForm({
         </div>
       </div>
 
-       <div>
+      <div>
         <label className="text-sm font-medium text-gray-700">Image URL</label>
         <input
           type="url"
@@ -160,7 +163,7 @@ export default function ProductForm({
         )}
       </div>
 
-       <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="text-sm font-medium text-gray-700">Stock Quantity</label>
           <input
@@ -171,8 +174,7 @@ export default function ProductForm({
             className="w-full mt-1.5 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
           />
         </div>
-
-         <div>
+        <div>
           <label className="text-sm font-medium text-gray-700">Category</label>
           <select
             required
@@ -189,7 +191,8 @@ export default function ProductForm({
           </select>
         </div>
       </div>
-       <div className="flex gap-3 pt-2">
+
+      <div className="flex gap-3 pt-2">
         <button
           type="submit"
           disabled={loading}
