@@ -129,5 +129,16 @@ export default function ProductForm({
             className="w-full mt-1.5 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
           />
         </div>
+          <div>
+          <label className="text-sm font-medium text-gray-700">Discount % (optional)</label>
+          <input
+            type="number"
+            step="0.01"
+            value={form.discount}
+            onChange={(e) => setForm({ ...form, discount: e.target.value })}
+            className="w-full mt-1.5 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+          />
+        </div>
+      </div>
    )
 }
