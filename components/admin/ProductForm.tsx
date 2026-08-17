@@ -140,5 +140,24 @@ export default function ProductForm({
           />
         </div>
       </div>
+
+       <div>
+        <label className="text-sm font-medium text-gray-700">Image URL</label>
+        <input
+          type="url"
+          required
+          value={form.imageUrl}
+          onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+          placeholder="https://images.unsplash.com/..."
+          className="w-full mt-1.5 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+        />
+        {form.imageUrl && (
+          <img
+            src={form.imageUrl}
+            alt="Preview"
+            className="w-20 h-20 object-cover rounded-xl mt-2 border border-gray-200"
+          />
+        )}
+      </div>
    )
 }
