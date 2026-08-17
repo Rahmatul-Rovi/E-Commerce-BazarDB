@@ -171,5 +171,23 @@ export default function ProductForm({
             className="w-full mt-1.5 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
           />
         </div>
+
+         <div>
+          <label className="text-sm font-medium text-gray-700">Category</label>
+          <select
+            required
+            value={form.categoryId}
+            onChange={(e) => setForm({ ...form, categoryId: e.target.value })}
+            className="w-full mt-1.5 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+          >
+            <option value="">Select category</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
    )
 }
