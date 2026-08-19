@@ -6,4 +6,7 @@ type Category = { id: string; name: string; slug: string; _count?: { products: n
 
 export default function AdminCategoriesPage() {
     const [categories , setCaregories] = useState<Category[]>([]);
+    const [loading , setLoading] = useState(true);
+     const [form, setForm] = useState({ name: "", slug: "" });
+  const [submitting, setSubmitting] = useState(false);
 }
