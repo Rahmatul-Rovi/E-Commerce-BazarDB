@@ -9,4 +9,13 @@ export default function AdminCategoriesPage() {
     const [loading , setLoading] = useState(true);
      const [form, setForm] = useState({ name: "", slug: "" });
   const [submitting, setSubmitting] = useState(false);
+
+  const loadCategories = () => {
+    fetch("/api/categories")
+    .then((res) => res.json())
+    .then((data)=> {
+        setCategories(Array.isArray(data) ? data : []);
+        setLoading(false);
+    });
+  };
 }
