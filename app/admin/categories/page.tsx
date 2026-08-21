@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Category = { id: string; name: string; slug: string; _count?: { products: number } };
 
@@ -16,6 +16,16 @@ export default function AdminCategoriesPage() {
     .then((data)=> {
         setCategories(Array.isArray(data) ? data : []);
         setLoading(false);
+    });
+  };
+
+  useEffect(()=>{
+     loadCategories();
+  }, []);
+  const handleNameChange = (name: string) => {
+    setForm({
+      name,
+      slug: name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
     });
   };
 }
