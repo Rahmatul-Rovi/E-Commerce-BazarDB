@@ -47,5 +47,15 @@ export default function AdminCategoriesPage() {
       Swal.fire({ icon: "error", title: "Failed", text: data.error, customClass: { popup: "rounded-2xl" } });
       return;
     }
-  }
+
+    setForm({ name: "", slug: "" });
+    loadCategories();
+    Swal.fire({
+      icon: "success",
+      title: "Category Added",
+      showConfirmButton: false,
+      timer: 1200,
+      customClass: { popup: "rounded-2xl" },
+    });
+  };
 }
