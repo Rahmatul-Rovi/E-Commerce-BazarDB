@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 type Category = { id: string; name: string; slug: string; _count?: { products: number } };
 
@@ -38,5 +39,13 @@ export default function AdminCategoriesPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
+
+    const data = await res.json();
+    setSubmitting(false);
+
+     if (!res.ok) {
+      Swal.fire({ icon: "error", title: "Failed", text: data.error, customClass: { popup: "rounded-2xl" } });
+      return;
+    }
   }
 }
