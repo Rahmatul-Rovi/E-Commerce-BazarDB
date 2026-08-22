@@ -58,4 +58,16 @@ export default function AdminCategoriesPage() {
       customClass: { popup: "rounded-2xl" },
     });
   };
+
+  const handleDelete = (id: string, name: string) => {
+    Swal.fire({
+      title: "Delete category?",
+      text: `Delete "${name}"? Products inside must be removed first.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#DC2626",
+      cancelButtonColor: "#9CA3AF",
+      confirmButtonText: "Yes, delete it",
+      customClass: { popup: "rounded-2xl" },
+    })
 }
