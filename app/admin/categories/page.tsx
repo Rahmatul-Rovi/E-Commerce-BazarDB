@@ -69,5 +69,17 @@ export default function AdminCategoriesPage() {
       cancelButtonColor: "#9CA3AF",
       confirmButtonText: "Yes, delete it",
       customClass: { popup: "rounded-2xl" },
-    })
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await fetch(`/api/admin/categories/${id}`, { method: "DELETE" });
+        const data = await res.json();
+        if (res.ok) {
+          loadCategories();
+          Swal.fire({ icon: "success", title: "Deleted", showConfirmButton: false, timer: 1200, customClass: { popup: "rounded-2xl" } });
+        } else {
+          Swal.fire({ icon: "error", title: "Failed", text: data.error, customClass: { popup: "rounded-2xl" } });
+        }
+      }
+    });
+  };
 }
