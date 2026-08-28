@@ -1,5 +1,6 @@
 "use client";
 
+import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -106,6 +107,16 @@ export default function AdminCategoriesPage() {
             onChange={(e) => setForm({ ...form, slug: e.target.value })}
             className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm font-mono"
           />
+
+           <button
+            type="submit"
+            disabled={submitting}
+            className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold py-2.5 rounded-xl text-sm transition-colors disabled:opacity-60"
+          >
+            <Plus size={16} />
+            {submitting ? "Adding..." : "Add Category"}
+          </button>
+        </form>
     </div>
   )
 }
