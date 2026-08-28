@@ -127,7 +127,13 @@ export default function AdminCategoriesPage() {
               <Tag size={36} className="text-gray-300 mx-auto mb-2" />
               <p className="text-gray-500 text-sm">No categories yet.</p>
             </div>
-          )
+          ) : (
+            <div className="space-y-2">
+              {categories.map((cat) => (
+                <div
+                  key={cat.id}
+                  className="flex items-center justify-between bg-white rounded-xl border border-gray-100 px-5 py-3"
+                >
     </div>
   )
 }
