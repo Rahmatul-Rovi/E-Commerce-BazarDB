@@ -117,6 +117,17 @@ export default function AdminCategoriesPage() {
             {submitting ? "Adding..." : "Add Category"}
           </button>
         </form>
+
+         {/* List */}
+        <div className="md:col-span-2">
+          {loading ? (
+            <p className="text-gray-500 text-sm">Loading...</p>
+          ) : categories.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
+              <Tag size={36} className="text-gray-300 mx-auto mb-2" />
+              <p className="text-gray-500 text-sm">No categories yet.</p>
+            </div>
+          )
     </div>
   )
 }
