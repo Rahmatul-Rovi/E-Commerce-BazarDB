@@ -1,5 +1,6 @@
 "use client";
 
+import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
@@ -98,6 +99,41 @@ export default function AdminCategoriesPage() {
             onChange={(e) => handleNameChange(e.target.value)}
             className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
           />
+           <input
+            type="text"
+            placeholder="slug"
+            required
+            value={form.slug}
+            onChange={(e) => setForm({ ...form, slug: e.target.value })}
+            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm font-mono"
+          />
+
+           <button
+            type="submit"
+            disabled={submitting}
+            className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold py-2.5 rounded-xl text-sm transition-colors disabled:opacity-60"
+          >
+            <Plus size={16} />
+            {submitting ? "Adding..." : "Add Category"}
+          </button>
+        </form>
+
+         {/* List */}
+        <div className="md:col-span-2">
+          {loading ? (
+            <p className="text-gray-500 text-sm">Loading...</p>
+          ) : categories.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
+              <Tag size={36} className="text-gray-300 mx-auto mb-2" />
+              <p className="text-gray-500 text-sm">No categories yet.</p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {categories.map((cat) => (
+                <div
+                  key={cat.id}
+                  className="flex items-center justify-between bg-white rounded-xl border border-gray-100 px-5 py-3"
+                >
     </div>
   )
 }
