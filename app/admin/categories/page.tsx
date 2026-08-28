@@ -82,4 +82,22 @@ export default function AdminCategoriesPage() {
       }
     });
   };
+
+  return(
+    <div>
+      <h1 className="font-heading text-2xl font-bold text-gray-900 mb-6">Categories</h1>
+      <div className="grid md:grid-cols-3 gap-6">
+        {/* Add form */}
+        <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 p-5 h-fit space-y-3">
+          <h2 className="font-heading font-semibold text-gray-900 text-sm mb-2">Add Category</h2>
+          <input
+            type="text"
+            placeholder="Category name"
+            required
+            value={form.name}
+            onChange={(e) => handleNameChange(e.target.value)}
+            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+          />
+    </div>
+  )
 }
