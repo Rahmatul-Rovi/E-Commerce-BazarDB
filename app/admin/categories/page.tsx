@@ -82,4 +82,11 @@ export default function AdminCategoriesPage() {
       }
     });
   };
+
+  return(
+    <div>
+      <h1 className="font-heading text-2xl font-bold text-gray-900 mb-6">Categories</h1>
+      
+    </div>
+  )
 }
