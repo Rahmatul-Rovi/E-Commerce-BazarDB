@@ -98,6 +98,14 @@ export default function AdminCategoriesPage() {
             onChange={(e) => handleNameChange(e.target.value)}
             className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
           />
+           <input
+            type="text"
+            placeholder="slug"
+            required
+            value={form.slug}
+            onChange={(e) => setForm({ ...form, slug: e.target.value })}
+            className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm font-mono"
+          />
     </div>
   )
 }
