@@ -1,29 +1,30 @@
 "use client";
 
-import { Plus } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Plus, Trash2, Tag } from "lucide-react";
 import Swal from "sweetalert2";
 
 type Category = { id: string; name: string; slug: string; _count?: { products: number } };
 
 export default function AdminCategoriesPage() {
-    const [categories , setCaregories] = useState<Category[]>([]);
-    const [loading , setLoading] = useState(true);
-     const [form, setForm] = useState({ name: "", slug: "" });
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState({ name: "", slug: "" });
   const [submitting, setSubmitting] = useState(false);
 
   const loadCategories = () => {
     fetch("/api/categories")
-    .then((res) => res.json())
-    .then((data)=> {
+      .then((res) => res.json())
+      .then((data) => {
         setCategories(Array.isArray(data) ? data : []);
         setLoading(false);
-    });
+      });
   };
 
-  useEffect(()=>{
-     loadCategories();
+  useEffect(() => {
+    loadCategories();
   }, []);
+
   const handleNameChange = (name: string) => {
     setForm({
       name,
@@ -44,7 +45,7 @@ export default function AdminCategoriesPage() {
     const data = await res.json();
     setSubmitting(false);
 
-     if (!res.ok) {
+    if (!res.ok) {
       Swal.fire({ icon: "error", title: "Failed", text: data.error, customClass: { popup: "rounded-2xl" } });
       return;
     }
@@ -84,9 +85,10 @@ export default function AdminCategoriesPage() {
     });
   };
 
-  return(
+  return (
     <div>
       <h1 className="font-heading text-2xl font-bold text-gray-900 mb-6">Categories</h1>
+
       <div className="grid md:grid-cols-3 gap-6">
         {/* Add form */}
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl border border-gray-100 p-5 h-fit space-y-3">
@@ -99,7 +101,7 @@ export default function AdminCategoriesPage() {
             onChange={(e) => handleNameChange(e.target.value)}
             className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
           />
-           <input
+          <input
             type="text"
             placeholder="slug"
             required
@@ -107,8 +109,7 @@ export default function AdminCategoriesPage() {
             onChange={(e) => setForm({ ...form, slug: e.target.value })}
             className="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm font-mono"
           />
-
-           <button
+          <button
             type="submit"
             disabled={submitting}
             className="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold py-2.5 rounded-xl text-sm transition-colors disabled:opacity-60"
@@ -118,7 +119,7 @@ export default function AdminCategoriesPage() {
           </button>
         </form>
 
-         {/* List */}
+        {/* List */}
         <div className="md:col-span-2">
           {loading ? (
             <p className="text-gray-500 text-sm">Loading...</p>
@@ -134,7 +135,7 @@ export default function AdminCategoriesPage() {
                   key={cat.id}
                   className="flex items-center justify-between bg-white rounded-xl border border-gray-100 px-5 py-3"
                 >
-                   <div>
+                  <div>
                     <p className="text-sm font-medium text-gray-800">{cat.name}</p>
                     <p className="text-xs text-gray-400 font-mono">{cat.slug}</p>
                   </div>
@@ -144,7 +145,7 @@ export default function AdminCategoriesPage() {
                   >
                     <Trash2 size={15} />
                   </button>
-                   </div>
+                </div>
               ))}
             </div>
           )}
@@ -152,7 +153,4 @@ export default function AdminCategoriesPage() {
       </div>
     </div>
   );
-}
-    </div>
-  )
 }
