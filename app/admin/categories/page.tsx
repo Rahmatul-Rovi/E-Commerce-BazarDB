@@ -144,6 +144,15 @@ export default function AdminCategoriesPage() {
                   >
                     <Trash2 size={15} />
                   </button>
+                   </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
     </div>
   )
 }
