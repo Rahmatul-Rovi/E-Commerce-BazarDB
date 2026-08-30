@@ -134,6 +134,25 @@ export default function AdminCategoriesPage() {
                   key={cat.id}
                   className="flex items-center justify-between bg-white rounded-xl border border-gray-100 px-5 py-3"
                 >
+                   <div>
+                    <p className="text-sm font-medium text-gray-800">{cat.name}</p>
+                    <p className="text-xs text-gray-400 font-mono">{cat.slug}</p>
+                  </div>
+                  <button
+                    onClick={() => handleDelete(cat.id, cat.name)}
+                    className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    <Trash2 size={15} />
+                  </button>
+                   </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
     </div>
   )
 }
