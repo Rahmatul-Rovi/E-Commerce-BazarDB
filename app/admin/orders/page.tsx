@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 type OrderItem = {
   id: string;
   quantity: number;
@@ -20,3 +22,10 @@ type Order = {
   user: { name: string; email: string };
   items: OrderItem[];
 };
+
+const statusOptions = ["pending", "processing", "delivered", "cancelled"];
+
+export default function AdminOrdersPage() {
+  const [orders, setOrders] = useState<Order[]>([]);
+  
+}
