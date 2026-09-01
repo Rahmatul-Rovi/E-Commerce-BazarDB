@@ -63,5 +63,14 @@ export default function AdminOrdersPage() {
         customClass: { popup: "rounded-2xl" },
       });
     }
-  }
+  };
+
+  if (loading) return <p className="text-gray-500 text-sm">Loading orders...</p>;
+
+  return(
+    <div>
+        <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">Orders</h1>
+      <p className="text-gray-500 text-sm mb-6">{orders.length} orders total</p>
+    </div>
+  )
 }
