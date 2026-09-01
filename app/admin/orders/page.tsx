@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type OrderItem = {
   id: string;
@@ -33,6 +33,13 @@ export default function AdminOrdersPage() {
   const loadOrders = () => {
     fetch("/api/admin/orders")
     .then((res)=> res.json())
-    
-  }
+    .then((data)=>{
+      setOrders(Array.isArray(data) ? data : []);
+      setLoading(false);
+    });
+  };
+
+  useEffect(()=> {
+    loadOrders();
+  }, []);
 }
