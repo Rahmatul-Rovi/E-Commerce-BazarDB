@@ -42,4 +42,12 @@ export default function AdminOrdersPage() {
   useEffect(()=> {
     loadOrders();
   }, []);
+
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    const res = fetch(`/api/admin/orders/${id}`,{
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+     body: JSON.stringify({ status: newStatus }),
+    });
+  }
 }
