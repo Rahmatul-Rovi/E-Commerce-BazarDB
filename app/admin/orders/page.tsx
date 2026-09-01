@@ -27,5 +27,12 @@ const statusOptions = ["pending", "processing", "delivered", "cancelled"];
 
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
-  
+  const [loading, setLoading] = useState(true);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  const loadOrders = () => {
+    fetch("/api/admin/orders")
+    .then((res)=> res.json())
+    
+  }
 }
