@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 type OrderItem = {
   id: string;
@@ -49,5 +50,18 @@ export default function AdminOrdersPage() {
       headers: { "Content-Type": "application/json" },
      body: JSON.stringify({ status: newStatus }),
     });
+
+    if(res.ok) {
+      setOrders((prev)=> 
+       prev.map((o) => (o.id === id ? { ...o, status: newStatus } : o))
+      );
+       Swal.fire({
+        icon: "success",
+        title: "Status Updated",
+        showConfirmButton: false,
+        timer: 1000,
+        customClass: { popup: "rounded-2xl" },
+      });
+    }
   }
 }
