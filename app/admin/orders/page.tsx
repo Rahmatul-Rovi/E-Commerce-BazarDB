@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+
 type OrderItem = {
   id: string;
   quantity: number;
@@ -20,3 +23,54 @@ type Order = {
   user: { name: string; email: string };
   items: OrderItem[];
 };
+
+const statusOptions = ["pending", "processing", "delivered", "cancelled"];
+
+export default function AdminOrdersPage() {
+  const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [expandedId, setExpandedId] = useState<string | null>(null);
+
+  const loadOrders = () => {
+    fetch("/api/admin/orders")
+    .then((res)=> res.json())
+    .then((data)=>{
+      setOrders(Array.isArray(data) ? data : []);
+      setLoading(false);
+    });
+  };
+
+  useEffect(()=> {
+    loadOrders();
+  }, []);
+
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    const res = fetch(`/api/admin/orders/${id}`,{
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+     body: JSON.stringify({ status: newStatus }),
+    });
+
+    if(res.ok) {
+      setOrders((prev)=> 
+       prev.map((o) => (o.id === id ? { ...o, status: newStatus } : o))
+      );
+       Swal.fire({
+        icon: "success",
+        title: "Status Updated",
+        showConfirmButton: false,
+        timer: 1000,
+        customClass: { popup: "rounded-2xl" },
+      });
+    }
+  };
+
+  if (loading) return <p className="text-gray-500 text-sm">Loading orders...</p>;
+
+  return(
+    <div>
+        <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">Orders</h1>
+      <p className="text-gray-500 text-sm mb-6">{orders.length} orders total</p>
+    </div>
+  )
+}
