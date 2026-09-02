@@ -84,7 +84,25 @@ export default function AdminOrdersPage() {
               <button
                 onClick={() => setExpandedId(expandedId === order.id ? null : order.id)}
                 className="w-full flex items-center justify-between p-5 text-left"
-              ></button>
+              >
+                <div className="flex items-center gap-4 min-w-0">
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">
+                      #{order.id.slice(-8).toUpperCase()}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      {order.user.name} ·{" "}
+                      {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </p>
+                  </div>
+                </div>
+              </button>
       )}
     </div>
   )
