@@ -71,6 +71,13 @@ export default function AdminOrdersPage() {
     <div>
         <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">Orders</h1>
       <p className="text-gray-500 text-sm mb-6">{orders.length} orders total</p>
+
+      {orders.length === 0 ? (
+         <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
+          <ShoppingBag size={40} className="text-gray-300 mx-auto mb-3" />
+          <p className="text-gray-500 text-sm">No orders yet.</p>
+        </div>
+      ) : }
     </div>
   )
 }
