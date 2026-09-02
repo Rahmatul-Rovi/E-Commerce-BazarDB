@@ -77,7 +77,15 @@ export default function AdminOrdersPage() {
           <ShoppingBag size={40} className="text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 text-sm">No orders yet.</p>
         </div>
-      ) : }
+      ) : (
+        <div className="space-y-3">
+          {orders.map((order) => (
+            <div key={order.id} className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+              <button
+                onClick={() => setExpandedId(expandedId === order.id ? null : order.id)}
+                className="w-full flex items-center justify-between p-5 text-left"
+              ></button>
+      )}
     </div>
   )
 }
