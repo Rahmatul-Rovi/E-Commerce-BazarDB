@@ -128,6 +128,47 @@ export default function AdminOrdersPage() {
                   </select>
                 </div>
               </button>
+
+                {expandedId === order.id && (
+                <div className="border-t border-gray-100 p-5 bg-surface">
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400 uppercase mb-2">
+                        Items
+                      </p>
+                      <div className="space-y-2">
+                        {order.items.map((item) => (
+                          <div key={item.id} className="flex items-center gap-3">
+                            <img
+                              src={item.product.imageUrl}
+                              alt={item.product.name}
+                              className="w-9 h-9 rounded-lg object-cover bg-white"
+                            />
+                              <p className="text-sm text-gray-700 flex-1 line-clamp-1">
+                              {item.product.name}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {item.quantity} × ৳{item.price.toFixed(0)}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                     <div>
+                      <p className="text-xs font-semibold text-gray-400 uppercase mb-2">
+                        Delivery Info
+                      </p>
+                      <p className="text-sm text-gray-700">{order.fullName}</p>
+                      <p className="text-sm text-gray-500">{order.phone}</p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {order.address}, {order.city}
+                      </p>
+                       <p className="text-sm text-gray-500 mt-1">
+                        Payment:{" "}
+                        {order.paymentMethod === "cod" ? "Cash on Delivery" : order.paymentMethod}
+                      </p>
+                      <p className="text-sm text-gray-500 mt-1">Email: {order.user.email}</p>
+                    </div>
       )}
     </div>
   )
