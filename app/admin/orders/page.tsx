@@ -107,6 +107,20 @@ export default function AdminOrdersPage() {
                   <p className="font-heading font-bold text-gray-900">
                     ৳{order.total.toFixed(0)}
                   </p>
+                   <select
+                    value={order.status}
+                    onClick={(e) => e.stopPropagation()}
+                    onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                    className={`text-xs font-medium px-3 py-1.5 rounded-full capitalize border-0 cursor-pointer ${
+                      order.status === "delivered"
+                        ? "bg-primary-light text-primary-dark"
+                        : order.status === "pending"
+                        ? "bg-amber-100 text-amber-700"
+                        : order.status === "cancelled"
+                        ? "bg-red-100 text-red-600"
+                        : "bg-blue-100 text-blue-700"
+                    }`}
+                  ></select>
               </button>
       )}
     </div>
