@@ -163,6 +163,12 @@ export default function AdminOrdersPage() {
                       <p className="text-sm text-gray-500 mt-1">
                         {order.address}, {order.city}
                       </p>
+                       <p className="text-sm text-gray-500 mt-1">
+                        Payment:{" "}
+                        {order.paymentMethod === "cod" ? "Cash on Delivery" : order.paymentMethod}
+                      </p>
+                      <p className="text-sm text-gray-500 mt-1">Email: {order.user.email}</p>
+                    </div>
       )}
     </div>
   )
