@@ -154,6 +154,15 @@ export default function AdminOrdersPage() {
                         ))}
                       </div>
                     </div>
+                     <div>
+                      <p className="text-xs font-semibold text-gray-400 uppercase mb-2">
+                        Delivery Info
+                      </p>
+                      <p className="text-sm text-gray-700">{order.fullName}</p>
+                      <p className="text-sm text-gray-500">{order.phone}</p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        {order.address}, {order.city}
+                      </p>
       )}
     </div>
   )
