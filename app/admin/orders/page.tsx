@@ -136,6 +136,14 @@ export default function AdminOrdersPage() {
                       <p className="text-xs font-semibold text-gray-400 uppercase mb-2">
                         Items
                       </p>
+                      <div className="space-y-2">
+                        {order.items.map((item) => (
+                          <div key={item.id} className="flex items-center gap-3">
+                            <img
+                              src={item.product.imageUrl}
+                              alt={item.product.name}
+                              className="w-9 h-9 rounded-lg object-cover bg-white"
+                            />
       )}
     </div>
   )
