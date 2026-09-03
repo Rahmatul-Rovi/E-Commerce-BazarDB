@@ -128,6 +128,14 @@ export default function AdminOrdersPage() {
                   </select>
                 </div>
               </button>
+
+                {expandedId === order.id && (
+                <div className="border-t border-gray-100 p-5 bg-surface">
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400 uppercase mb-2">
+                        Items
+                      </p>
       )}
     </div>
   )
