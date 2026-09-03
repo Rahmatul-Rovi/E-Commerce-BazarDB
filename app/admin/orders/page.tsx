@@ -102,6 +102,11 @@ export default function AdminOrdersPage() {
                     </p>
                   </div>
                 </div>
+
+                 <div className="flex items-center gap-4 shrink-0">
+                  <p className="font-heading font-bold text-gray-900">
+                    ৳{order.total.toFixed(0)}
+                  </p>
               </button>
       )}
     </div>
