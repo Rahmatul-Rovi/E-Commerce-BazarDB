@@ -144,6 +144,16 @@ export default function AdminOrdersPage() {
                               alt={item.product.name}
                               className="w-9 h-9 rounded-lg object-cover bg-white"
                             />
+                              <p className="text-sm text-gray-700 flex-1 line-clamp-1">
+                              {item.product.name}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {item.quantity} × ৳{item.price.toFixed(0)}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
       )}
     </div>
   )
