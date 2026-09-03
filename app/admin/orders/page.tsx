@@ -120,7 +120,13 @@ export default function AdminOrdersPage() {
                         ? "bg-red-100 text-red-600"
                         : "bg-blue-100 text-blue-700"
                     }`}
-                  ></select>
+                  >{statusOptions.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </button>
       )}
     </div>
