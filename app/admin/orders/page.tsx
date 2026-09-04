@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ShoppingBag } from "lucide-react";
 import Swal from "sweetalert2";
 
 type OrderItem = {
@@ -33,29 +34,29 @@ export default function AdminOrdersPage() {
 
   const loadOrders = () => {
     fetch("/api/admin/orders")
-    .then((res)=> res.json())
-    .then((data)=>{
-      setOrders(Array.isArray(data) ? data : []);
-      setLoading(false);
-    });
+      .then((res) => res.json())
+      .then((data) => {
+        setOrders(Array.isArray(data) ? data : []);
+        setLoading(false);
+      });
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     loadOrders();
   }, []);
 
   const handleStatusChange = async (id: string, newStatus: string) => {
-    const res = fetch(`/api/admin/orders/${id}`,{
+    const res = await fetch(`/api/admin/orders/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-     body: JSON.stringify({ status: newStatus }),
+      body: JSON.stringify({ status: newStatus }),
     });
 
-    if(res.ok) {
-      setOrders((prev)=> 
-       prev.map((o) => (o.id === id ? { ...o, status: newStatus } : o))
+    if (res.ok) {
+      setOrders((prev) =>
+        prev.map((o) => (o.id === id ? { ...o, status: newStatus } : o))
       );
-       Swal.fire({
+      Swal.fire({
         icon: "success",
         title: "Status Updated",
         showConfirmButton: false,
@@ -67,13 +68,13 @@ export default function AdminOrdersPage() {
 
   if (loading) return <p className="text-gray-500 text-sm">Loading orders...</p>;
 
-  return(
+  return (
     <div>
-        <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">Orders</h1>
+      <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">Orders</h1>
       <p className="text-gray-500 text-sm mb-6">{orders.length} orders total</p>
 
       {orders.length === 0 ? (
-         <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
+        <div className="bg-white rounded-2xl border border-gray-100 p-10 text-center">
           <ShoppingBag size={40} className="text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 text-sm">No orders yet.</p>
         </div>
@@ -103,11 +104,11 @@ export default function AdminOrdersPage() {
                   </div>
                 </div>
 
-                 <div className="flex items-center gap-4 shrink-0">
+                <div className="flex items-center gap-4 shrink-0">
                   <p className="font-heading font-bold text-gray-900">
                     ৳{order.total.toFixed(0)}
                   </p>
-                   <select
+                  <select
                     value={order.status}
                     onClick={(e) => e.stopPropagation()}
                     onChange={(e) => handleStatusChange(order.id, e.target.value)}
@@ -120,7 +121,8 @@ export default function AdminOrdersPage() {
                         ? "bg-red-100 text-red-600"
                         : "bg-blue-100 text-blue-700"
                     }`}
-                  >{statusOptions.map((s) => (
+                  >
+                    {statusOptions.map((s) => (
                       <option key={s} value={s}>
                         {s}
                       </option>
@@ -129,7 +131,7 @@ export default function AdminOrdersPage() {
                 </div>
               </button>
 
-                {expandedId === order.id && (
+              {expandedId === order.id && (
                 <div className="border-t border-gray-100 p-5 bg-surface">
                   <div className="grid md:grid-cols-2 gap-5">
                     <div>
@@ -144,7 +146,7 @@ export default function AdminOrdersPage() {
                               alt={item.product.name}
                               className="w-9 h-9 rounded-lg object-cover bg-white"
                             />
-                              <p className="text-sm text-gray-700 flex-1 line-clamp-1">
+                            <p className="text-sm text-gray-700 flex-1 line-clamp-1">
                               {item.product.name}
                             </p>
                             <p className="text-xs text-gray-500">
@@ -154,7 +156,8 @@ export default function AdminOrdersPage() {
                         ))}
                       </div>
                     </div>
-                     <div>
+
+                    <div>
                       <p className="text-xs font-semibold text-gray-400 uppercase mb-2">
                         Delivery Info
                       </p>
@@ -163,13 +166,13 @@ export default function AdminOrdersPage() {
                       <p className="text-sm text-gray-500 mt-1">
                         {order.address}, {order.city}
                       </p>
-                       <p className="text-sm text-gray-500 mt-1">
+                      <p className="text-sm text-gray-500 mt-1">
                         Payment:{" "}
                         {order.paymentMethod === "cod" ? "Cash on Delivery" : order.paymentMethod}
                       </p>
                       <p className="text-sm text-gray-500 mt-1">Email: {order.user.email}</p>
                     </div>
-                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -177,7 +180,5 @@ export default function AdminOrdersPage() {
         </div>
       )}
     </div>
-      )}
-    </div>
-  )
+  );
 }
