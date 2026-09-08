@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type UserRow = {
   id: string;
@@ -15,4 +15,13 @@ type UserRow = {
 export default function AdminUsersPage() {
     const [users, setUsers] = useState<UserRow[]>([]);
     const [loading, setLoading] = useState(true);
+
+    useEffect(()=> {
+      fetch("/api/admin/users")
+      .then((res)=> res.json())
+      .then((data)=> {
+        setUsers(Array.isArray(data) ? data : []);
+
+      })
+    })
 }
