@@ -26,4 +26,11 @@ export default function AdminUsersPage() {
     }, []);
 
      if (loading) return <p className="text-gray-500 text-sm">Loading users...</p>;
+
+     return(
+      <div>
+        <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">Users</h1>
+      <p className="text-gray-500 text-sm mb-6">{users.length} registered users</p>
+      </div>
+     )
 }
