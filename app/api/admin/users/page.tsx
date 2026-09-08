@@ -58,6 +58,13 @@ export default function AdminUsersPage() {
                   <td className="px-5 py-3 text-gray-500">{user.phone || "—"}</td>
                   <td className="px-5 py-3">{user._count.orders}</td>
                   <td className="px-5 py-3"></td>
+                   <span
+                      className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize ${
+                        user.role === "admin"
+                          ? "bg-primary-light text-primary-dark"
+                          : "bg-gray-100 text-gray-600"
+                      }`}
+                    ></span>
       </div>
      )
 }
