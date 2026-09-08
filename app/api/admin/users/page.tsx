@@ -49,6 +49,15 @@ export default function AdminUsersPage() {
                 <th className="px-5 py-3 font-medium">Role</th>
                 <th className="px-5 py-3 font-medium">Joined</th>
               </tr>
+               </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr key={user.id} className="border-t border-gray-100">
+                  <td className="px-5 py-3 font-medium text-gray-800">{user.name}</td>
+                  <td className="px-5 py-3 text-gray-500">{user.email}</td>
+                  <td className="px-5 py-3 text-gray-500">{user.phone || "—"}</td>
+                  <td className="px-5 py-3">{user._count.orders}</td>
+                  <td className="px-5 py-3"></td>
       </div>
      )
 }
