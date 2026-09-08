@@ -21,7 +21,9 @@ export default function AdminUsersPage() {
       .then((res)=> res.json())
       .then((data)=> {
         setUsers(Array.isArray(data) ? data : []);
+        setLoading(false);
+      });
+    }, []);
 
-      })
-    })
+     if (loading) return <p className="text-gray-500 text-sm">Loading users...</p>;
 }
