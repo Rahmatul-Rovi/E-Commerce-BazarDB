@@ -37,7 +37,18 @@ export default function AdminUsersPage() {
           <Users size={40} className="text-gray-300 mx-auto mb-3" />
           <p className="text-gray-500 text-sm">No users yet.</p>
         </div>
-      )
+      ) : (
+        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden overflow-x-auto">
+          <table className="w-full text-sm min-w-[650px]">
+            <thead className="bg-surface text-gray-500 text-left">
+              <tr>
+                <th className="px-5 py-3 font-medium">Name</th>
+                <th className="px-5 py-3 font-medium">Email</th>
+                <th className="px-5 py-3 font-medium">Phone</th>
+                <th className="px-5 py-3 font-medium">Orders</th>
+                <th className="px-5 py-3 font-medium">Role</th>
+                <th className="px-5 py-3 font-medium">Joined</th>
+              </tr>
       </div>
      )
 }
