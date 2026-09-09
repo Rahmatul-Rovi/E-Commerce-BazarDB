@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Users } from "lucide-react";
 
 type UserRow = {
   id: string;
@@ -13,23 +14,23 @@ type UserRow = {
 };
 
 export default function AdminUsersPage() {
-    const [users, setUsers] = useState<UserRow[]>([]);
-    const [loading, setLoading] = useState(true);
+  const [users, setUsers] = useState<UserRow[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(()=> {
-      fetch("/api/admin/users")
-      .then((res)=> res.json())
-      .then((data)=> {
+  useEffect(() => {
+    fetch("/api/admin/users")
+      .then((res) => res.json())
+      .then((data) => {
         setUsers(Array.isArray(data) ? data : []);
         setLoading(false);
       });
-    }, []);
+  }, []);
 
-     if (loading) return <p className="text-gray-500 text-sm">Loading users...</p>;
+  if (loading) return <p className="text-gray-500 text-sm">Loading users...</p>;
 
-     return(
-      <div>
-        <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">Users</h1>
+  return (
+    <div>
+      <h1 className="font-heading text-2xl font-bold text-gray-900 mb-1">Users</h1>
       <p className="text-gray-500 text-sm mb-6">{users.length} registered users</p>
 
       {users.length === 0 ? (
@@ -49,7 +50,7 @@ export default function AdminUsersPage() {
                 <th className="px-5 py-3 font-medium">Role</th>
                 <th className="px-5 py-3 font-medium">Joined</th>
               </tr>
-               </thead>
+            </thead>
             <tbody>
               {users.map((user) => (
                 <tr key={user.id} className="border-t border-gray-100">
@@ -57,8 +58,8 @@ export default function AdminUsersPage() {
                   <td className="px-5 py-3 text-gray-500">{user.email}</td>
                   <td className="px-5 py-3 text-gray-500">{user.phone || "—"}</td>
                   <td className="px-5 py-3">{user._count.orders}</td>
-                  <td className="px-5 py-3"></td>
-                   <span
+                  <td className="px-5 py-3">
+                    <span
                       className={`text-xs font-medium px-2.5 py-1 rounded-full capitalize ${
                         user.role === "admin"
                           ? "bg-primary-light text-primary-dark"
@@ -67,8 +68,7 @@ export default function AdminUsersPage() {
                     >
                       {user.role}
                     </span>
-
-                     </td>
+                  </td>
                   <td className="px-5 py-3 text-gray-500">
                     {new Date(user.createdAt).toLocaleDateString("en-GB", {
                       day: "numeric",
@@ -76,7 +76,7 @@ export default function AdminUsersPage() {
                       year: "numeric",
                     })}
                   </td>
-                   </tr>
+                </tr>
               ))}
             </tbody>
           </table>
