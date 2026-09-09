@@ -76,6 +76,12 @@ export default function AdminUsersPage() {
                       year: "numeric",
                     })}
                   </td>
-      </div>
-     )
+                   </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
 }
