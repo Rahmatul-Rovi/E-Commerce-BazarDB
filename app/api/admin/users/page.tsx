@@ -64,7 +64,18 @@ export default function AdminUsersPage() {
                           ? "bg-primary-light text-primary-dark"
                           : "bg-gray-100 text-gray-600"
                       }`}
-                    ></span>
+                    >
+                      {user.role}
+                    </span>
+
+                     </td>
+                  <td className="px-5 py-3 text-gray-500">
+                    {new Date(user.createdAt).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </td>
       </div>
      )
 }
