@@ -34,5 +34,14 @@ function SearchResults(){
         setLoading(false);
       });
   }, [query]);
+
+  return(
+     <h1 className="font-heading text-2xl md:text-3xl font-bold text-gray-900">
+        Search results for &quot;{query}&quot;
+      </h1>
+      <p className="text-gray-500 mt-1">
+        {loading ? "Searching..." : `${products.length} products found`}
+      </p>
+  )
           })
 }
