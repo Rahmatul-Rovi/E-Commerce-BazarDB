@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Product = {
   id: string;
@@ -18,4 +18,21 @@ function SearchResults(){
           const query = searchParams.get("q") || "";
           const [products, setProducts] = useState<Product[]>([]);
           const [loading, setLoading] = useState(true);
+
+          useEffect(()=> {
+            if(!query) {
+                setProducts([]);
+                setLoading(false);
+                return;
+            }
+
+            setLoading(true);
+    fetch(`/api/search?q=${encodeURIComponent(query)}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setProducts(Array.isArray(data) ? data : []);
+        setLoading(false);
+      });
+  }, [query]);
+          })
 }
