@@ -55,6 +55,15 @@ function SearchResults(){
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
+          ) : (
+          <div className="text-center py-16">
+            <SearchIcon size={48} className="text-gray-300 mx-auto mb-4" />
+            <p className="text-gray-500">No products found for &quot;{query}&quot;</p>
+            <p className="text-gray-400 text-sm mt-1">Try searching with a different keyword</p>
+          </div>
+        )}
+      </div>
+    </main>
   )
           })
 }
