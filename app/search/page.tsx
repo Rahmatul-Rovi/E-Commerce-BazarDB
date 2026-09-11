@@ -66,4 +66,11 @@ function SearchResults(){
     </main>
   )
           })
+          export default function SearchPage() {
+  return (
+    <Suspense fallback={null}>
+      <SearchResults />
+    </Suspense>
+  );
+}
 }
