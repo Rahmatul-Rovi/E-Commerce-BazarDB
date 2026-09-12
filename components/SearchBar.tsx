@@ -31,4 +31,21 @@ export default function SearchBar({ mobile = false }: { mobile?: boolean }) {
     return () => clearTimeout(timer);
   }, [query]);
 
+   useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if(query.trim()){
+        setShowDropdown(false);
+        router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+    }
+  };
 }
