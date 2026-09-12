@@ -48,4 +48,23 @@ export default function SearchBar({ mobile = false }: { mobile?: boolean }) {
         router.push(`/search?q=${encodeURIComponent(query.trim())}`);
     }
   };
+
+  return (
+    <div ref={wrapperRef} className="relative w-full">
+      <form
+        onSubmit={handleSubmit}
+        className={`flex items-center bg-gray-50 rounded-full px-4 py-2 border border-gray-100 focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all ${
+          mobile ? "" : ""
+        }`}
+      >
+        <Search size={18} className="text-gray-400 mr-2 shrink-0" />
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => setShowDropdown(true)}
+          placeholder="Search for products..."
+          className="flex-1 bg-transparent text-sm focus:outline-none text-gray-800 placeholder-gray-400"
+        />
+      </form>
 }
