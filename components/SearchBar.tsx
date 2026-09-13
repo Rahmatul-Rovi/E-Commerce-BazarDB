@@ -67,4 +67,19 @@ export default function SearchBar({ mobile = false }: { mobile?: boolean }) {
           className="flex-1 bg-transparent text-sm focus:outline-none text-gray-800 placeholder-gray-400"
         />
       </form>
+
+       {showDropdown && suggestions.length > 0 && (
+        <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden z-50">
+          {suggestions.map((product) => (
+            <Link
+              key={product.id}
+              href={`/product/${product.slug}`}
+              onClick={() => setShowDropdown(false)}
+              className="flex items-center gap-3 px-4 py-2.5 hover:bg-surface transition-colors"
+            >
+              <img
+                src={product.imageUrl}
+                alt={product.name}
+                className="w-9 h-9 rounded-lg object-cover bg-surface shrink-0"
+              />
 }
