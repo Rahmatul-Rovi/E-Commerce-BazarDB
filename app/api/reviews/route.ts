@@ -31,3 +31,24 @@ export async function POST(request: Request) {
   }
 
   const { productId, rating, comment } = await request.json();
+
+   if (!productId || !rating || rating < 1 || rating > 5) {
+    return NextResponse.json({ error: "Invalid review data" }, { status: 400 });
+  }
+
+  try {
+    const review = await prisma.review.upsert({
+      where: {
+        productId_userId: {
+          productId,
+          userId: session.user.id,
+        },
+      },
+      update: { rating, comment },
+      create: {
+        productId,
+        userId: session.user.id,
+        rating,
+        comment,
+      },
+    });
