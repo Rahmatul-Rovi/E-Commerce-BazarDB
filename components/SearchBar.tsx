@@ -1,7 +1,9 @@
 "use client";
 
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { Search } from "lucide-react";
+import Link from "next/link";
 
 type Product = {
   id: string;
@@ -12,26 +14,28 @@ type Product = {
 };
 
 export default function SearchBar({ mobile = false }: { mobile?: boolean }) {
-    const router = useRouter();
-    const [query, setQuery] = useState("");
-    const [suggestions, setSuggestions] = useState<Product[]>([]);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const wrapperRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+  const [suggestions, setSuggestions] = useState<Product[]>([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+  useEffect(() => {
     if (query.trim().length < 2) {
       setSuggestions([]);
       return;
     }
+
     const timer = setTimeout(() => {
       fetch(`/api/search?q=${encodeURIComponent(query)}`)
         .then((res) => res.json())
         .then((data) => setSuggestions(Array.isArray(data) ? data.slice(0, 5) : []));
     }, 300);
+
     return () => clearTimeout(timer);
   }, [query]);
 
-   useEffect(() => {
+  useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
         setShowDropdown(false);
@@ -43,9 +47,9 @@ export default function SearchBar({ mobile = false }: { mobile?: boolean }) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if(query.trim()){
-        setShowDropdown(false);
-        router.push(`/search?q=${encodeURIComponent(query.trim())}`);
+    if (query.trim()) {
+      setShowDropdown(false);
+      router.push(`/search?q=${encodeURIComponent(query.trim())}`);
     }
   };
 
@@ -68,7 +72,7 @@ export default function SearchBar({ mobile = false }: { mobile?: boolean }) {
         />
       </form>
 
-       {showDropdown && suggestions.length > 0 && (
+      {showDropdown && suggestions.length > 0 && (
         <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden z-50">
           {suggestions.map((product) => (
             <Link
@@ -82,7 +86,6 @@ export default function SearchBar({ mobile = false }: { mobile?: boolean }) {
                 alt={product.name}
                 className="w-9 h-9 rounded-lg object-cover bg-surface shrink-0"
               />
-
               <span className="text-sm text-gray-700 line-clamp-1">{product.name}</span>
             </Link>
           ))}
@@ -96,5 +99,4 @@ export default function SearchBar({ mobile = false }: { mobile?: boolean }) {
       )}
     </div>
   );
-}
 }
