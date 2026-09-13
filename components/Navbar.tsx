@@ -16,6 +16,7 @@ import {
 
 import { useSession, signOut } from "next-auth/react";
 import { useCartStore } from "@/app/store/cartStore";
+import SearchBar from "./SearchBar";
 
 const quickCategories = [
   { name: "Fruits & Vegetables", slug: "fruits-vegetables" },
@@ -102,14 +103,15 @@ const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
         </button>
 
         {/* Desktop Search */}
-        <div className="hidden md:flex flex-1 max-w-2xl mx-auto items-center bg-gray-50 rounded-full px-4 py-2 border border-gray-100 focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary transition-all">
-          <Search size={18} className="text-gray-400 mr-2 shrink-0" />
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="flex-1 bg-transparent text-sm focus:outline-none text-gray-800 placeholder-gray-400"
-          />
-        </div>
+       <div className="hidden md:block flex-1 max-w-2xl mx-auto">
+  <SearchBar />
+</div>
+
+           {/* Mobile Search */}
+
+        <div className="md:hidden px-4 pb-3">
+  <SearchBar mobile />
+</div>
 
         {/* Right Side (Desktop Auth & Cart) */}
         <div className="flex items-center gap-4 ml-auto md:ml-0">
