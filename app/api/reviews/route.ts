@@ -22,3 +22,12 @@ export async function GET(request: Request) {
 
   return NextResponse.json({ reviews, avgRating, count: reviews.length });
 }
+
+export async function POST(request: Request) {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Please log in to write a review" }, { status: 401 });
+  }
+
+  const { productId, rating, comment } = await request.json();
