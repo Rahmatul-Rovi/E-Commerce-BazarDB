@@ -82,4 +82,19 @@ export default function SearchBar({ mobile = false }: { mobile?: boolean }) {
                 alt={product.name}
                 className="w-9 h-9 rounded-lg object-cover bg-surface shrink-0"
               />
+
+              <span className="text-sm text-gray-700 line-clamp-1">{product.name}</span>
+            </Link>
+          ))}
+          <button
+            onClick={handleSubmit}
+            className="w-full text-left px-4 py-2.5 text-sm text-primary font-medium hover:bg-surface border-t border-gray-100"
+          >
+            See all results for &quot;{query}&quot;
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
 }
