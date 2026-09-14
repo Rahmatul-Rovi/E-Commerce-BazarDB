@@ -1,5 +1,8 @@
 "use client";
 
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+
 type Review = {
   id: string;
   rating: number;
@@ -38,4 +41,11 @@ function StarRating({
       ))}
     </div>
   );
+}
+
+export default function ProductReviews({ productId }: { productId: string }) {
+    const { data:session } = useSession();
+    const [reviews, setReviews] = useState<Review[]>([]);
+     const [avgRating, setAvgRating] = useState(0);
+  const [count, setCount] = useState(0);
 }
