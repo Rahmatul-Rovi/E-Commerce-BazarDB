@@ -19,3 +19,23 @@ function StarRating({
   interactive?: boolean;
   onChange?: (value: number) => void;
 }) {
+
+     return (
+    <div className="flex gap-0.5">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <button
+          key={star}
+          type="button"
+          disabled={!interactive}
+          onClick={() => onChange?.(star)}
+          className={interactive ? "cursor-pointer" : "cursor-default"}
+        >
+          <Star
+            size={size}
+            className={star <= rating ? "fill-accent text-accent" : "text-gray-300"}
+          />
+        </button>
+      ))}
+    </div>
+  );
+}
