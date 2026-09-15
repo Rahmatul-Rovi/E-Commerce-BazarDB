@@ -79,4 +79,22 @@ export default function ProductReviews({ productId }: { productId: string }) {
       });
       return;
     }
+
+    if (myRating === 0) {
+      Swal.fire({
+        icon: "warning",
+        title: "Select a rating",
+        text: "Please select at least 1 star.",
+        customClass: { popup: "rounded-2xl" },
+      });
+      return;
+    }
+
+    setSubmitting(true);
+
+    const res = await fetch("/api/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId, rating: myRating, comment: myComment }),
+    });
 }
