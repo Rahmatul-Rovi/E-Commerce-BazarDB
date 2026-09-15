@@ -3,25 +3,33 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 
 export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const productId = searchParams.get("productId");
+  try {
+    const { searchParams } = new URL(request.url);
+    const productId = searchParams.get("productId");
 
-  if (!productId) {
-    return NextResponse.json({ error: "productId is required" }, { status: 400 });
+    if (!productId) {
+      return NextResponse.json({ error: "productId is required" }, { status: 400 });
+    }
+
+    const reviews = await prisma.review.findMany({
+      where: { productId },
+      include: { user: { select: { name: true, image: true } } },
+      orderBy: { createdAt: "desc" },
+    });
+
+    const avgRating =
+      reviews.length > 0
+        ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
+        : 0;
+
+    return NextResponse.json({ reviews, avgRating, count: reviews.length });
+  } catch (error) {
+    console.error("GET /api/reviews error:", error);
+    return NextResponse.json(
+      { error: "Failed to load reviews", reviews: [], avgRating: 0, count: 0 },
+      { status: 500 }
+    );
   }
-
-  const reviews = await prisma.review.findMany({
-    where: { productId },
-    include: { user: { select: { name: true, image: true } } },
-    orderBy: { createdAt: "desc" },
-  });
-
-  const avgRating =
-    reviews.length > 0
-      ? reviews.reduce((sum, r) => sum + r.rating, 0) / reviews.length
-      : 0;
-
-  return NextResponse.json({ reviews, avgRating, count: reviews.length });
 }
 
 export async function POST(request: Request) {

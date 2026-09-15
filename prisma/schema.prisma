@@ -12,6 +12,7 @@ model User {
   email     String   @unique
   phone     String?
   password  String?
+  image     String?
   role      String   @default("user")
   orders    Order[]
   reviews   Review[]
