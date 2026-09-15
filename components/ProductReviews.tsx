@@ -169,6 +169,21 @@ export default function ProductReviews({ productId }: { productId: string }) {
         <p className="text-gray-500 text-sm">Loading reviews...</p>
       ) : reviews.length === 0 ? (
         <p className="text-gray-500 text-sm">No reviews yet. Be the first to review!</p>
-      ) :
+      ) : (
+        <div className="space-y-4">
+          {reviews.map((review) => (
+            <div key={review.id} className="border-b border-gray-100 pb-4">
+              <div className="flex items-center gap-3">
+                {review.user.image ? (
+                  <img
+                    src={review.user.image}
+                    alt={review.user.name}
+                    className="w-9 h-9 rounded-full object-cover"
+                  />
+                ) : (
+                  <div className="w-9 h-9 rounded-full bg-primary text-white text-sm font-semibold flex items-center justify-center">
+                    {review.user.name.charAt(0).toUpperCase()}
+                  </div>
+                )}
   )
 }
