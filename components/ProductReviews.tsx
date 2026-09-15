@@ -136,5 +136,23 @@ export default function ProductReviews({ productId }: { productId: string }) {
           </p>
           <StarRating rating={Math.round(avgRating)} size={14} />
         </div>
+         <div className="border-l border-gray-200 pl-4">
+          <p className="text-sm text-gray-600">
+            Based on {count} review{count !== 1 ? "s" : ""}
+          </p>
+        </div>
+      </div>
+
+      {/* Write a review */}
+      <div className="bg-white border border-gray-100 rounded-2xl p-5 mb-6">
+        <p className="text-sm font-semibold text-gray-800 mb-2">Write a Review</p>
+        <StarRating rating={myRating} size={22} interactive onChange={setMyRating} />
+        <textarea
+          value={myComment}
+          onChange={(e) => setMyComment(e.target.value)}
+          placeholder="Share your experience with this product (optional)"
+          rows={3}
+          className="w-full mt-3 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm resize-none"
+        />
   )
 }
