@@ -97,4 +97,28 @@ export default function ProductReviews({ productId }: { productId: string }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ productId, rating: myRating, comment: myComment }),
     });
+
+    setSubmitting(false);
+
+    if (res.ok) {
+      setMyRating(0);
+      setMyComment("");
+      loadReviews();
+      Swal.fire({
+        icon: "success",
+        title: "Review Submitted",
+        showConfirmButton: false,
+        timer: 1300,
+        customClass: { popup: "rounded-2xl" },
+      });
+    } else {
+      const data = await res.json();
+      Swal.fire({
+        icon: "error",
+        title: "Failed",
+        text: data.error || "Something went wrong",
+        customClass: { popup: "rounded-2xl" },
+      });
+    }
+  };
 }
