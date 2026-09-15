@@ -185,5 +185,16 @@ export default function ProductReviews({ productId }: { productId: string }) {
                     {review.user.name.charAt(0).toUpperCase()}
                   </div>
                 )}
+                  <div>
+                  <p className="text-sm font-medium text-gray-800">{review.user.name}</p>
+                  <p className="text-xs text-gray-400">
+                    {new Date(review.createdAt).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </p>
+                </div>
+              </div>
   )
 }
