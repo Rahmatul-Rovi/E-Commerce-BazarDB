@@ -154,5 +154,21 @@ export default function ProductReviews({ productId }: { productId: string }) {
           rows={3}
           className="w-full mt-3 px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm resize-none"
         />
+
+        <button
+          onClick={handleSubmitReview}
+          disabled={submitting}
+          className="mt-3 bg-primary hover:bg-primary-dark text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors disabled:opacity-60"
+        >
+          {submitting ? "Submitting..." : "Submit Review"}
+        </button>
+      </div>
+
+      {/* Reviews list */}
+      {loading ? (
+        <p className="text-gray-500 text-sm">Loading reviews...</p>
+      ) : reviews.length === 0 ? (
+        <p className="text-gray-500 text-sm">No reviews yet. Be the first to review!</p>
+      ) :
   )
 }
