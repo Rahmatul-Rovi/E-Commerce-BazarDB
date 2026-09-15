@@ -52,4 +52,15 @@ export default function ProductReviews({ productId }: { productId: string }) {
   const [myRating, setMyRating] = useState(0);
   const [myComment, setMyComment] = useState("");
   const [submitting, setSubmitting] = useState(false);
+
+  const loadReviews = () => {
+    fetch(`/api/reviews?productId=${productId}`)
+    .then((res)=> res.json())
+    .then((data)=> {
+      setReviews(data.reviews || []);
+      setAvgRating(data.avgRating || 0);
+      setCount(data.count || 0);
+      setLoading(false);
+    });
+  };
 }
