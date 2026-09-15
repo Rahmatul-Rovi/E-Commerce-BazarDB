@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Truck, ShieldCheck, RotateCcw } from "lucide-react";
 import AddToCartBox from "@/components/AddToCartBox";
 import ProductCard from "@/components/ProductCard";
+import ProductReviews from "@/components/ProductReviews";
 
 export default async function ProductDetailsPage({
     params,
@@ -132,6 +133,11 @@ export default async function ProductDetailsPage({
           </div>
         </section>
       )}
+
+      <div className="px-4 md:px-8 mt-16 max-w-5xl mx-auto">
+  <ProductReviews productId={product.id} />
+</div>
+
     </main>
   );
 

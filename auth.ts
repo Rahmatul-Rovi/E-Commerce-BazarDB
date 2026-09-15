@@ -42,42 +42,50 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-  async signIn({ user, account }) {
-    if (account?.provider === "google") {
-      const existingUser = await prisma.user.findUnique({
-        where: { email: user.email! },
-      });
+ async signIn({ user, account }) {
+  if (account?.provider === "google") {
+    const existingUser = await prisma.user.findUnique({
+      where: { email: user.email! },
+    });
 
-      if (!existingUser) {
-        await prisma.user.create({
-          data: {
-            name: user.name || "Google User",
-            email: user.email!,
-            password: null,
-          },
-        });
-      }
-    }
-    return true;
-  },
-  async jwt({ token, user }) {
-    if (user?.email) {
-      const dbUser = await prisma.user.findUnique({
-        where: { email: user.email },
+    if (!existingUser) {
+      await prisma.user.create({
+        data: {
+          name: user.name || "Google User",
+          email: user.email!,
+          password: null,
+          image: user.image || null,
+        },
       });
-      if (dbUser) {
-        token.id = dbUser.id;
-        token.role = dbUser.role;
-      }
+    } else if (!existingUser.image && user.image) {
+      await prisma.user.update({
+        where: { email: user.email! },
+        data: { image: user.image },
+      });
     }
-    return token;
-  },
-  async session({ session, token }) {
-    if (session.user) {
-      session.user.id = token.id as string;
-      session.user.role = token.role as string;
+  }
+  return true;
+},
+  async jwt({ token, user }) {
+  if (user?.email) {
+    const dbUser = await prisma.user.findUnique({
+      where: { email: user.email },
+    });
+    if (dbUser) {
+      token.id = dbUser.id;
+      token.role = dbUser.role;
+      token.picture = dbUser.image || token.picture;
     }
-    return session;
-  },
+  }
+  return token;
+},
+ async session({ session, token }) {
+  if (session.user) {
+    session.user.id = token.id as string;
+    session.user.role = token.role as string;
+    session.user.image = (token.picture as string) || null;
+  }
+  return session;
+},
 },
 });
