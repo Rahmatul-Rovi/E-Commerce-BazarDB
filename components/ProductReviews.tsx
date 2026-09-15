@@ -121,4 +121,20 @@ export default function ProductReviews({ productId }: { productId: string }) {
       });
     }
   };
+
+  return(
+     <section className="mt-16 max-w-3xl">
+      <h2 className="font-heading text-xl md:text-2xl font-semibold text-gray-900 mb-4">
+        Reviews & Ratings
+      </h2>
+
+      {/* Summary */}
+      <div className="flex items-center gap-4 bg-surface rounded-2xl p-5 mb-6">
+        <div className="text-center">
+          <p className="text-3xl font-heading font-bold text-gray-900">
+            {avgRating.toFixed(1)}
+          </p>
+          <StarRating rating={Math.round(avgRating)} size={14} />
+        </div>
+  )
 }
