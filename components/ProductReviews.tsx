@@ -48,4 +48,8 @@ export default function ProductReviews({ productId }: { productId: string }) {
     const [reviews, setReviews] = useState<Review[]>([]);
      const [avgRating, setAvgRating] = useState(0);
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [myRating, setMyRating] = useState(0);
+  const [myComment, setMyComment] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 }
