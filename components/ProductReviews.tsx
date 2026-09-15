@@ -1,7 +1,8 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 type Review = {
   id: string;
@@ -63,4 +64,19 @@ export default function ProductReviews({ productId }: { productId: string }) {
       setLoading(false);
     });
   };
+
+  useEffect(()=> {
+    loadReviews();
+  } , [productId]);
+
+  const handleSubmitReview = async () => {
+    if (!session?.user) {
+      Swal.fire({
+        icon: "info",
+        title: "Please Log In",
+        text: "You need to be logged in to write a review.",
+        customClass: { popup: "rounded-2xl" },
+      });
+      return;
+    }
 }
