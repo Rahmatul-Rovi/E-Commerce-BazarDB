@@ -196,5 +196,18 @@ export default function ProductReviews({ productId }: { productId: string }) {
                   </p>
                 </div>
               </div>
+                <div className="mt-2">
+                <StarRating rating={review.rating} size={14} />
+              </div>
+              {review.comment && (
+                <p className="text-sm text-gray-600 mt-2">{review.comment}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
   )
 }
