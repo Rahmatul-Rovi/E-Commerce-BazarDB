@@ -16,6 +16,7 @@ model User {
   role      String   @default("user")
   orders    Order[]
   reviews   Review[]
+  wishlists   Wishlist[]
   createdAt DateTime @default(now())
 }
 
@@ -38,6 +39,7 @@ model Product {
   category    Category    @relation(fields: [categoryId], references: [id])
   orderItems  OrderItem[]
   reviews     Review[]
+  wishlists   Wishlist[]
 }
 
 model Order {
@@ -69,6 +71,17 @@ model Review {
   id        String   @id @default(cuid())
   rating    Int
   comment   String?
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([productId, userId])
+}
+
+model Wishlist {
+  id        String   @id @default(cuid())
   productId String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   userId    String
