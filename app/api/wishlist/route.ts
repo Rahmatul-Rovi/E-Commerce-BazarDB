@@ -1,17 +1,20 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { auth } from "@/auth";
 
-export default function GET() {
-    const session = await auth();
-     if (!session?.user?.id) {
+export async function GET() {
+  const session = await auth();
+  if (!session?.user?.id) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-   const wishlist = await prisma.wishlist.findMany({
+  const wishlist = await prisma.wishlist.findMany({
     where: { userId: session.user.id },
     include: { product: { include: { category: true } } },
     orderBy: { createdAt: "desc" },
   });
 
-   return NextResponse.json(wishlist);
+  return NextResponse.json(wishlist);
 }
 
 export async function POST(request: Request) {
@@ -26,7 +29,7 @@ export async function POST(request: Request) {
     where: { productId_userId: { productId, userId: session.user.id } },
   });
 
-   if (existing) {
+  if (existing) {
     await prisma.wishlist.delete({ where: { id: existing.id } });
     return NextResponse.json({ added: false });
   }
@@ -34,3 +37,6 @@ export async function POST(request: Request) {
   await prisma.wishlist.create({
     data: { productId, userId: session.user.id },
   });
+
+  return NextResponse.json({ added: true });
+}
