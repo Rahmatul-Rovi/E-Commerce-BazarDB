@@ -25,3 +25,12 @@ export async function POST(request: Request) {
   const existing = await prisma.wishlist.findUnique({
     where: { productId_userId: { productId, userId: session.user.id } },
   });
+
+   if (existing) {
+    await prisma.wishlist.delete({ where: { id: existing.id } });
+    return NextResponse.json({ added: false });
+  }
+
+  await prisma.wishlist.create({
+    data: { productId, userId: session.user.id },
+  });
