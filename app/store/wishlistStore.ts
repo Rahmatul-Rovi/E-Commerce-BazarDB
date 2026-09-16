@@ -1,5 +1,7 @@
 "use client";
 
+import { create } from "zustand";
+
 type WishlistStore = {
   ids: Set<string>;
   setIds: (ids: string[]) => void;
@@ -14,3 +16,9 @@ export const useWishlistStore = create<WishlistStore>((set) => ({
       const newIds = new Set(state.ids);
       if (newIds.has(id)) {
         newIds.delete(id);
+      } else {
+        newIds.add(id);
+      }
+      return { ids: newIds };
+    }),
+}));
