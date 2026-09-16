@@ -13,3 +13,15 @@ export default function GET() {
 
    return NextResponse.json(wishlist);
 }
+
+export async function POST(request: Request) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Please log in to save items" }, { status: 401 });
+  }
+
+  const { productId } = await request.json();
+
+  const existing = await prisma.wishlist.findUnique({
+    where: { productId_userId: { productId, userId: session.user.id } },
+  });
