@@ -28,3 +28,14 @@ export default function WishlistButton({
     }
 
     toggle(productId); // optimistic update
+
+    const res = await fetch("/api/wishlist", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId }),
+    });
+
+    if (!res.ok) {
+      toggle(productId); // revert on failure
+    }
+  };
