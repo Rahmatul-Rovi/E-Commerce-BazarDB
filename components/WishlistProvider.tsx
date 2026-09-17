@@ -1,5 +1,10 @@
 "use client";
 
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useWishlistStore } from "@/app/store/wishlistStore";
+
+
 export default function WishlistProvider({ children }: { children: React.ReactNode }) {
   const { data: session } = useSession();
   const setIds = useWishlistStore((state) => state.setIds);
@@ -15,3 +20,8 @@ export default function WishlistProvider({ children }: { children: React.ReactNo
         });
     } else {
       setIds([]);
+    }
+  }, [session, setIds]);
+
+  return <>{children}</>;
+}
