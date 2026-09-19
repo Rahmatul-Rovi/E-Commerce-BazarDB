@@ -21,3 +21,16 @@ export default function WishlistPage() {
   const { data: session, status } = useSession();
   const [items, setItems] = useState<WishlistItem[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetch("/api/wishlist")
+        .then((res) => res.json())
+        .then((data) => {
+          setItems(Array.isArray(data) ? data : []);
+          setLoading(false);
+        });
+    } else if (status === "unauthenticated") {
+      setLoading(false);
+    }
+  }, [status]);
