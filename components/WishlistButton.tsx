@@ -46,3 +46,11 @@ export default function WishlistButton({
       className={`p-2 rounded-full bg-white/90 hover:bg-white shadow-sm transition-colors ${className}`}
       aria-label="Toggle wishlist"
     ></button>
+
+    <Heart
+        size={size}
+        className={isWishlisted ? "fill-red-500 text-red-500" : "text-gray-400"}
+      />
+    </button>
+  );
+}
