@@ -26,3 +26,16 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
     () => Math.max(...products.map((p) => p.price), 0),
     [products]
   );
+
+  const filteredProducts = useMemo(() => {
+    let result = products.filter((p) => p.price <= maxPrice);
+
+    if (inStockOnly) {
+      result = result.filter((p) => p.stock > 0);
+    }
+
+    switch (sort) {
+      case "price-low":
+        result = [...result].sort((a, b) => a.price - b.price);
+        break;
+        
