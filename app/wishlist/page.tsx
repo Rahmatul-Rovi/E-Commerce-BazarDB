@@ -45,3 +45,13 @@ export default function WishlistPage() {
         <p className="text-gray-500 mt-2 max-w-sm">
           Log in to view and manage your wishlist.
         </p>
+
+         <Link
+          href="/login"
+          className="mt-6 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-colors"
+        >
+          Log In
+        </Link>
+      </main>
+    );
+  }
