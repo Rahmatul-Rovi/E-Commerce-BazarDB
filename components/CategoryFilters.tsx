@@ -18,3 +18,11 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
     const highest = Math.max(...products.map((p) => p.price), 0);
     return highest;
   });
+
+   const [inStockOnly, setInStockOnly] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
+
+  const highestPrice = useMemo(
+    () => Math.max(...products.map((p) => p.price), 0),
+    [products]
+  );
