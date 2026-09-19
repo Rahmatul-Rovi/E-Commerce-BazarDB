@@ -4,6 +4,7 @@ import { Truck, ShieldCheck, RotateCcw } from "lucide-react";
 import AddToCartBox from "@/components/AddToCartBox";
 import ProductCard from "@/components/ProductCard";
 import ProductReviews from "@/components/ProductReviews";
+import WishlistButton from "@/components/WishlistButton";
 
 export default async function ProductDetailsPage({
     params,
@@ -51,6 +52,10 @@ export default async function ProductDetailsPage({
               -{product.discount}% OFF
             </span>
           )}
+
+          <WishlistButton productId={product.id} size={20} className="absolute top-4 right-4 z-10" />
+  <div className="aspect-square bg-surface rounded-3xl overflow-hidden"></div>
+
           <div className="aspect-square bg-surface rounded-3xl overflow-hidden">
             <img
               src={product.imageUrl}

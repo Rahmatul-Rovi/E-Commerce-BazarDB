@@ -3,6 +3,7 @@
 import { ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/app/store/cartStore";
 import Swal from "sweetalert2";
+import WishlistButton from "./WishlistButton";
 
 type Product = {
   id: string;
@@ -52,6 +53,12 @@ export default function ProductCard({ product }: { product: Product }) {
           -{product.discount}%
         </span>
       )}
+
+       <WishlistButton
+    productId={product.id}
+    size={15}
+    className="absolute top-3 right-3 z-10"
+  />
 
       <a href={`/product/${product.slug}`} className="block">
         <div className="aspect-square bg-surface rounded-xl overflow-hidden mb-3">
