@@ -55,3 +55,12 @@ export default function WishlistPage() {
       </main>
     );
   }
+
+   return (
+    <main className="bg-white min-h-screen pb-16 px-4 md:px-8 pt-8">
+      <h1 className="font-heading text-2xl md:text-3xl font-bold text-gray-900 mb-1">
+        My Wishlist
+      </h1>
+      <p className="text-gray-500 mb-6">
+        {items.length} item{items.length !== 1 ? "s" : ""} saved
+      </p>
