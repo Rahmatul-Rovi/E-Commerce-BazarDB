@@ -1,7 +1,10 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { Heart } from "lucide-react";
+import ProductCard from "@/components/ProductCard";
 
 type WishlistItem = {
   id: string;
@@ -15,7 +18,6 @@ type WishlistItem = {
     stock: number;
   };
 };
-
 
 export default function WishlistPage() {
   const { data: session, status } = useSession();
@@ -35,6 +37,8 @@ export default function WishlistPage() {
     }
   }, [status]);
 
+  if (status === "loading" || loading) return null;
+
   if (!session?.user) {
     return (
       <main className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
@@ -45,8 +49,7 @@ export default function WishlistPage() {
         <p className="text-gray-500 mt-2 max-w-sm">
           Log in to view and manage your wishlist.
         </p>
-
-         <Link
+        <Link
           href="/login"
           className="mt-6 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-colors"
         >
@@ -56,7 +59,7 @@ export default function WishlistPage() {
     );
   }
 
-   return (
+  return (
     <main className="bg-white min-h-screen pb-16 px-4 md:px-8 pt-8">
       <h1 className="font-heading text-2xl md:text-3xl font-bold text-gray-900 mb-1">
         My Wishlist
@@ -64,7 +67,6 @@ export default function WishlistPage() {
       <p className="text-gray-500 mb-6">
         {items.length} item{items.length !== 1 ? "s" : ""} saved
       </p>
-
 
       {items.length === 0 ? (
         <div className="text-center py-16">
@@ -77,8 +79,7 @@ export default function WishlistPage() {
             Start Shopping
           </Link>
         </div>
-
-        ) : (
+      ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {items.map((item) => (
             <ProductCard key={item.id} product={item.product} />
