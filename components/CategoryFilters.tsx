@@ -38,4 +38,16 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
       case "price-low":
         result = [...result].sort((a, b) => a.price - b.price);
         break;
-        
+        case "price-high":
+        result = [...result].sort((a, b) => b.price - a.price);
+        break;
+      case "name-az":
+        result = [...result].sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "name-za":
+        result = [...result].sort((a, b) => b.name.localeCompare(a.name));
+        break;
+    }
+
+    return result;
+  }, [products, sort, maxPrice, inStockOnly]);
