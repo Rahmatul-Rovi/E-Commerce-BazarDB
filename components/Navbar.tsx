@@ -12,6 +12,7 @@ import {
   LogOut,
   Search,
   LayoutDashboard,
+  Heart,
 } from "lucide-react";
 
 import { useSession, signOut } from "next-auth/react";
@@ -168,6 +169,14 @@ const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
               <span>Login</span>
             </Link>
           )}
+
+          {/* Wishlist Section */}
+          <Link
+  href="/wishlist"
+  className="flex items-center text-gray-700 hover:text-primary transition-colors p-1"
+>
+  <Heart size={22} />
+</Link>
 
           {/* Cart Icon */}
           <Link
