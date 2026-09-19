@@ -39,3 +39,10 @@ export default function WishlistButton({
       toggle(productId); // revert on failure
     }
   };
+
+  return (
+    <button
+      onClick={handleClick}
+      className={`p-2 rounded-full bg-white/90 hover:bg-white shadow-sm transition-colors ${className}`}
+      aria-label="Toggle wishlist"
+    ></button>
