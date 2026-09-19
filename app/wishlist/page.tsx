@@ -64,3 +64,16 @@ export default function WishlistPage() {
       <p className="text-gray-500 mb-6">
         {items.length} item{items.length !== 1 ? "s" : ""} saved
       </p>
+
+
+      {items.length === 0 ? (
+        <div className="text-center py-16">
+          <Heart size={48} className="text-gray-300 mx-auto mb-4" />
+          <p className="text-gray-500">Your wishlist is empty.</p>
+          <Link
+            href="/"
+            className="inline-block mt-4 bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-full transition-colors"
+          >
+            Start Shopping
+          </Link>
+        </div>
