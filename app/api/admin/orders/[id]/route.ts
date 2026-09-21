@@ -26,5 +26,12 @@ export async function PATCH(
     cancelled: "has been cancelled",
   };
 
+  await prisma.notification.create({
+    data: {
+      userId: order.userId,
+      message: `Your order #${order.id.slice(-8).toUpperCase()} ${
+        statusMessages[status] || `status changed to ${status}`
+      }`,
+
   return NextResponse.json(order);
 }
