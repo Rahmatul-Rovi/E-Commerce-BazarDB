@@ -185,3 +185,17 @@ function FilterPanel({
           onChange={(e) => setMaxPrice(Number(e.target.value))}
           className="w-full accent-primary"
         />
+         <div className="flex justify-between text-xs text-gray-400 mt-1">
+          <span>৳0</span>
+          <span>৳{highestPrice.toFixed(0)}</span>
+        </div>
+      </div>
+
+      {/* In stock */}
+      <label className="flex items-center gap-2 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={inStockOnly}
+          onChange={(e) => setInStockOnly(e.target.checked)}
+          className="w-4 h-4 accent-primary"
+        />
