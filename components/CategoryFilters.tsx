@@ -144,4 +144,13 @@ function FilterPanel({
   inStockOnly,
   setInStockOnly,
   resetFilters,
-}:
+}: {
+  sort: SortOption;
+  setSort: (s: SortOption) => void;
+  maxPrice: number;
+  setMaxPrice: (n: number) => void;
+  highestPrice: number;
+  inStockOnly: boolean;
+  setInStockOnly: (b: boolean) => void;
+  resetFilters: () => void;
+}) {
