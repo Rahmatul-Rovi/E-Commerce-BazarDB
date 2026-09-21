@@ -57,3 +57,19 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
     setMaxPrice(highestPrice);
     setInStockOnly(false);
   };
+
+   return (
+    <div className="flex flex-col lg:flex-row gap-6">
+      {/* Filters sidebar - desktop */}
+      <aside className="hidden lg:block w-56 shrink-0">
+        <FilterPanel
+          sort={sort}
+          setSort={setSort}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+          highestPrice={highestPrice}
+          inStockOnly={inStockOnly}
+          setInStockOnly={setInStockOnly}
+          resetFilters={resetFilters}
+        />
+      </aside>
