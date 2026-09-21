@@ -73,3 +73,20 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
           resetFilters={resetFilters}
         />
       </aside>
+
+      {/* Mobile filter toggle */}
+      <button
+        onClick={() => setShowFilters(true)}
+        className="lg:hidden flex items-center gap-2 bg-surface text-gray-700 text-sm font-medium px-4 py-2.5 rounded-xl w-fit"
+      >
+        <SlidersHorizontal size={16} />
+        Filters & Sort
+      </button>
+
+      {/* Mobile filter drawer */}
+      {showFilters && (
+        <div className="lg:hidden fixed inset-0 z-50 flex">
+          <div
+            className="fixed inset-0 bg-black/40"
+            onClick={() => setShowFilters(false)}
+          />
