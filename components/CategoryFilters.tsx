@@ -126,3 +126,22 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
+             </div>
+        ) : (
+          <CategoryEmptyState />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function FilterPanel({
+  sort,
+  setSort,
+  maxPrice,
+  setMaxPrice,
+  highestPrice,
+  inStockOnly,
+  setInStockOnly,
+  resetFilters,
+}:
