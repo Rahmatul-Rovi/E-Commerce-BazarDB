@@ -154,3 +154,20 @@ function FilterPanel({
   setInStockOnly: (b: boolean) => void;
   resetFilters: () => void;
 }) {
+   return (
+    <div className="bg-surface rounded-2xl p-5 space-y-6">
+      {/* Sort */}
+      <div>
+        <p className="text-sm font-semibold text-gray-800 mb-3">Sort By</p>
+        <select
+          value={sort}
+          onChange={(e) => setSort(e.target.value as SortOption)}
+          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm bg-white"
+        >
+          <option value="default">Default</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="name-az">Name: A to Z</option>
+          <option value="name-za">Name: Z to A</option>
+        </select>
+      </div>
