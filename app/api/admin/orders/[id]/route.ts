@@ -19,5 +19,12 @@ export async function PATCH(
     data: { status },
   });
 
+   const statusMessages: Record<string, string> = {
+    pending: "is pending confirmation",
+    processing: "is now being processed",
+    delivered: "has been delivered",
+    cancelled: "has been cancelled",
+  };
+
   return NextResponse.json(order);
 }
