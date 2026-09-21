@@ -1,5 +1,10 @@
 "use client";
 
+import { useState, useMemo } from "react";
+import { SlidersHorizontal, X } from "lucide-react";
+import ProductCard from "@/components/ProductCard";
+import CategoryEmptyState from "@/components/CategoryEmptyState";
+
 type Product = {
   id: string;
   name: string;
@@ -18,8 +23,7 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
     const highest = Math.max(...products.map((p) => p.price), 0);
     return highest;
   });
-
-   const [inStockOnly, setInStockOnly] = useState(false);
+  const [inStockOnly, setInStockOnly] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
 
   const highestPrice = useMemo(
@@ -38,7 +42,7 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
       case "price-low":
         result = [...result].sort((a, b) => a.price - b.price);
         break;
-        case "price-high":
+      case "price-high":
         result = [...result].sort((a, b) => b.price - a.price);
         break;
       case "name-az":
@@ -52,13 +56,13 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
     return result;
   }, [products, sort, maxPrice, inStockOnly]);
 
-   const resetFilters = () => {
+  const resetFilters = () => {
     setSort("default");
     setMaxPrice(highestPrice);
     setInStockOnly(false);
   };
 
-   return (
+  return (
     <div className="flex flex-col lg:flex-row gap-6">
       {/* Filters sidebar - desktop */}
       <aside className="hidden lg:block w-56 shrink-0">
@@ -90,8 +94,7 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
             className="fixed inset-0 bg-black/40"
             onClick={() => setShowFilters(false)}
           />
-
-            <div className="relative bg-white w-72 max-w-[85vw] h-full ml-auto p-5 overflow-y-auto">
+          <div className="relative bg-white w-72 max-w-[85vw] h-full ml-auto p-5 overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-heading font-semibold text-gray-900">Filters & Sort</h3>
               <button onClick={() => setShowFilters(false)}>
@@ -108,8 +111,7 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
               setInStockOnly={setInStockOnly}
               resetFilters={resetFilters}
             />
-
-             <button
+            <button
               onClick={() => setShowFilters(false)}
               className="w-full mt-6 bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-full transition-colors"
             >
@@ -126,7 +128,7 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
-             </div>
+          </div>
         ) : (
           <CategoryEmptyState />
         )}
@@ -154,3 +156,60 @@ function FilterPanel({
   setInStockOnly: (b: boolean) => void;
   resetFilters: () => void;
 }) {
+  return (
+    <div className="bg-surface rounded-2xl p-5 space-y-6">
+      {/* Sort */}
+      <div>
+        <p className="text-sm font-semibold text-gray-800 mb-3">Sort By</p>
+        <select
+          value={sort}
+          onChange={(e) => setSort(e.target.value as SortOption)}
+          className="w-full px-3 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary text-sm bg-white"
+        >
+          <option value="default">Default</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="name-az">Name: A to Z</option>
+          <option value="name-za">Name: Z to A</option>
+        </select>
+      </div>
+
+      {/* Price range */}
+      <div>
+        <p className="text-sm font-semibold text-gray-800 mb-3">
+          Max Price: ৳{maxPrice.toFixed(0)}
+        </p>
+        <input
+          type="range"
+          min={0}
+          max={highestPrice}
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(Number(e.target.value))}
+          className="w-full accent-primary"
+        />
+        <div className="flex justify-between text-xs text-gray-400 mt-1">
+          <span>৳0</span>
+          <span>৳{highestPrice.toFixed(0)}</span>
+        </div>
+      </div>
+
+      {/* In stock */}
+      <label className="flex items-center gap-2 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={inStockOnly}
+          onChange={(e) => setInStockOnly(e.target.checked)}
+          className="w-4 h-4 accent-primary"
+        />
+        <span className="text-sm text-gray-700">In Stock Only</span>
+      </label>
+
+      <button
+        onClick={resetFilters}
+        className="text-sm text-primary font-medium hover:underline"
+      >
+        Reset Filters
+      </button>
+    </div>
+  );
+}

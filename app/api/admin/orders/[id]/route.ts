@@ -19,5 +19,19 @@ export async function PATCH(
     data: { status },
   });
 
+   const statusMessages: Record<string, string> = {
+    pending: "is pending confirmation",
+    processing: "is now being processed",
+    delivered: "has been delivered",
+    cancelled: "has been cancelled",
+  };
+
+  await prisma.notification.create({
+    data: {
+      userId: order.userId,
+      message: `Your order #${order.id.slice(-8).toUpperCase()} ${
+        statusMessages[status] || `status changed to ${status}`
+      }`,
+
   return NextResponse.json(order);
 }
