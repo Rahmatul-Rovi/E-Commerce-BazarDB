@@ -108,3 +108,21 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
               setInStockOnly={setInStockOnly}
               resetFilters={resetFilters}
             />
+
+             <button
+              onClick={() => setShowFilters(false)}
+              className="w-full mt-6 bg-primary hover:bg-primary-dark text-white font-semibold py-3 rounded-full transition-colors"
+            >
+              Show {filteredProducts.length} Results
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Product grid */}
+      <div className="flex-1 min-w-0">
+        {filteredProducts.length > 0 ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4">
+            {filteredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
