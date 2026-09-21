@@ -171,3 +171,17 @@ function FilterPanel({
           <option value="name-za">Name: Z to A</option>
         </select>
       </div>
+
+      {/* Price range */}
+      <div>
+        <p className="text-sm font-semibold text-gray-800 mb-3">
+          Max Price: ৳{maxPrice.toFixed(0)}
+        </p>
+        <input
+          type="range"
+          min={0}
+          max={highestPrice}
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(Number(e.target.value))}
+          className="w-full accent-primary"
+        />
