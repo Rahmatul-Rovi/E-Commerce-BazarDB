@@ -51,3 +51,9 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
 
     return result;
   }, [products, sort, maxPrice, inStockOnly]);
+
+   const resetFilters = () => {
+    setSort("default");
+    setMaxPrice(highestPrice);
+    setInStockOnly(false);
+  };
