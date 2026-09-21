@@ -17,6 +17,7 @@ model User {
   orders    Order[]
   reviews   Review[]
   wishlists   Wishlist[]
+  notifications Notification[]
   createdAt DateTime @default(now())
 }
 
@@ -89,4 +90,14 @@ model Wishlist {
   createdAt DateTime @default(now())
 
   @@unique([productId, userId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  message   String
+  orderId   String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
 }
