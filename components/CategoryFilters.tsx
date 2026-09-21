@@ -199,3 +199,14 @@ function FilterPanel({
           onChange={(e) => setInStockOnly(e.target.checked)}
           className="w-4 h-4 accent-primary"
         />
+         <span className="text-sm text-gray-700">In Stock Only</span>
+      </label>
+
+      <button
+        onClick={resetFilters}
+        className="text-sm text-primary font-medium hover:underline"
+      >
+        Reset Filters
+      </button>
+    </div>
+  
