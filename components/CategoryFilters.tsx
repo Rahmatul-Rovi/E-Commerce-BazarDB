@@ -90,3 +90,21 @@ export default function CategoryFilters({ products }: { products: Product[] }) {
             className="fixed inset-0 bg-black/40"
             onClick={() => setShowFilters(false)}
           />
+
+            <div className="relative bg-white w-72 max-w-[85vw] h-full ml-auto p-5 overflow-y-auto">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-heading font-semibold text-gray-900">Filters & Sort</h3>
+              <button onClick={() => setShowFilters(false)}>
+                <X size={20} className="text-gray-500" />
+              </button>
+            </div>
+            <FilterPanel
+              sort={sort}
+              setSort={setSort}
+              maxPrice={maxPrice}
+              setMaxPrice={setMaxPrice}
+              highestPrice={highestPrice}
+              inStockOnly={inStockOnly}
+              setInStockOnly={setInStockOnly}
+              resetFilters={resetFilters}
+            />
