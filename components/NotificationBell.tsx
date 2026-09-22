@@ -14,3 +14,12 @@ export default function NotificationBell() {
   const [unreadCount, setUnreadCount] = useState(0);
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const loadNotifications = () => {
+    fetch("/api/notifications")
+      .then((res) => res.json())
+      .then((data) => {
+        setNotifications(data.notifications || []);
+        setUnreadCount(data.unreadCount || 0);
+      });
+  };
