@@ -13,3 +13,12 @@ export async function GET() {
   const unreadCount = await prisma.notification.count({
     where: { userId: session.user.id, isRead: false },
   });
+
+  return NextResponse.json({ notifications, unreadCount });
+}
+
+export async function PATCH() {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
