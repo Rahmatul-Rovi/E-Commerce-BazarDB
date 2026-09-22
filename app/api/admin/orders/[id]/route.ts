@@ -19,7 +19,7 @@ export async function PATCH(
     data: { status },
   });
 
-   const statusMessages: Record<string, string> = {
+  const statusMessages: Record<string, string> = {
     pending: "is pending confirmation",
     processing: "is now being processed",
     delivered: "has been delivered",
@@ -32,6 +32,9 @@ export async function PATCH(
       message: `Your order #${order.id.slice(-8).toUpperCase()} ${
         statusMessages[status] || `status changed to ${status}`
       }`,
+      orderId: order.id,
+    },
+  });
 
   return NextResponse.json(order);
 }
