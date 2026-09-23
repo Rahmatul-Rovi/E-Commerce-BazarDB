@@ -23,3 +23,11 @@ export default function NotificationBell() {
         setUnreadCount(data.unreadCount || 0);
       });
   };
+
+  useEffect(() => {
+    if (session?.user) {
+      loadNotifications();
+      const interval = setInterval(loadNotifications, 30000); 
+      return () => clearInterval(interval);
+    }
+  }, [session]);
