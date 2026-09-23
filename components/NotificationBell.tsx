@@ -41,3 +41,14 @@ export default function NotificationBell() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+   const handleOpen = async () => {
+    setOpen(!open);
+    if (!open && unreadCount > 0) {
+      await fetch("/api/notifications", { method: "PATCH" });
+      setUnreadCount(0);
+      setNotifications((prev) => prev.map((n) => ({ ...n, isRead: true })));
+    }
+  };
+
+  if (!session?.user) return null;
