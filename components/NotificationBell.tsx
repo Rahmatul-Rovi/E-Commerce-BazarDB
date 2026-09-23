@@ -52,3 +52,11 @@ export default function NotificationBell() {
   };
 
   if (!session?.user) return null;
+
+  return (
+    <div ref={wrapperRef} className="relative">
+      <button
+        onClick={handleOpen}
+        className="relative flex items-center text-gray-700 hover:text-primary transition-colors p-1"
+      >
+        <Bell size={22} />
