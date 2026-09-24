@@ -10,9 +10,9 @@ import {
   Menu,
   X,
   LogOut,
-  Search,
   LayoutDashboard,
   Heart,
+  Store,
 } from "lucide-react";
 
 import { useSession, signOut } from "next-auth/react";
@@ -28,6 +28,17 @@ const quickCategories = [
   { name: "Home & Cleaning", slug: "cleaning" },
   { name: "Baby Care", slug: "babycare" },
   { name: "Beauty Products", slug: "beauty" },
+];
+
+const divisions = [
+  "Dhaka",
+  "Chattogram",
+  "Khulna",
+  "Rajshahi",
+  "Sylhet",
+  "Barishal",
+  "Rangpur",
+  "Mymensingh",
 ];
 
 function UserAvatar({ name, image, size = 36 }: { name?: string | null; image?: string | null; size?: number }) {
@@ -59,16 +70,18 @@ function UserAvatar({ name, image, size = 36 }: { name?: string | null; image?: 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [locationOpen, setLocationOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState("Dhaka");
   const { data: session } = useSession();
-  
- const items = useCartStore((state) => state.items);
-const [mounted, setMounted] = useState(false);
 
-useEffect(() => {
-  setMounted(true);
-}, []);
+  const items = useCartStore((state) => state.items);
+  const [mounted, setMounted] = useState(false);
 
-const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
@@ -83,37 +96,61 @@ const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center text-white font-bold text-lg">
-            B
-          </div>
+          <Store size={26} className="text-primary" />
           <span className="font-bold text-xl text-gray-900 hidden sm:block">
             Bazar<span className="text-primary">DB</span>
           </span>
         </Link>
 
         {/* Location */}
-        <button className="hidden lg:flex items-center gap-1.5 text-sm text-gray-700 border-l border-gray-200 pl-4 shrink-0">
-          <MapPin size={16} className="text-primary" />
-          <div className="text-left">
-            <p className="text-[11px] text-gray-400 leading-none">
-              Deliver to
-            </p>
-            <p className="font-medium leading-tight flex items-center gap-1">
-              Dhaka <ChevronDown size={14} />
-            </p>
-          </div>
-        </button>
+        <div className="hidden lg:block relative border-l border-gray-200 pl-4 shrink-0">
+          <button
+            onClick={() => setLocationOpen(!locationOpen)}
+            className="flex items-center gap-1.5 text-sm text-gray-700"
+          >
+            <MapPin size={16} className="text-primary" />
+            <div className="text-left">
+              <p className="text-[11px] text-gray-400 leading-none">
+                Deliver to
+              </p>
+              <p className="font-medium leading-tight flex items-center gap-1">
+                {selectedLocation} <ChevronDown size={14} />
+              </p>
+            </div>
+          </button>
+
+          {locationOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setLocationOpen(false)}
+              />
+              <div className="absolute left-0 top-12 bg-white border border-gray-100 rounded-xl shadow-lg py-2 w-44 z-50">
+                {divisions.map((division) => (
+                  <button
+                    key={division}
+                    onClick={() => {
+                      setSelectedLocation(division);
+                      setLocationOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-2 text-sm hover:bg-surface transition-colors ${
+                      division === selectedLocation
+                        ? "text-primary font-medium"
+                        : "text-gray-700"
+                    }`}
+                  >
+                    {division}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
 
         {/* Desktop Search */}
-       <div className="hidden md:block flex-1 max-w-2xl mx-auto">
-  <SearchBar />
-</div>
-
-           {/* Mobile Search */}
-
-        <div className="md:hidden px-4 pb-3">
-  <SearchBar mobile />
-</div>
+        <div className="hidden md:block flex-1 max-w-2xl mx-auto">
+          <SearchBar />
+        </div>
 
         {/* Right Side (Desktop Auth & Cart) */}
         <div className="flex items-center gap-4 ml-auto md:ml-0">
@@ -128,36 +165,35 @@ const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
 
               {userMenuOpen && (
                 <>
-                  {/* Click outside overlay */}
                   <div
                     className="fixed inset-0 z-40"
                     onClick={() => setUserMenuOpen(false)}
                   />
-                 <div className="absolute right-0 top-12 bg-white border border-gray-100 rounded-xl shadow-lg py-2 w-48 z-50">
-  <div className="px-4 py-2 border-b border-gray-100">
-    <p className="text-sm font-semibold text-gray-800 truncate">
-      {session.user.name}
-    </p>
-    <p className="text-xs text-gray-500 truncate">
-      {session.user.email}
-    </p>
-  </div>
-  <Link
-    href="/dashboard"
-    onClick={() => setUserMenuOpen(false)}
-    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-surface transition-colors"
-  >
-    <LayoutDashboard size={15} />
-    Dashboard
-  </Link>
-  <button
-    onClick={() => signOut({ callbackUrl: "/" })}
-    className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors"
-  >
-    <LogOut size={15} />
-    Logout
-  </button>
-</div>
+                  <div className="absolute right-0 top-12 bg-white border border-gray-100 rounded-xl shadow-lg py-2 w-48 z-50">
+                    <div className="px-4 py-2 border-b border-gray-100">
+                      <p className="text-sm font-semibold text-gray-800 truncate">
+                        {session.user.name}
+                      </p>
+                      <p className="text-xs text-gray-500 truncate">
+                        {session.user.email}
+                      </p>
+                    </div>
+                    <Link
+                      href="/dashboard"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-surface transition-colors"
+                    >
+                      <LayoutDashboard size={15} />
+                      Dashboard
+                    </Link>
+                    <button
+                      onClick={() => signOut({ callbackUrl: "/" })}
+                      className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors"
+                    >
+                      <LogOut size={15} />
+                      Logout
+                    </button>
+                  </div>
                 </>
               )}
             </div>
@@ -171,21 +207,16 @@ const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
             </Link>
           )}
 
-          {/* Wishlist Section */}
+          {/* Wishlist Icon */}
           <Link
-  href="/wishlist"
-  className="flex items-center text-gray-700 hover:text-primary transition-colors p-1"
->
-  <Heart size={22} />
-</Link>
+            href="/wishlist"
+            className="flex items-center text-gray-700 hover:text-primary transition-colors p-1"
+          >
+            <Heart size={22} />
+          </Link>
 
-<NotificationBell />
-<Link
-  href="/wishlist"
-  className="flex items-center text-gray-700 hover:text-primary transition-colors p-1"
->
-  <Heart size={22} />
-</Link>
+          {/* Notification Bell */}
+          <NotificationBell />
 
           {/* Cart Icon */}
           <Link
@@ -204,14 +235,7 @@ const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
 
       {/* Mobile Search */}
       <div className="md:hidden px-4 pb-3">
-        <div className="flex items-center bg-gray-50 rounded-full px-4 py-2 border border-gray-100">
-          <Search size={18} className="text-gray-400 mr-2 shrink-0" />
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="flex-1 bg-transparent text-sm focus:outline-none"
-          />
-        </div>
+        <SearchBar mobile />
       </div>
 
       {/* Desktop Quick Categories Bar */}
@@ -258,11 +282,27 @@ const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
             </Link>
           )}
 
-          {/* Location */}
-          <button className="flex items-center gap-2 text-sm text-gray-700">
-            <MapPin size={16} className="text-primary" />
-            Deliver to: <span className="font-semibold text-gray-900">Dhaka</span>
-          </button>
+          {/* Mobile Location */}
+          <div>
+            <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+              Deliver to
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              {divisions.map((division) => (
+                <button
+                  key={division}
+                  onClick={() => setSelectedLocation(division)}
+                  className={`text-left text-sm px-3 py-2 rounded-lg transition-colors ${
+                    division === selectedLocation
+                      ? "bg-primary-light text-primary-dark font-medium"
+                      : "bg-surface text-gray-700"
+                  }`}
+                >
+                  {division}
+                </button>
+              ))}
+            </div>
+          </div>
 
           {/* Quick Categories Header */}
           <div className="pt-2 border-t border-gray-100">
