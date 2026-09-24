@@ -86,6 +86,30 @@ export default function Banner() {
           >
             <div className="pl-4 text-gray-400 hidden sm:block">
               <Search size={20} />
+
+                </div>
+            <input
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onFocus={() => setShowDropdown(true)}
+              placeholder="Search for fresh products, veggies..."
+              className="flex-1 px-3 py-2.5 rounded-full text-sm md:text-base text-gray-800 focus:outline-none bg-transparent"
+            />
+            <button
+              type="submit"
+              className="bg-primary hover:bg-primary-dark text-white font-semibold px-6 md:px-8 py-2.5 md:py-3 rounded-full transition-all shadow-md hover:shadow-lg text-sm md:text-base whitespace-nowrap"
+            >
+              Search
+            </button>
+          </form>
+
+          {/* Suggestions dropdown */}
+          {showDropdown && suggestions.length > 0 && (
+            <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden z-50">
+              {suggestions.map((product) => (
+                <Link
+                  key={product.id}
       {/* ডান পাশের ইমেজ/ইলস্ট্রেশন প্লেসহোল্ডার (বড় স্ক্রিনের জন্য) */}
       <div className="hidden lg:block relative w-1/2 max-w-md aspect-square">
         <img 
