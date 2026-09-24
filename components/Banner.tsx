@@ -34,6 +34,18 @@ export default function Banner() {
 
     return () => clearTimeout(timer);
   }, [query]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
+        setShowDropdown(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+  
         {/* সার্চ বার */}
         <div className="mt-8 flex items-center bg-white p-1.5 rounded-full shadow-md border border-gray-100 max-w-md w-full">
           <div className="pl-4 text-gray-400 hidden sm:block">
