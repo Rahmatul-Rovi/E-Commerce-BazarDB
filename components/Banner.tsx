@@ -110,6 +110,23 @@ export default function Banner() {
               {suggestions.map((product) => (
                 <Link
                   key={product.id}
+
+                  <div className="hidden lg:block relative w-1/2 max-w-md aspect-square">
+        <img
+          src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=600"
+          alt="Fresh Groceries"
+          className="w-full h-full object-cover rounded-2xl rotate-2 shadow-xl border-4 border-white"
+        />
+      </div>
+
+      {/* Floating badge (signature element) */}
+      <div className="hidden md:flex absolute bottom-12 right-12 lg:bottom-auto lg:top-12 lg:right-1/2 lg:translate-x-1/3 bg-white/90 backdrop-blur-md rounded-2xl shadow-xl px-5 py-4 items-center gap-3 border border-white animate-pulse">
+        <span className="text-3xl bg-primary-light p-2 rounded-xl">⏱</span>
+        <div>
+          <p className="font-heading font-extrabold text-gray-900 text-lg leading-none">1 Hour</p>
+          <p className="text-gray-500 text-xs font-medium mt-1">Delivery Promise</p>
+        </div>
+      </div>
       {/* ডান পাশের ইমেজ/ইলস্ট্রেশন প্লেসহোল্ডার (বড় স্ক্রিনের জন্য) */}
       <div className="hidden lg:block relative w-1/2 max-w-md aspect-square">
         <img 
