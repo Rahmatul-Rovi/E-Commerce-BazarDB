@@ -76,4 +76,13 @@ export default function NotificationBell() {
 
           {notifications.length === 0 ? (
             <p className="text-sm text-gray-400 text-center py-8">No notifications yet.</p>
-          ) :
+          ) : (
+            notifications.map((n) => (
+              <Link
+                key={n.id}
+                href={n.orderId ? `/dashboard/orders/${n.orderId}` : "/dashboard/orders"}
+                onClick={() => setOpen(false)}
+                className={`block px-4 py-3 text-sm border-b border-gray-50 hover:bg-surface transition-colors ${
+                  !n.isRead ? "bg-primary-light/40" : ""
+                }`}
+              ></Link>
