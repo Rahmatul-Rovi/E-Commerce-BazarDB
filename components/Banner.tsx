@@ -63,6 +63,29 @@ export default function Banner() {
         </div>
       </div>
 
+      return (
+    <section className="bg-primary-light rounded-3xl mx-4 md:mx-8 mt-6 px-6 md:px-16 py-12 md:py-20 relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+      {/* Left side text and search content */}
+      <div className="max-w-xl z-10 w-full">
+        <p className="text-primary-dark font-bold text-xs md:text-sm mb-3 tracking-widest uppercase">
+          Fresh to your doorstep
+        </p>
+        <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight">
+          Grocery delivered <br />
+          <span className="text-primary-dark">in under an hour</span>
+        </h1>
+        <p className="text-gray-600 mt-4 text-base md:text-lg max-w-md">
+          Fresh produce, daily essentials, and more — order now, pay on delivery.
+        </p>
+
+        {/* Functional search bar with live suggestions */}
+        <div ref={wrapperRef} className="relative mt-8 max-w-md w-full">
+          <form
+            onSubmit={handleSubmit}
+            className="flex items-center bg-white p-1.5 rounded-full shadow-md border border-gray-100"
+          >
+            <div className="pl-4 text-gray-400 hidden sm:block">
+              <Search size={20} />
       {/* ডান পাশের ইমেজ/ইলস্ট্রেশন প্লেসহোল্ডার (বড় স্ক্রিনের জন্য) */}
       <div className="hidden lg:block relative w-1/2 max-w-md aspect-square">
         <img 
