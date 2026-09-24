@@ -32,7 +32,7 @@ export default function NotificationBell() {
   useEffect(() => {
     if (session?.user) {
       loadNotifications();
-      const interval = setInterval(loadNotifications, 30000); // ৩০ সেকেন্ডে একবার রিফ্রেশ
+      const interval = setInterval(loadNotifications, 30000);
       return () => clearInterval(interval);
     }
   }, [session]);

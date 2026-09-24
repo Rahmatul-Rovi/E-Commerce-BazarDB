@@ -18,6 +18,7 @@ import {
 import { useSession, signOut } from "next-auth/react";
 import { useCartStore } from "@/app/store/cartStore";
 import SearchBar from "./SearchBar";
+import NotificationBell from "./NotificationBell";
 
 const quickCategories = [
   { name: "Fruits & Vegetables", slug: "fruits-vegetables" },
@@ -172,6 +173,14 @@ const cartCount = mounted ? items.reduce((sum, i) => sum + i.quantity, 0) : 0;
 
           {/* Wishlist Section */}
           <Link
+  href="/wishlist"
+  className="flex items-center text-gray-700 hover:text-primary transition-colors p-1"
+>
+  <Heart size={22} />
+</Link>
+
+<NotificationBell />
+<Link
   href="/wishlist"
   className="flex items-center text-gray-700 hover:text-primary transition-colors p-1"
 >
