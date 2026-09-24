@@ -86,3 +86,16 @@ export default function NotificationBell() {
                   !n.isRead ? "bg-primary-light/40" : ""
                 }`}
               ></Link>
+
+                <p className="text-gray-700">{n.message}</p>
+                <p className="text-xs text-gray-400 mt-1">
+                  {new Date(n.createdAt).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
+              </Link>
+            ))
+          )}
