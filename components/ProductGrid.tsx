@@ -10,6 +10,21 @@ export default async function ProductGrid() {
       },
     },
   });
+
+   if (products.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="px-4 md:px-8 mt-12">
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="font-heading text-xl md:text-2xl font-semibold text-gray-900">
+          Popular Products
+        </h2>
+        <a href="/products" className="text-primary font-medium text-sm hover:underline">
+          View All
+        </a>
+      </div>
 export default function ProductGrid() {
   return (
     <section className="px-4 md:px-8 mt-12">
