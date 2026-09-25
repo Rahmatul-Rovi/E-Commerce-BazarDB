@@ -89,19 +89,20 @@ export default function Testimonials() {
   };
 export default function Testimonials() {
   return (
-    <section className="px-4 md:px-8 mt-14">
-      <div className="text-center mb-10">
-        <h2 className="font-heading text-2xl md:text-3xl font-bold text-gray-900">
-          What Our Customers Say
-        </h2>
-        <p className="text-gray-500 mt-2">Trusted by thousands of happy shoppers</p>
-      </div>
+    <section className="mt-14">
+      <div className="px-4 md:px-8 flex items-center justify-between mb-8 flex-wrap gap-3">
+        <div className="text-center md:text-left w-full md:w-auto">
+          <h2 className="font-heading text-2xl md:text-3xl font-bold text-gray-900">
+            What Our Customers Say
+          </h2>
+          <p className="text-gray-500 mt-2">Trusted by thousands of happy shoppers</p>
+        </div>
 
-      <div className="grid md:grid-cols-3 gap-5 max-w-5xl mx-auto">
-        {reviews.map((review) => (
-          <div
-            key={review.name}
-            className="bg-surface rounded-2xl p-6 border border-gray-100"
+        <div className="hidden md:flex items-center gap-2">
+          <button
+            onClick={() => scroll("left")}
+            className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-surface hover:text-primary transition-colors"
+            aria-label="Scroll left"
           >
             <div className="flex gap-0.5 mb-3">
               {Array.from({ length: 5 }).map((_, i) => (
