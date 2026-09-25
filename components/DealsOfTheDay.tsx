@@ -13,6 +13,18 @@ export default async function DealsOfTheDay() {
     take: 8,
   });
 
+    if (dealProducts.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="px-4 md:px-8 mt-12">
+      <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
+        <h2 className="font-heading text-xl md:text-2xl font-semibold text-gray-900">
+          🔥 Deals of the Day
+        </h2>
+        <CountdownBadge />
+      </div>
 function useCountdown() {
   const [timeLeft, setTimeLeft] = useState({ h: 0, m: 0, s: 0 });
 
