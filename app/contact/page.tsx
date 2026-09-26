@@ -121,7 +121,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="text"
-                      placeholder="John Doe"
+                      placeholder="Enter Your Name"
                       required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -136,7 +136,7 @@ export default function ContactPage() {
                     </label>
                     <input
                       type="email"
-                      placeholder="john@example.com"
+                      placeholder="Enter Your Email"
                       required
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -173,3 +173,28 @@ export default function ContactPage() {
                     className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm bg-gray-50/50 focus:bg-white transition resize-none"
                   />
                 </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-semibold px-8 py-3.5 rounded-xl transition shadow-lg shadow-emerald-600/20 disabled:opacity-70 cursor-pointer"
+                >
+                  {loading ? (
+                    "Sending..."
+                  ) : (
+                    <>
+                      Send Message
+                      <Send size={16} />
+                    </>
+                  )}
+                </button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+  );
+}
