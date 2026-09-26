@@ -89,3 +89,42 @@ export default function ContactPage() {
                   <p className="text-xs text-gray-500 mt-1">Headquarters & Operations</p>
                 </div>
               </div>
+
+              {/* Business Hours */}
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-gray-50 border border-gray-100">
+                <div className="p-3 bg-gray-800 text-white rounded-xl shrink-0">
+                  <Clock size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Working Hours</p>
+                  <p className="text-sm font-semibold text-gray-900 mt-0.5">7:00 AM – 11:00 PM</p>
+                  <p className="text-xs text-gray-500 mt-1">Everyday including weekends</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Interactive Form */}
+          <div className="lg:col-span-7">
+            <div className="bg-white p-6 md:p-10 rounded-3xl border border-gray-100 shadow-xl shadow-gray-100/80">
+              <h2 className="text-2xl font-bold text-gray-900 mb-2">Send Us a Message</h2>
+              <p className="text-sm text-gray-500 mb-6">
+                Fill out the form below and our customer care team will respond within a few hours.
+              </p>
+
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid sm:grid-cols-2 gap-5">
+                  {/* Name Input */}
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="John Doe"
+                      required
+                      value={form.name}
+                      onChange={(e) => setForm({ ...form, name: e.target.value })}
+                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm bg-gray-50/50 focus:bg-white transition"
+                    />
+                  </div>
