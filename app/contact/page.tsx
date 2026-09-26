@@ -53,3 +53,39 @@ export default function ContactPage() {
                 <MessageSquare className="text-emerald-600" size={22} />
                 Contact Information
               </h2>
+
+              {/* Email */}
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100/50 transition hover:bg-emerald-50">
+                <div className="p-3 bg-emerald-600 text-white rounded-xl shrink-0 shadow-md shadow-emerald-600/20">
+                  <Mail size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-emerald-800 uppercase tracking-wider">Email Us</p>
+                  <p className="text-sm font-semibold text-gray-900 mt-0.5">support@bazardb.com</p>
+                  <p className="text-xs text-gray-500 mt-1">24/7 online email support</p>
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100/50 transition hover:bg-emerald-50">
+                <div className="p-3 bg-emerald-600 text-white rounded-xl shrink-0 shadow-md shadow-emerald-600/20">
+                  <Phone size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-emerald-800 uppercase tracking-wider">Call Us</p>
+                  <p className="text-sm font-semibold text-gray-900 mt-0.5">+880 1XXX-XXXXXX</p>
+                  <p className="text-xs text-gray-500 mt-1">Toll-free customer care</p>
+                </div>
+              </div>
+
+              {/* Address */}
+              <div className="flex items-start gap-4 p-4 rounded-2xl bg-emerald-50/50 border border-emerald-100/50 transition hover:bg-emerald-50">
+                <div className="p-3 bg-emerald-600 text-white rounded-xl shrink-0 shadow-md shadow-emerald-600/20">
+                  <MapPin size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-medium text-emerald-800 uppercase tracking-wider">Office Location</p>
+                  <p className="text-sm font-semibold text-gray-900 mt-0.5">Dhaka, Bangladesh</p>
+                  <p className="text-xs text-gray-500 mt-1">Headquarters & Operations</p>
+                </div>
+              </div>
