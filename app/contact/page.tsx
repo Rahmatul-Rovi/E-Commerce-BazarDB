@@ -128,3 +128,48 @@ export default function ContactPage() {
                       className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm bg-gray-50/50 focus:bg-white transition"
                     />
                   </div>
+
+                  {/* Email Input */}
+                  <div>
+                    <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                      Email Address
+                    </label>
+                    <input
+                      type="email"
+                      placeholder="john@example.com"
+                      required
+                      value={form.email}
+                      onChange={(e) => setForm({ ...form, email: e.target.value })}
+                      className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm bg-gray-50/50 focus:bg-white transition"
+                    />
+                  </div>
+                </div>
+
+                {/* Subject Input */}
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Inquiry about order delivery..."
+                    value={form.subject}
+                    onChange={(e) => setForm({ ...form, subject: e.target.value })}
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm bg-gray-50/50 focus:bg-white transition"
+                  />
+                </div>
+
+                {/* Message Input */}
+                <div>
+                  <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    placeholder="Write your message here..."
+                    required
+                    rows={5}
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
+                    className="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm bg-gray-50/50 focus:bg-white transition resize-none"
+                  />
+                </div>
