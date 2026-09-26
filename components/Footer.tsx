@@ -1,7 +1,22 @@
+import Link from "next/link";
+import { Store } from "lucide-react";
+
 const footerLinks = {
-  Company: ["About Us", "Careers", "Blog"],
-  Help: ["FAQ", "Delivery Info", "Returns", "Contact Us"],
-  Legal: ["Terms of Service", "Privacy Policy"],
+  Company: [
+    { name: "About Us", href: "/about" },
+    { name: "Careers", href: "#" },
+    { name: "Blog", href: "#" },
+  ],
+  Help: [
+    { name: "FAQ", href: "/faq" },
+    { name: "Delivery Info", href: "#" },
+    { name: "Returns", href: "#" },
+    { name: "Contact Us", href: "/contact" },
+  ],
+  Legal: [
+    { name: "Terms of Service", href: "#" },
+    { name: "Privacy Policy", href: "/privacy" },
+  ],
 };
 
 export default function Footer() {
@@ -10,9 +25,7 @@ export default function Footer() {
       <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center text-white font-heading font-bold">
-              B
-            </div>
+            <Store size={26} className="text-primary" />
             <span className="font-heading font-bold text-xl text-white">
               Bazar<span className="text-primary">DB</span>
             </span>
@@ -27,10 +40,10 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-3">{section}</h4>
             <ul className="space-y-2">
               {links.map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-sm text-gray-400 hover:text-primary">
-                    {link}
-                  </a>
+                <li key={link.name}>
+                  <Link href={link.href} className="text-sm text-gray-400 hover:text-primary">
+                    {link.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -39,7 +52,8 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-gray-800 mt-10 pt-6 max-w-6xl mx-auto text-center text-sm text-gray-500">
-        © {new Date().getFullYear()} BazarDB. All rights reserved.
+        © {new Date().getFullYear()} BazarDB. All rights reserved. Built with ❤️ by{" "}
+        <span className="text-gray-300 font-medium">Rahmatul Rovi</span>
       </div>
     </footer>
   );
