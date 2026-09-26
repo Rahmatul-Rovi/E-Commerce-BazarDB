@@ -34,3 +34,27 @@ export default function Footer() {
             Online grocery and daily essentials delivered fast to your doorstep.
           </p>
         </div>
+
+        {Object.entries(footerLinks).map(([section, links]) => (
+          <div key={section}>
+            <h4 className="text-white font-semibold mb-3">{section}</h4>
+            <ul className="space-y-2">
+              {links.map((link) => (
+                <li key={link.name}>
+                  <Link href={link.href} className="text-sm text-gray-400 hover:text-primary">
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <div className="border-t border-gray-800 mt-10 pt-6 max-w-6xl mx-auto text-center text-sm text-gray-500">
+        © {new Date().getFullYear()} BazarDB. All rights reserved. Built with ❤️ by{" "}
+        <span className="text-gray-300 font-medium">Rahmatul Rovi</span>
+      </div>
+    </footer>
+  );
+}
