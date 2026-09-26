@@ -87,7 +87,7 @@ export default function Testimonials() {
       behavior: "smooth",
     });
   };
-export default function Testimonials() {
+
   return (
     <section className="mt-14">
       <div className="px-4 md:px-8 flex items-center justify-between mb-8 flex-wrap gap-3">
@@ -104,6 +104,27 @@ export default function Testimonials() {
             className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-surface hover:text-primary transition-colors"
             aria-label="Scroll left"
           >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-surface hover:text-primary transition-colors"
+            aria-label="Scroll right"
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      </div>
+
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto px-4 md:px-8 pb-4 snap-x snap-mandatory scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+      >
+        {reviews.map((review) => (
+          <div
+            key={review.name}
+            className="bg-surface rounded-2xl p-6 border border-gray-100 shrink-0 w-[280px] sm:w-[320px] snap-start"
+          >
             <div className="flex gap-0.5 mb-3">
               {Array.from({ length: 5 }).map((_, i) => (
                 <span key={i} className={i < review.rating ? "text-accent" : "text-gray-300"}>
@@ -111,11 +132,15 @@ export default function Testimonials() {
                 </span>
               ))}
             </div>
-            <p className="text-gray-700 text-sm leading-relaxed">"{review.text}"</p>
+            <p className="text-gray-700 text-sm leading-relaxed min-h-[72px]">
+              &quot;{review.text}&quot;
+            </p>
             <div className="mt-4 flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-primary-light flex items-center justify-center font-heading font-bold text-primary-dark text-sm">
-                {review.name.charAt(0)}
-              </div>
+              <img
+                src={review.avatar}
+                alt={review.name}
+                className="w-10 h-10 rounded-full object-cover border border-white shadow-sm"
+              />
               <div>
                 <p className="text-sm font-semibold text-gray-900">{review.name}</p>
                 <p className="text-xs text-gray-500">{review.location}</p>
