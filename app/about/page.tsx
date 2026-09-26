@@ -62,14 +62,40 @@ export default function AboutPage() {
           </div>
         </div>
 
-   
+        {/* Feature Cards */}
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+            <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+              🌱
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Top Quality</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Handpicked fresh produce directly sourced from trusted suppliers and farms.
+            </p>
+          </div>
 
-      {/* Footer Banner */}
-      <section className="bg-gray-900 text-white py-12 px-4 text-center">
-        <p className="text-lg font-medium text-gray-300 max-w-xl mx-auto">
-          Thank you for choosing BazarDB. We&apos;re honored to be a part of your daily life!
-        </p>
+          <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+            <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+              ⚡
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Fast Delivery</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Superfast processing and delivery to bring essentials to your door in under an hour.
+            </p>
+          </div>
+
+          <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition">
+            <div className="w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center font-bold text-xl mb-4">
+              💚
+            </div>
+            <h3 className="text-lg font-bold text-gray-900 mb-2">Customer First</h3>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              We continuously strive to improve your shopping experience, one order at a time.
+            </p>
+          </div>
+        </div>
       </section>
+
     </main>
   );
 }
