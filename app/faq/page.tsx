@@ -1,9 +1,3 @@
-আপনার FAQPage কোডটিকে একটি প্রিমিয়াম, ক্লাসি এবং আই-ক্যাচিং (Eye-catching) একর্ডিয়ন ডিজাইনে রূপান্তর করে দেওয়া হলো।
-
-এতে স্মুথ অ্যানিমেশন, অ্যাক্টিভ কাস্টম বর্ডার, ক্যাটাগরি সাপোর্ট কার্ডস এবং সার্চ/হেল্প বার যোগ করা হয়েছে যা আপনার BazarDB ই-কমার্স ওয়েবসাইটকে আরও প্রফেশনাল লুক দেবে।
-
-আপডেট করা FAQPage কোড:
-TypeScript
 "use client";
 
 import { useState } from "react";
@@ -79,3 +73,88 @@ export default function FAQPage() {
             className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-gray-200/80 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm transition"
           />
         </div>
+
+        {/* FAQ Accordion List */}
+        <div className="space-y-4">
+          {filteredFaqs.length > 0 ? (
+            filteredFaqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+              return (
+                <div
+                  key={index}
+                  className={`rounded-2xl transition-all duration-300 border ${
+                    isOpen
+                      ? "bg-white border-emerald-300 shadow-lg shadow-emerald-950/5 ring-1 ring-emerald-300"
+                      : "bg-white border-gray-100 shadow-sm hover:border-gray-200"
+                  }`}
+                >
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="w-full flex items-center justify-between px-6 py-5 text-left gap-4 cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3">
+                      <HelpCircle
+                        size={18}
+                        className={`shrink-0 transition-colors ${
+                          isOpen ? "text-emerald-600" : "text-gray-400"
+                        }`}
+                      />
+                      <span
+                        className={`text-base font-semibold transition-colors ${
+                          isOpen ? "text-emerald-950" : "text-gray-800"
+                        }`}
+                      >
+                        {faq.question}
+                      </span>
+                    </div>
+
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
+                        isOpen ? "bg-emerald-100 text-emerald-700" : "bg-gray-50 text-gray-400"
+                      }`}
+                    >
+                      <ChevronDown
+                        size={18}
+                        className={`transition-transform duration-300 ${
+                          isOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </div>
+                  </button>
+
+                  {/* Expandable Answer */}
+                  {isOpen && (
+                    <div className="px-6 pb-5 pt-1 text-sm md:text-base text-gray-600 leading-relaxed border-t border-gray-50">
+                      {faq.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })
+          ) : (
+            <div className="text-center py-10 bg-white rounded-2xl border border-gray-100">
+              <p className="text-gray-500 text-sm">No matching questions found.</p>
+            </div>
+          )}
+        </div>
+
+        {/* Support CTA Card */}
+        <div className="mt-12 p-6 md:p-8 rounded-3xl bg-emerald-600 text-white text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl shadow-emerald-600/20">
+          <div>
+            <h3 className="text-xl font-bold mb-1">Still have questions?</h3>
+            <p className="text-emerald-100 text-sm">
+              Can&apos;t find the answer you&apos;re looking for? Reach out to our customer support team.
+            </p>
+          </div>
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-white text-emerald-800 font-bold px-6 py-3 rounded-2xl hover:bg-emerald-50 transition text-sm shrink-0 shadow-md"
+          >
+            <MessageCircle size={18} />
+            Contact Support
+          </a>
+        </div>
+      </div>
+    </main>
+  );
+}
