@@ -41,3 +41,41 @@ const faqs = [
     category: "Returns",
   },
 ];
+
+export default function FAQPage() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredFaqs = faqs.filter(
+    (faq) =>
+      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  return (
+    <main className="bg-gradient-to-b from-emerald-50/40 via-white to-gray-50 min-h-screen py-12 md:py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto">
+        {/* Header Section */}
+        <div className="text-center mb-10">
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 mb-3 text-xs font-semibold tracking-wider text-emerald-700 uppercase bg-emerald-100/80 rounded-full">
+            <Sparkles size={14} /> Help Center
+          </span>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-3">
+            Frequently Asked Questions
+          </h1>
+          <p className="text-gray-500 text-sm md:text-base max-w-lg mx-auto">
+            Have questions about delivery, payments, or orders? We&apos;ve got answers for you right here.
+          </p>
+        </div>
+
+        {/* Search Bar */}
+        <div className="relative mb-8">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+          <input
+            type="text"
+            placeholder="Search for questions or keywords..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-gray-200/80 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm transition"
+          />
+        </div>
