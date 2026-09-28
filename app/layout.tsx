@@ -5,6 +5,7 @@ import Providers from "@/components/Providers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WishlistProvider from "@/components/WishlistProvider";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,14 +30,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} ${inter.variable} font-body bg-white text-gray-800`}>
-      <Providers>
-  <WishlistProvider>
-    <Navbar />
-    {children}
-    <Footer />
-  </WishlistProvider>
-</Providers>
+      <body
+        className={`${poppins.variable} ${inter.variable} font-body bg-white text-gray-800`}
+      >
+        <Providers>
+          <WishlistProvider>
+            <Navbar />
+            {children}
+            <Footer />
+            <ScrollToTop />
+          </WishlistProvider>
+        </Providers>
       </body>
     </html>
   );
