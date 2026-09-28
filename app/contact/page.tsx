@@ -73,7 +73,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs font-medium text-emerald-800 uppercase tracking-wider">Call Us</p>
-                  <p className="text-sm font-semibold text-gray-900 mt-0.5">+880 1XXX-XXXXXX</p>
+                  <p className="text-sm font-semibold text-gray-900 mt-0.5">+880 1234-567898</p>
                   <p className="text-xs text-gray-500 mt-1">Toll-free customer care</p>
                 </div>
               </div>
