@@ -38,3 +38,78 @@ export default function PrivacyPage() {
               </p>
             </div>
           </section>
+
+          <hr className="border-gray-100" />
+
+          {/* Section 2: How We Use Your Information */}
+          <section className="flex gap-4 sm:gap-6 items-start">
+            <div className="p-3 bg-emerald-100 text-emerald-700 rounded-2xl shrink-0 shadow-sm hidden sm:flex">
+              <Eye size={24} />
+            </div>
+            <div className="space-y-2">
+              <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 sm:block">
+                <Eye size={20} className="text-emerald-600 sm:hidden" />
+                How We Use Your Information
+              </h2>
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                Your information is used strictly to process orders, deliver fresh groceries to your doorstep, provide customer support, and continuously improve our service quality. <span className="font-semibold text-gray-800">We do not sell or lease your personal data to third parties.</span>
+              </p>
+            </div>
+          </section>
+
+          <hr className="border-gray-100" />
+
+          {/* Section 3: Data Security */}
+          <section className="flex gap-4 sm:gap-6 items-start">
+            <div className="p-3 bg-emerald-100 text-emerald-700 rounded-2xl shrink-0 shadow-sm hidden sm:flex">
+              <Lock size={24} />
+            </div>
+            <div className="space-y-2">
+              <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 sm:block">
+                <Lock size={20} className="text-emerald-600 sm:hidden" />
+                Data Security
+              </h2>
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                We take industry-standard measures to protect your data, including encrypted passwords, secure payment processing, and database protection protocols. While no internet transmission is 100% immune, we work continuously to keep your information safe.
+              </p>
+            </div>
+          </section>
+
+          <hr className="border-gray-100" />
+
+          {/* Section 4: Contact Us */}
+          <section className="flex gap-4 sm:gap-6 items-start">
+            <div className="p-3 bg-emerald-100 text-emerald-700 rounded-2xl shrink-0 shadow-sm hidden sm:flex">
+              <Mail size={24} />
+            </div>
+            <div className="space-y-2">
+              <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2 sm:block">
+                <Mail size={20} className="text-emerald-600 sm:hidden" />
+                Contact Us About Privacy
+              </h2>
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                If you have any questions, concerns, or requests regarding this Privacy Policy or your personal information, please reach out to our privacy support team.
+              </p>
+            </div>
+          </section>
+
+        </div>
+
+        {/* Bottom CTA Card */}
+        <div className="mt-10 p-6 rounded-3xl bg-emerald-600 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl shadow-emerald-600/20 text-center sm:text-left">
+          <div className="space-y-1">
+            <h3 className="text-lg font-bold">Have privacy questions?</h3>
+            <p className="text-xs sm:text-sm text-emerald-100">Our customer support team is always ready to assist you.</p>
+          </div>
+          <a
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-white text-emerald-800 font-bold px-6 py-3 rounded-2xl hover:bg-emerald-50 transition text-sm shrink-0 shadow-sm"
+          >
+            <Sparkles size={16} />
+            Contact Support
+          </a>
+        </div>
+      </div>
+    </main>
+  );
+}
