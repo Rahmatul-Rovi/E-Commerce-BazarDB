@@ -32,3 +32,13 @@ html {
   border: 2px solid transparent;
   background-clip: content-box;
 }
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #16a34a;
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
