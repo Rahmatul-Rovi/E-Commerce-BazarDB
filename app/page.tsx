@@ -17,7 +17,7 @@ export default function Home() {
       <DealsOfTheDay/>
       <AppPromo/>
       <PromoStrip/>
-      <Footer/>
+      {/* <Footer/> */}
     </main>
   );
 }

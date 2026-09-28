@@ -34,13 +34,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${poppins.variable} ${inter.variable} font-body bg-white text-gray-800 antialiased selection:bg-emerald-500 selection:text-white flex flex-col min-h-screen`}
+        className={`${poppins.variable} ${inter.variable} font-body bg-white text-gray-800 antialiased selection:bg-emerald-500 selection:text-white flex flex-col min-h-screen overflow-x-hidden`}
       >
         <AOSInit />
         <Providers>
           <WishlistProvider>
             <Navbar />
-            <main className="flex-grow">{children}</main>
+            {/* Plain div wrapper: pages provide their own <main> element */}
+            <div className="flex-grow">{children}</div>
             <Footer />
             <ScrollToTop />
           </WishlistProvider>
