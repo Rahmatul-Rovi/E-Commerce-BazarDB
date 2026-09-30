@@ -26,15 +26,13 @@ export default function AdminSidebar() {
 
   return (
     <aside className="w-64 shrink-0 bg-gray-900 min-h-screen sticky top-0 hidden md:flex flex-col">
-      <div className="flex items-center gap-2 px-6 py-5 border-b border-gray-800">
-        <div className="w-9 h-9 bg-primary rounded-xl flex items-center justify-center text-white font-bold">
-          B
-        </div>
-        <div>
-          <p className="text-white font-heading font-bold text-sm">BazarDB</p>
-          <p className="text-gray-400 text-xs">Admin Panel</p>
-        </div>
-      </div>
+    <div className="flex items-center gap-2 px-6 py-5 border-b border-gray-800">
+  <Store size={24} className="text-primary" />
+  <div>
+    <p className="text-white font-heading font-bold text-sm">BazarDB</p>
+    <p className="text-gray-400 text-xs">Admin Panel</p>
+  </div>
+</div>
 
       <nav className="flex-1 px-3 py-4 space-y-1">
         {menuItems.map((item) => {

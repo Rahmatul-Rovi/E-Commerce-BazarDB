@@ -7,30 +7,35 @@ import ProductReviews from "@/components/ProductReviews";
 import WishlistButton from "@/components/WishlistButton";
 
 export default async function ProductDetailsPage({
-    params,
-}:{
-    params:Promise<{ slug: string }>;
-}){
-    const {slug} = await params;
-    const product = await prisma.product.findUnique({
-        where: {slug},
-        include: {category: true},
-    });
-    if(!product){
-        notFound();
-    }
-    const hasDiscount = product.discount && product.discount > 0;
-    const finalPrice = hasDiscount ? product.price - product.price * (product.discount! / 100) : product.price;
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
-    const relatedProducts = await prisma.product.findMany({
-        where: {
-            categoryId: product.categoryId,
-            id: {not: product.id},
-        },
-        take:4,
-    });
+  const product = await prisma.product.findUnique({
+    where: { slug },
+    include: { category: true },
+  });
 
-     return (
+  if (!product) {
+    notFound();
+  }
+
+  const hasDiscount = product.discount && product.discount > 0;
+  const finalPrice = hasDiscount
+    ? product.price - product.price * (product.discount! / 100)
+    : product.price;
+
+  const relatedProducts = await prisma.product.findMany({
+    where: {
+      categoryId: product.categoryId,
+      id: { not: product.id },
+    },
+    take: 4,
+  });
+
+  return (
     <main className="bg-white min-h-screen pb-16">
       {/* Breadcrumb */}
       <div className="px-4 md:px-8 pt-6 text-sm text-gray-500">
@@ -45,7 +50,7 @@ export default async function ProductDetailsPage({
 
       {/* Main product section */}
       <div className="px-4 md:px-8 mt-6 grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-        {/* Image */}
+        {/* Image — this block appears only once */}
         <div className="relative">
           {hasDiscount && (
             <span className="absolute top-4 left-4 bg-accent text-white text-sm font-bold px-3 py-1.5 rounded-full z-10">
@@ -53,8 +58,11 @@ export default async function ProductDetailsPage({
             </span>
           )}
 
-          <WishlistButton productId={product.id} size={20} className="absolute top-4 right-4 z-10" />
-  <div className="aspect-square bg-surface rounded-3xl overflow-hidden"></div>
+          <WishlistButton
+            productId={product.id}
+            size={20}
+            className="absolute top-4 right-4 z-10"
+          />
 
           <div className="aspect-square bg-surface rounded-3xl overflow-hidden">
             <img
@@ -94,17 +102,17 @@ export default async function ProductDetailsPage({
           </p>
 
           <div className="mt-6">
-           <AddToCartBox
-  product={{
-    id: product.id,
-    name: product.name,
-    slug: product.slug,
-    price: product.price,
-    discount: product.discount,
-    imageUrl: product.imageUrl,
-    stock: product.stock,
-  }}
-/>
+            <AddToCartBox
+              product={{
+                id: product.id,
+                name: product.name,
+                slug: product.slug,
+                price: product.price,
+                discount: product.discount,
+                imageUrl: product.imageUrl,
+                stock: product.stock,
+              }}
+            />
           </div>
 
           {/* Trust info */}
@@ -139,11 +147,10 @@ export default async function ProductDetailsPage({
         </section>
       )}
 
+      {/* Reviews */}
       <div className="px-4 md:px-8 mt-16 max-w-5xl mx-auto">
-  <ProductReviews productId={product.id} />
-</div>
-
+        <ProductReviews productId={product.id} />
+      </div>
     </main>
   );
-
 }
