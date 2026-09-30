@@ -3,3 +3,7 @@ type DailyRevenue = {
   revenue: number;
 };
 
+type StatusBreakdown = {
+  status: string;
+  count: number;
+};
