@@ -30,3 +30,13 @@ export default function SalesChart({
         <h3 className="font-heading font-semibold text-gray-900 mb-4">
           Revenue — Last 7 Days
         </h3>
+
+         <ResponsiveContainer width="100%" height={260}>
+          <LineChart data={dailyRevenue}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" />
+            <XAxis dataKey="date" tick={{ fontSize: 12, fill: "#6B7280" }} />
+            <YAxis tick={{ fontSize: 12, fill: "#6B7280" }} />
+            <Tooltip
+              formatter={(value: number) => [`৳${value.toFixed(0)}`, "Revenue"]}
+              contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB" }}
+            />
