@@ -14,3 +14,11 @@ const STATUS_COLORS: Record<string, string> = {
   delivered: "#16A34A",
   cancelled: "#DC2626",
 };
+
+export default function SalesChart({
+  dailyRevenue,
+  statusBreakdown,
+}: {
+  dailyRevenue: DailyRevenue[];
+  statusBreakdown: StatusBreakdown[];
+}) {
