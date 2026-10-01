@@ -47,3 +47,6 @@ export default function SalesChart({
               strokeWidth={2.5}
               dot={{ r: 4, fill: "#16A34A" }}
             />
+            </LineChart>
+        </ResponsiveContainer>
+      </div>
