@@ -40,3 +40,10 @@ export default function SalesChart({
               formatter={(value: number) => [`৳${value.toFixed(0)}`, "Revenue"]}
               contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB" }}
             />
+            <Line
+              type="monotone"
+              dataKey="revenue"
+              stroke="#16A34A"
+              strokeWidth={2.5}
+              dot={{ r: 4, fill: "#16A34A" }}
+            />
