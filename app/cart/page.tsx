@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useCartStore } from "../store/cartStore";
 import Swal from "sweetalert2";
 
+const DELIVERY_FEE = 100;
+
 export default function CartPage() {
   const { items, increaseQty, decreaseQty, removeItem, totalPrice } = useCartStore();
   const [mounted, setMounted] = useState(false);
@@ -65,6 +67,9 @@ export default function CartPage() {
       </main>
     );
   }
+
+  const subtotal = totalPrice();
+  const grandTotal = subtotal + DELIVERY_FEE;
 
   return (
     <main className="bg-white min-h-screen pb-16 px-4 md:px-8 pt-8">
@@ -147,17 +152,17 @@ export default function CartPage() {
           <div className="space-y-2 text-sm">
             <div className="flex justify-between text-gray-600">
               <span>Subtotal</span>
-              <span>৳{totalPrice().toFixed(0)}</span>
+              <span>৳{subtotal.toFixed(0)}</span>
             </div>
             <div className="flex justify-between text-gray-600">
               <span>Delivery Fee</span>
-              <span className="text-primary-dark font-medium">Free</span>
+              <span className="text-gray-800 font-medium">৳{DELIVERY_FEE}</span>
             </div>
           </div>
 
           <div className="border-t border-gray-200 mt-4 pt-4 flex justify-between font-heading font-bold text-gray-900 text-lg">
             <span>Total</span>
-            <span>৳{totalPrice().toFixed(0)}</span>
+            <span>৳{grandTotal.toFixed(0)}</span>
           </div>
 
           <Link
