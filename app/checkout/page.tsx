@@ -7,6 +7,8 @@ import { useCartStore } from "@/app/store/cartStore";
 import Swal from "sweetalert2";
 import Link from "next/link";
 
+const DELIVERY_FEE = 100;
+
 export default function CheckoutPage() {
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -34,7 +36,7 @@ export default function CheckoutPage() {
 
   if (!mounted || status === "loading") return null;
 
-  // Login না থাকলে
+  // Not logged in
   if (!session?.user) {
     return (
       <main className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
@@ -54,7 +56,7 @@ export default function CheckoutPage() {
     );
   }
 
-  // Cart খালি হলে
+  // Cart is empty
   if (items.length === 0) {
     return (
       <main className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center">
@@ -73,6 +75,9 @@ export default function CheckoutPage() {
       </main>
     );
   }
+
+  const subtotal = totalPrice();
+  const grandTotal = subtotal + DELIVERY_FEE;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -96,7 +101,7 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           ...form,
           items: orderItems,
-          total: totalPrice(),
+          total: grandTotal,
         }),
       });
 
@@ -254,17 +259,17 @@ export default function CheckoutPage() {
           <div className="border-t border-gray-200 mt-4 pt-4 space-y-2 text-sm">
             <div className="flex justify-between text-gray-600">
               <span>Subtotal</span>
-              <span>৳{totalPrice().toFixed(0)}</span>
+              <span>৳{subtotal.toFixed(0)}</span>
             </div>
             <div className="flex justify-between text-gray-600">
               <span>Delivery Fee</span>
-              <span className="text-primary-dark font-medium">Free</span>
+              <span className="text-gray-800 font-medium">৳{DELIVERY_FEE}</span>
             </div>
           </div>
 
           <div className="border-t border-gray-200 mt-3 pt-3 flex justify-between font-heading font-bold text-gray-900 text-lg">
             <span>Total</span>
-            <span>৳{totalPrice().toFixed(0)}</span>
+            <span>৳{grandTotal.toFixed(0)}</span>
           </div>
 
           <button
