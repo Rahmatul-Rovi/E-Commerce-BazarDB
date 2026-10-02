@@ -58,4 +58,16 @@ export default function SalesChart({
         </h3>
         {statusBreakdown.length === 0 ? (
           <p className="text-sm text-gray-400 text-center py-16">No orders yet.</p>
-        ) :
+        ) : 
+        <ResponsiveContainer width="100%" height={260}>
+            <PieChart>
+              <Pie
+                data={statusBreakdown}
+                dataKey="count"
+                nameKey="status"
+                cx="50%"
+                cy="50%"
+                innerRadius={50}
+                outerRadius={80}
+                paddingAngle={3}
+              ></Pie>
