@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Package, ShoppingBag, Users, DollarSign } from "lucide-react";
+import SalesChart from "@/components/admin/SalesChart";
 
 export default async function AdminOverview() {
   const [totalProducts, totalOrders, totalUsers, orders] = await Promise.all([
@@ -16,6 +17,50 @@ export default async function AdminOverview() {
   const totalRevenue = await prisma.order.aggregate({
     _sum: { total: true },
   });
+
+  // ---- Data for the revenue line chart (last 7 days) ----
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 6);
+  sevenDaysAgo.setHours(0, 0, 0, 0);
+
+  const recentOrders = await prisma.order.findMany({
+    where: { createdAt: { gte: sevenDaysAgo } },
+    select: { total: true, createdAt: true },
+  });
+
+  const dailyRevenueMap = new Map<string, number>();
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const label = d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+    dailyRevenueMap.set(label, 0);
+  }
+
+  recentOrders.forEach((order) => {
+    const label = order.createdAt.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+    });
+    if (dailyRevenueMap.has(label)) {
+      dailyRevenueMap.set(label, (dailyRevenueMap.get(label) || 0) + order.total);
+    }
+  });
+
+  const dailyRevenue = Array.from(dailyRevenueMap.entries()).map(([date, revenue]) => ({
+    date,
+    revenue,
+  }));
+
+  // ---- Data for the order status pie chart ----
+  const statusGroups = await prisma.order.groupBy({
+    by: ["status"],
+    _count: { status: true },
+  });
+
+  const statusBreakdown = statusGroups.map((group) => ({
+    status: group.status,
+    count: group._count.status,
+  }));
 
   return (
     <div>
@@ -48,6 +93,8 @@ export default async function AdminOverview() {
           <p className="text-xs text-gray-500">Total Users</p>
         </div>
       </div>
+
+      <SalesChart dailyRevenue={dailyRevenue} statusBreakdown={statusBreakdown} />
 
       <h2 className="font-heading font-semibold text-lg text-gray-900 mb-4">
         Recent Orders
