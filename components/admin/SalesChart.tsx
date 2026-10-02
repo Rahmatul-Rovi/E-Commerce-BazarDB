@@ -1,3 +1,19 @@
+"use client";
+
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+} from "recharts";
+
 type DailyRevenue = {
   date: string;
   revenue: number;
@@ -22,16 +38,14 @@ export default function SalesChart({
   dailyRevenue: DailyRevenue[];
   statusBreakdown: StatusBreakdown[];
 }) {
-
-   return (
+  return (
     <div className="grid lg:grid-cols-3 gap-4 mb-8">
       {/* Revenue line chart */}
       <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 p-5">
         <h3 className="font-heading font-semibold text-gray-900 mb-4">
           Revenue — Last 7 Days
         </h3>
-
-         <ResponsiveContainer width="100%" height={260}>
+        <ResponsiveContainer width="100%" height={260}>
           <LineChart data={dailyRevenue}>
             <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" />
             <XAxis dataKey="date" tick={{ fontSize: 12, fill: "#6B7280" }} />
@@ -47,19 +61,19 @@ export default function SalesChart({
               strokeWidth={2.5}
               dot={{ r: 4, fill: "#16A34A" }}
             />
-            </LineChart>
+          </LineChart>
         </ResponsiveContainer>
       </div>
 
-       {/* Order status pie chart */}
+      {/* Order status pie chart */}
       <div className="bg-white rounded-2xl border border-gray-100 p-5">
         <h3 className="font-heading font-semibold text-gray-900 mb-4">
           Orders by Status
         </h3>
         {statusBreakdown.length === 0 ? (
           <p className="text-sm text-gray-400 text-center py-16">No orders yet.</p>
-        ) : 
-        <ResponsiveContainer width="100%" height={260}>
+        ) : (
+          <ResponsiveContainer width="100%" height={260}>
             <PieChart>
               <Pie
                 data={statusBreakdown}
@@ -70,9 +84,8 @@ export default function SalesChart({
                 innerRadius={50}
                 outerRadius={80}
                 paddingAngle={3}
-              ></Pie>
-
-              {statusBreakdown.map((entry) => (
+              >
+                {statusBreakdown.map((entry) => (
                   <Cell
                     key={entry.status}
                     fill={STATUS_COLORS[entry.status] || "#9CA3AF"}
@@ -86,3 +99,8 @@ export default function SalesChart({
               />
             </PieChart>
           </ResponsiveContainer>
+        )}
+      </div>
+    </div>
+  );
+}
