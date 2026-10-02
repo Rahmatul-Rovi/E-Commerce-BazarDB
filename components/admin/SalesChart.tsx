@@ -71,3 +71,18 @@ export default function SalesChart({
                 outerRadius={80}
                 paddingAngle={3}
               ></Pie>
+
+              {statusBreakdown.map((entry) => (
+                  <Cell
+                    key={entry.status}
+                    fill={STATUS_COLORS[entry.status] || "#9CA3AF"}
+                  />
+                ))}
+              </Pie>
+              <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB" }} />
+              <Legend
+                iconType="circle"
+                wrapperStyle={{ fontSize: 12, textTransform: "capitalize" }}
+              />
+            </PieChart>
+          </ResponsiveContainer>
