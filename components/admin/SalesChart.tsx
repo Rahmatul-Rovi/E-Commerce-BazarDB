@@ -50,3 +50,12 @@ export default function SalesChart({
             </LineChart>
         </ResponsiveContainer>
       </div>
+
+       {/* Order status pie chart */}
+      <div className="bg-white rounded-2xl border border-gray-100 p-5">
+        <h3 className="font-heading font-semibold text-gray-900 mb-4">
+          Orders by Status
+        </h3>
+        {statusBreakdown.length === 0 ? (
+          <p className="text-sm text-gray-400 text-center py-16">No orders yet.</p>
+        ) :
