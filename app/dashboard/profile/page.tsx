@@ -75,12 +75,13 @@ export default function ProfilePage() {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
             {session?.user?.image ? (
-              <img
-                src={session.user.image}
-                alt={session.user.name || "User"}
-                className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm"
-              />
-            ) : (
+  <img
+    src={session.user.image}
+    alt={session.user.name || "User"}
+    referrerPolicy="no-referrer"
+    className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm"
+  />
+) : (
               <div className="w-16 h-16 rounded-full bg-primary text-white font-semibold flex items-center justify-center text-2xl shadow-sm">
                 {profile.name?.charAt(0).toUpperCase() || "U"}
               </div>
