@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import Link from "next/link"; // Next.js এর SEO ফ্রেন্ডলি রাউটিং এর জন্য Link ব্যবহার করা হলো
+import Link from "next/link"; 
 
 const categoryEmojis: Record<string, string> = {
   "fruits-vegetables": "🥦",
@@ -29,7 +29,6 @@ export default async function AllCategoriesPage() {
         </p>
       </div>
 
-      {/* Grid Layout - <Link> ট্যাগের সিনট্যাক্স ফিক্স করা হয়েছে */}
       <div className="px-4 md:px-8 mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
         {categories.map((cat) => (
           <Link
@@ -37,7 +36,7 @@ export default async function AllCategoriesPage() {
             href={`/category/${cat.slug}`}
             className="flex flex-col items-center gap-4 bg-surface hover:bg-white border border-transparent hover:border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 group"
           >
-            {/* Emoji Box - একটু বড় ও আকর্ষণীয় স্কয়ারিশ-রাউন্ডেড করা হয়েছে */}
+           
             <div className="w-16 h-16 flex items-center justify-center bg-white rounded-2xl text-3xl shadow-sm border border-gray-50 group-hover:scale-110 transition-transform duration-300">
               {categoryEmojis[cat.slug] || "🛒"}
             </div>
