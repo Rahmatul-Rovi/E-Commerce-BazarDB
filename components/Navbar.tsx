@@ -43,14 +43,17 @@ const divisions = [
 
 function UserAvatar({ name, image, size = 36 }: { name?: string | null; image?: string | null; size?: number }) {
   const initial = name?.charAt(0).toUpperCase() || "U";
+  const [imgError, setImgError] = useState(false);
 
-  if (image) {
+  if (image && !imgError) {
     return (
       <img
         src={image}
         alt={name || "User"}
         width={size}
         height={size}
+        referrerPolicy="no-referrer"
+        onError={() => setImgError(true)}
         className="rounded-full object-cover border border-gray-200"
         style={{ width: size, height: size }}
       />
