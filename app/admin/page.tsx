@@ -57,10 +57,12 @@ export default async function AdminOverview() {
     _count: { status: true },
   });
 
-  const statusBreakdown = statusGroups.map((group) => ({
+  const statusBreakdown = statusGroups.map(
+  (group: { status: string; _count: { status: number } }) => ({
     status: group.status,
     count: group._count.status,
-  }));
+  })
+);
 
   return (
     <div>
