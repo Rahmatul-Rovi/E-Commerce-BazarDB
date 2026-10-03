@@ -36,7 +36,7 @@ export default async function AdminOverview() {
     dailyRevenueMap.set(label, 0);
   }
 
-  recentOrders.forEach((order) => {
+  recentOrders.forEach((order: { total: number; createdAt: Date }) => {
     const label = order.createdAt.toLocaleDateString("en-GB", {
       day: "numeric",
       month: "short",
