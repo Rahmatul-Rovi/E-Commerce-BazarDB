@@ -21,12 +21,13 @@ export default function DashboardSidebar() {
         {/* User info */}
         <div className="flex items-center gap-3 pb-4 mb-4 border-b border-gray-200">
           {session?.user?.image ? (
-            <img
-              src={session.user.image}
-              alt={session.user.name || "User"}
-              className="w-12 h-12 rounded-full object-cover border border-gray-200"
-            />
-          ) : (
+  <img
+    src={session.user.image}
+    alt={session.user.name || "User"}
+    referrerPolicy="no-referrer"
+    className="w-12 h-12 rounded-full object-cover border border-gray-200"
+  />
+) : (
             <div className="w-12 h-12 rounded-full bg-primary text-white font-semibold flex items-center justify-center text-lg">
               {session?.user?.name?.charAt(0).toUpperCase() || "U"}
             </div>
