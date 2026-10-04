@@ -30,7 +30,7 @@ export default async function AllCategoriesPage() {
       </div>
 
       <div className="px-4 md:px-8 mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
-        {categories.map((cat) => (
+        {categories.map((cat: { id: string; name: string; slug: string }) => (
           <Link
             key={cat.slug}
             href={`/category/${cat.slug}`}
