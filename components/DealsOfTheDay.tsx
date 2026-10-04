@@ -27,7 +27,7 @@ export default async function DealsOfTheDay() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-        {dealProducts.map((product) => (
+       {dealProducts.map((product: { id: string; name: string; slug: string; price: number; discount: number | null; imageUrl: string; stock: number }) => (
           <ProductCard key={product.id} product={product} />
         ))}
       </div>
