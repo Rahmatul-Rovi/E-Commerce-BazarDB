@@ -30,7 +30,7 @@ export default async function CategoryGrid() {
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-5">
-        {categories.map((cat) => (
+        {categories.map((cat: { id: string; name: string; slug: string }) => (
           <Link
             key={cat.slug}
             href={`/category/${cat.slug}`}
