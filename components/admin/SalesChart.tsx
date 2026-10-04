@@ -50,10 +50,10 @@ export default function SalesChart({
             <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" />
             <XAxis dataKey="date" tick={{ fontSize: 12, fill: "#6B7280" }} />
             <YAxis tick={{ fontSize: 12, fill: "#6B7280" }} />
-            <Tooltip
-              formatter={(value: number) => [`৳${value.toFixed(0)}`, "Revenue"]}
-              contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB" }}
-            />
+           <Tooltip
+  formatter={(value) => [`৳${Number(value ?? 0).toFixed(0)}`, "Revenue"]}
+  contentStyle={{ borderRadius: 12, border: "1px solid #E5E7EB" }}
+/>
             <Line
               type="monotone"
               dataKey="revenue"
