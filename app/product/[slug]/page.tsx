@@ -140,7 +140,7 @@ export default async function ProductDetailsPage({
             You Might Also Like
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {relatedProducts.map((p) => (
+           {relatedProducts.map((p: { id: string; name: string; slug: string; price: number; discount: number | null; imageUrl: string; stock: number }) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>
