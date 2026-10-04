@@ -1,6 +1,10 @@
-import { prisma } from "@/lib/prisma";
+import { prisma, Prisma } from "@/lib/prisma";
 import { Package, ShoppingBag, Users, DollarSign } from "lucide-react";
 import SalesChart from "@/components/admin/SalesChart";
+
+type OrderWithUser = Prisma.OrderGetPayload<{
+  include: { user: true };
+}>;
 
 export default async function AdminOverview() {
   const [totalProducts, totalOrders, totalUsers, orders] = await Promise.all([
@@ -58,11 +62,11 @@ export default async function AdminOverview() {
   });
 
   const statusBreakdown = statusGroups.map(
-  (group: { status: string; _count: { status: number } }) => ({
-    status: group.status,
-    count: group._count.status,
-  })
-);
+    (group: { status: string; _count: { status: number } }) => ({
+      status: group.status,
+      count: group._count.status,
+    })
+  );
 
   return (
     <div>
@@ -113,7 +117,7 @@ export default async function AdminOverview() {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
+            {orders.map((order: OrderWithUser) => (
               <tr key={order.id} className="border-t border-gray-100">
                 <td className="px-5 py-3 font-mono text-xs">
                   #{order.id.slice(-8).toUpperCase()}
