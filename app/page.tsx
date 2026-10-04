@@ -5,6 +5,7 @@ import DealsOfTheDay from "@/components/DealsOfTheDay";
 import ProductGrid from "@/components/ProductGrid";
 import PromoStrip from "@/components/PromoStrip";
 import TrustBadges from "@/components/TrustBadges";
+export const dynamic = "force-dynamic";
 
 // Shared wrapper style: even vertical gap between sections.
 // The [&>section]:mt-0 part resets each component's own top margin,
